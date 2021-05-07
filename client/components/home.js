@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Editor from './Editor'
 
 /**
  * COMPONENT
@@ -10,6 +11,10 @@ export const Home = props => {
   return (
     <div>
       <h3>Welcome, {username}</h3>
+      <Editor />
+      <div>
+        <Editor/>
+      </div>
     </div>
   )
 }
