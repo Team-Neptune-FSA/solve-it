@@ -1,4 +1,4 @@
-const Question = require("../db/models/questions");
+const Question = require("../db/models/question");
 
 const router = require("express").Router();
 
