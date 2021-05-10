@@ -1,53 +1,43 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import Editor from '@monaco-editor/react';
 
-import Editor, { useMonaco } from "@monaco-editor/react";
+function codeEnvironment() {
+  const [code, setCode] = useState('//enter code here...');
+  const [output, setOutput] = useState('');
 
-function App() {
-  const monaco = useMonaco();
-
-  const [code, updateCode] = useState("");
-
-const handleSubmit = (event) => {
-    // const output = event.target.value;
+  const handleSubmit = async () => {
     console.log(code);
-}
+    await axios.post('/api/execute', { code });
+  };
 
-//   useEffect(() => {
-//     // do conditional chaining
-//     monaco?.languages.typescript.javascriptDefaults.setEagerModelSync(true); //what does this mean?
-//     // or make sure that it exists by other ways
-//     if (monaco) {
-//       console.log("here is the monaco instance:", monaco);
-//     }
-//   }, [monaco]);
+  const handleChange = (value) => {
+    setCode(value);
+  };
 
   return (
     <div>
-      <Editor   //main editor
+      <Editor //main editor
         height="50vh"
         width="75vw"
-        defaultValue="console.log('Hello World')"
+        value={code}
         defaultLanguage="javascript"
         theme="vs-dark"
-        onChange={updateCode}
-          options={{ readOnly: false }}
+        onChange={handleChange}
+        options={{ readOnly: false }}
       />
       <br />
-      <Editor   // secondary editor to display the output/console
+      {/* <Editor // secondary editor to display the output/console
         height="10vh"
         width="75vw"
         defaultValue=""
         defaultLanguage="javascript"
         theme="vs-dark"
         options={{ readOnly: true }}
-      />
-      <button onClick={ () => handleSubmit() }>Run Code</button>
+      /> */}
+      <button onClick={() => handleSubmit()}>Run Code</button>
     </div>
   );
 }
 
-// const rootElement = document.getElementById("root");
-// ReactDOM.render(<App />, rootElement);
-
-export default App;
+export default codeEnvironment;
