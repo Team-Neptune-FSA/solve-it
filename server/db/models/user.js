@@ -6,14 +6,17 @@ const axios = require("axios");
 
 const SALT_ROUNDS = 5;
 
-const User = db.define("user", {
-  password: {
-    type: Sequelize.STRING,
-  },
+const User = db.define('user', {
   username: {
     type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
   },
-});
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+})
 
 module.exports = User;
 
