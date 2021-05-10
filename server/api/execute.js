@@ -1,62 +1,64 @@
-const router = require('express').Router();
-const fs = require('fs'); // for writing files
-const { promisify } = require('util');
+const router = require("express").Router();
 module.exports = router;
-const path = require('path');
-// For copying file into docker container
-//const {exec} = require('child_process')
 // Docker setup
-const Docker = require('dockerode');
+const Docker = require("dockerode");
 const docker = new Docker({
-  host: '127.0.0.1',
-  port: '8080',
-  // socketPath: '/usr/src/app',
+  socketPath: "/var/run/docker.sock",
 });
-const writeFileAsync = promisify(fs.writeFile);
-const readFileAsync = promisify(fs.readFile);
-const removeFileAsync = promisify(fs.unlink);
-//const execAsync = promisify(exec);
 
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    console.log(req.body.code);
-    fs.writeFileSync(
-      path.join(__dirname, '..', 'docker/codeTest.js'),
-      req.body.code,
-      (err) => {
-        if (err) throw err;
-        console.log('The file has been saved!');
-      }
-    );
-    const contents = fs.readFileSync(
-      path.join(__dirname, '..', 'docker/codeTest.js')
-    );
-
     // Create docker instance
     const myContainer = await docker.createContainer({
-      Image: 'solve-it/node-sandbox-app',
+      Image: "solve-it/node-sandbox-app",
     });
 
     // Start container
     await myContainer.start();
 
     // Write files for tests and usercode in docker
-    const userCode = req.body.code;
-    const userOutput = myContainer.exec({
-      cmd: ['node', 'codeTest.js'],
-      tty: false,
-      AttachStdout: true,
-      AttachStderr: true,
-    });
-    // //Sending results back
-    res.json({ ...userOutput });
+    const code = req.body.code;
+    await dockerExec(myContainer, [
+      "node",
+      "writeFile.js",
+      "userCode.js",
+      code,
+    ]);
+
+    const output = await dockerExec(myContainer, ["node", "userCode.js"]);
+
+    await myContainer.stop();
+    await myContainer.remove();
+
+    //Sending results back
+    res.json(output);
   } catch (error) {
     next(error);
   }
 });
 
-//Initiate docker with codefile passed into it
-//docker renders code
-//new file written with rendered code on it
-//file returned
-//contents taken and res.send(contents)
+async function dockerExec(container, command) {
+  const exec = await container.exec({
+    Cmd: command,
+    Tty: false,
+    AttachStdout: true,
+    AttachStderr: true,
+  });
+
+  // Run exec and convert output stream into a string
+  const commandOutput = await new Promise((resolve, reject) => {
+    exec.start(async (err, stream) => {
+      if (err) return reject(err);
+      let message = "";
+      stream.on("data", (data) => (message += data.toString()));
+      stream.on("end", () => resolve(message));
+    });
+  });
+
+  // Get the exit code for the command (0 === success)
+  const { ExitCode } = await exec.inspect();
+  if (ExitCode !== 0) {
+    throw new Error(commandOutput);
+  }
+  return commandOutput;
+}
