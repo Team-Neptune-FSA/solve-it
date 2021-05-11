@@ -28,14 +28,7 @@ function codeEnvironment() {
         options={{ readOnly: false }}
       />
       <br />
-      {/* <Editor // secondary editor to display the output/console
-        height="10vh"
-        width="75vw"
-        defaultValue=""
-        defaultLanguage="javascript"
-        theme="vs-dark"
-        options={{ readOnly: true }}
-      /> */}
+      
       <div>{output}</div> {/* this is where the output lives */}
 
       <button onClick={() => handleSubmit()}>Run Code</button>

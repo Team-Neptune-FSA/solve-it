@@ -2,7 +2,10 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Issue = db.define('issue', {
-  issueContent: {
+  title: {
+    type: Sequelize.STRING,
+  },
+  description: {
     type: Sequelize.TEXT,
   },
 });

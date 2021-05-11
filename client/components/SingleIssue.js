@@ -14,7 +14,8 @@ class SingleIssue extends React.Component {
     const { singleIssue } = this.props;
     return (
       <div>
-        <h2>Prompt: {singleIssue.issueContent}</h2>
+        <h2>{singleIssue.title}</h2>
+        <p>{singleIssue.description}</p>
         <CodeEnvironment />
         <br />
         <h2>EXPLANATION SECTION</h2>
