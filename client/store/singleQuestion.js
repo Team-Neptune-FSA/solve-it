@@ -7,10 +7,10 @@ export const setQuestion = (question) => ({
   question,
 });
 
-export const fetchQuestion = (id) => {
+export const fetchQuestion = (questionId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`/api/questions/${id}`);
+      const response = await axios.get(`/api/questions/${questionId}`);
       const question = response.data;
       dispatch(setQuestion(question));
     } catch (error) {

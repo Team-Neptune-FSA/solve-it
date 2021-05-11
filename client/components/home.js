@@ -1,6 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import CodeEnvironment from './Editor';
+import React from "react";
+import { connect } from "react-redux";
+import CodeEnvironment from "./Editor";
+import SingleQuestion from "./SingleQuestion";
 
 /**
  * COMPONENT
@@ -12,8 +13,9 @@ export const Home = (props) => {
     <div>
       <h3>Welcome, {username}</h3>
 
-      <CodeEnvironment />
+      <SingleQuestion />
 
+      {/* <CodeEnvironment /> */}
     </div>
   );
 };
