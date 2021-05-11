@@ -13,7 +13,6 @@ export const Home = (props) => {
       <h3>Welcome, {username}</h3>
 
       <CodeEnvironment />
-
     </div>
   );
 };
