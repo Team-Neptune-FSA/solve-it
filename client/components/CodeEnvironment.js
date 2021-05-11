@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Editor from '@monaco-editor/react';
 
-function codeEnvironment() {
+function codeEnvironment({setSolutionCode}) {
   const [code, setCode] = useState('//enter code here...');
   const [output, setOutput] = useState('');
 
@@ -13,6 +13,7 @@ function codeEnvironment() {
   };
 
   const handleChange = (value) => {
+    setSolutionCode(value);
     setCode(value);
   };
 
@@ -28,16 +29,11 @@ function codeEnvironment() {
         options={{ readOnly: false }}
       />
       <br />
-      {/* <Editor // secondary editor to display the output/console
-        height="10vh"
-        width="75vw"
-        defaultValue=""
-        defaultLanguage="javascript"
-        theme="vs-dark"
-        options={{ readOnly: true }}
-      /> */}
-      <div>{output}</div>
+      
+      <div>{output}</div> {/* this is where the output lives */}
+
       <button onClick={() => handleSubmit()}>Run Code</button>
+
     </div>
   );
 }

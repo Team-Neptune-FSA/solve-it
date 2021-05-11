@@ -7,11 +7,13 @@ const PostIssue = () => {
   // const [tags, setTags] = useState('');
 
   const handleSubmit = async () => {
+    const token = window.localStorage.getItem('token');
     await axios.post('/api/issues', {
       title,
       description,
-    });
+    },{headers: {authorization: token}});
   };
+
 
   console.log(title);
   return (

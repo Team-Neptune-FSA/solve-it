@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Issue, Message, Solution },
+  User, Issue, Message, Solution
 } = require('../server/db');
 
 /**
@@ -46,7 +46,7 @@ async function seed() {
   // Creating Solutions
   const solutions = await Promise.all([
     Solution.create({
-      solution: `const twoSum = (arr, target) => {
+      code: `const twoSum = (arr, target) => {
             var result = [];
 
             for (var i = 0; i < arr.length; i++) {
@@ -61,7 +61,7 @@ async function seed() {
           }`,
     }),
     Solution.create({
-      solution: `const maxProfit = function(prices) {
+      code: `const maxProfit = function(prices) {
         //intialize a variable to keep count of the current highest profit
         let maxProfit = 0;
         //create a loop to iterate through the prices until the second to last element
@@ -80,7 +80,7 @@ async function seed() {
     maxProfit([7,6,4,3,1]) //0`,
     }),
     Solution.create({
-      solution: `// initialize default value of 0 for column and row
+      code: `// initialize default value of 0 for column and row
       function uniquePaths(m, n, row = 0, col = 0) {
 
         // if we've reach our target cell, we know we've found a valid path

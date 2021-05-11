@@ -2,6 +2,8 @@ const Issue = require('../db/models/issue');
 
 const router = require('express').Router();
 
+const {requireToken} = require('./authMiddleware')
+
 //GET /api/issues
 router.get('/', async (req, res, next) => {
   try {
@@ -23,13 +25,14 @@ router.get('/:issueId', async (req, res, next) => {
 });
 
 //POST /api/issues
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
     const { title, description } = req.body;
     const issue = await Issue.create({
       title,
       description,
     });
+    issue.setUser(req.user)
     res.json(issue);
   } catch (error) {
     next(error);
