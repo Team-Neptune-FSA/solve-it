@@ -1,19 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchSingleQuestion } from "../store/singleQuestion";
+import { fetchSingleIssue } from "../store/singleIssue";
 import CodeEnvironment from "./Editor";
 
-class SelectedQuestion extends React.Component {
+class SelectedIssue extends React.Component {
   componentDidMount() {
-    const { questionId } = this.props.match.params;
-    this.props.getSingleQuestion(questionId);
+    const { issueId } = this.props.match.params;
+    this.props.getSingleIssue(issueId);
   }
   render() {
-    const { singleQuestion } = this.props;
+    const { singleIssue } = this.props;
     return (
       <div>
-        <h2>Prompt: {singleQuestion.questionContent}</h2>
+        <h2>Prompt: {singleIssue.issueContent}</h2>
         <CodeEnvironment />
         <br />
         <h2>EXPLANATION SECTION</h2>
@@ -23,7 +23,7 @@ class SelectedQuestion extends React.Component {
           </label>
           <input type="submit" value="Submit" />
         </form>
-        {/* <Link to={`${singleQuestion.id}/edit`}>
+        {/* <Link to={`${singleIssue.id}/edit`}>
           <button type="button" className="edit-button">
             Edit
           </button>
@@ -35,15 +35,14 @@ class SelectedQuestion extends React.Component {
 
 const mapState = (state) => {
   return {
-    singleQuestion: state.singleQuestion,
+    singleIssue: state.singleIssue,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    getSingleQuestion: (questionId) =>
-      dispatch(fetchSingleQuestion(questionId)),
+    getSingleIssue: (issueId) => dispatch(fetchSingleIssue(issueId)),
   };
 };
 
-export default connect(mapState, mapDispatch)(SelectedQuestion);
+export default connect(mapState, mapDispatch)(SelectedIssue);
