@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Editor from '@monaco-editor/react';
 
-function codeEnvironment() {
+function codeEnvironment({setSolutionCode}) {
   const [code, setCode] = useState('//enter code here...');
   const [output, setOutput] = useState('');
 
@@ -13,6 +13,7 @@ function codeEnvironment() {
   };
 
   const handleChange = (value) => {
+    setSolutionCode(value);
     setCode(value);
   };
 

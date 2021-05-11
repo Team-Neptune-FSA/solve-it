@@ -24,10 +24,8 @@ Issue.belongsTo(User);
 
 module.exports = {
   db,
-  models: {
     User,
     Solution,
     Issue,
     Message,
-  },
 };
