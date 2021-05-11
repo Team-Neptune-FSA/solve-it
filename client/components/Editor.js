@@ -8,7 +8,8 @@ function codeEnvironment() {
 
   const handleSubmit = async () => {
     console.log(code);
-    await axios.post('/api/execute', { code });
+    const { data: output } = await axios.post('/api/execute', { code });
+    setOutput(output);
   };
 
   const handleChange = (value) => {
@@ -35,6 +36,7 @@ function codeEnvironment() {
         theme="vs-dark"
         options={{ readOnly: true }}
       /> */}
+      <div>{output}</div>
       <button onClick={() => handleSubmit()}>Run Code</button>
     </div>
   );

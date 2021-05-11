@@ -1,34 +1,33 @@
 //this is the access point for all things database related!
 
-const db = require('./db')
+const db = require('./db');
 
-const User = require('./models/user')
-const Solution = require('./models/solution')
-const Message = require('./models/message')
-const Question = require('./models/question')
+const User = require('./models/user');
+const Solution = require('./models/solution');
+const Message = require('./models/message');
+const Issue = require('./models/issue');
 
-User.hasMany(Question)
-User.hasMany(Solution)
-User.hasMany(Message)
+User.hasMany(Issue);
+User.hasMany(Solution);
+User.hasMany(Message);
 
-Question.hasMany(Message)
-Question.hasMany(Solution)
+Issue.hasMany(Message);
+Issue.hasMany(Solution);
 
-Message.belongsTo(User)
-Message.belongsTo(Question)
+Message.belongsTo(User);
+Message.belongsTo(Issue);
 
-Solution.belongsTo(Question)
-Solution.belongsTo(User)
+Solution.belongsTo(Issue);
+Solution.belongsTo(User);
 
-Question.belongsTo(User)
-
+Issue.belongsTo(User);
 
 module.exports = {
   db,
   models: {
     User,
     Solution,
-    Question,
-    Message
+    Issue,
+    Message,
   },
-}
+};

@@ -1,11 +1,11 @@
-const fs = require('fs');
+const fs = require("fs");
 
 console.log(process.argv);
 
 if (process.argv.length !== 4) {
-  console.warn('You must pass two arguments to this command!');
+  console.warn("You must pass two arguments to this command!");
   console.warn(
-    'Example: node writeFile.js myFileName.js "console.log(\'hello!\')"'
+    "Example: node writeFile.js myFileName.js \"console.log('hello!')\""
   );
   process.exit(1);
 }
@@ -15,4 +15,4 @@ if (process.argv.length !== 4) {
 const fileName = process.argv[2];
 const fileContents = process.argv[3];
 
-fs.writeFileSync(fileName, fileContents, 'utf8');
+fs.writeFileSync(fileName, fileContents, "utf8");
