@@ -12,13 +12,10 @@ class AllIssues extends React.Component {
     console.log(this.props);
     return (
       <div>
+        <Link to="/issue/post" className="button">
+          Post an Issue
+        </Link>
         <h1>All Issues</h1>
-        {/* <Link to="issues/create">
-            <button type="button" className="add-button">
-              Add Issue
-            </button>
-          </Link> */}
-
         {issues.length ? (
           issues.map((issue) => (
             <div key={issue.id} className="single-issue">
