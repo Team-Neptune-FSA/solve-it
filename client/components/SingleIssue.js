@@ -20,7 +20,7 @@ class SingleIssue extends React.Component {
         <h2>EXPLANATION SECTION</h2>
         <form>
           <label>
-            <input type="text" name="name" />
+            <textarea type="text" name="name" />
           </label>
           <input type="submit" value="Submit" />
         </form>
