@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchSingleIssue } from "../store/singleIssue";
-import CodeEnvironment from "./Editor";
+import CodeEnvironment from "./CodeEnvironment";
 
 class SingleIssue extends React.Component {
   componentDidMount() {
@@ -20,7 +20,7 @@ class SingleIssue extends React.Component {
         <h2>EXPLANATION SECTION</h2>
         <form>
           <label>
-            <input type="text" name="name" />
+            <textarea type="text" name="name" />
           </label>
           <input type="submit" value="Submit" />
         </form>

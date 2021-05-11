@@ -36,8 +36,10 @@ function codeEnvironment() {
         theme="vs-dark"
         options={{ readOnly: true }}
       /> */}
-      <div>{output}</div>
+      <div>{output}</div> {/* this is where the output lives */}
+
       <button onClick={() => handleSubmit()}>Run Code</button>
+
     </div>
   );
 }
