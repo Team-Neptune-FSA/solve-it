@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import CodeEnvironment from "./Editor";
-import SingleQuestion from "./SingleQuestion";
 
 /**
  * COMPONENT

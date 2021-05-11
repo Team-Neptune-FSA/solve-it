@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import { fetchSingleIssue } from "../store/singleIssue";
 import CodeEnvironment from "./Editor";
 
-class SelectedIssue extends React.Component {
+class SingleIssue extends React.Component {
   componentDidMount() {
     const { issueId } = this.props.match.params;
     this.props.getSingleIssue(issueId);
   }
   render() {
+    console.log(this.props);
     const { singleIssue } = this.props;
     return (
       <div>
@@ -45,4 +46,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(SelectedIssue);
+export default connect(mapState, mapDispatch)(SingleIssue);
