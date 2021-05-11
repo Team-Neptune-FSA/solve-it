@@ -26,17 +26,20 @@ async function seed() {
   // Creating Issues
   const issues = await Promise.all([
     Issue.create({
-      issueContent: `Given an array of integers, return indices of the two numbers such that they add up to a specific target.`,
+      title: 'Array of integers',
+      description: `Given an array of integers, return indices of the two numbers such that they add up to a specific target.`,
     }),
     Issue.create({
-      issueContent: `Say you have an array for which the ith element is the price of a given stock on day i.
+      title: 'Price of a given day',
+      description: `Say you have an array for which the ith element is the price of a given stock on day i.
 
         If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
 
         Note that you cannot sell a stock before you buy one.`,
     }),
     Issue.create({
-      issueContent: `You are given the dimensions of a grid, m and n. Starting from the top left, or (0,0), you want to end up making your way to the bottom right corner. The only two moves you can make are to go one space directly to your right, or one space directly down. Write a function that can help you determine how many unique paths you can take between these two corners.`,
+      title: 'Dimensions of a grid',
+      description: `You are given the dimensions of a grid, m and n. Starting from the top left, or (0,0), you want to end up making your way to the bottom right corner. The only two moves you can make are to go one space directly to your right, or one space directly down. Write a function that can help you determine how many unique paths you can take between these two corners.`,
     }),
   ]);
 
