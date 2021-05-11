@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchIssues } from "../store/allIssues";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchIssues } from '../store/allIssues';
 
 class AllIssues extends React.Component {
   componentDidMount() {
@@ -17,13 +17,17 @@ class AllIssues extends React.Component {
         </Link>
         <h1>All Issues</h1>
         {issues.length ? (
-          issues.map((issue) => (
-            <div key={issue.id} className="single-issue">
-              <Link to={`/issues/${issue.id}`}>
-                <h2>Issue: {issue.issueContent}</h2>
-              </Link>
-            </div>
-          ))
+          issues
+            .map((issue) => (
+              <div key={issue.id} className="single-issue">
+                <Link to={`/issues/${issue.id}`}>
+                  <h2>{issue.title}</h2>
+                  <p>{issue.description}</p>
+                </Link>
+                <hr />
+              </div>
+            ))
+            .reverse()
         ) : (
           <h2 className="none-in-database">There are no issues, sorry.</h2>
         )}

@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-// import axios from 'axios';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const PostIssue = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [tags, setTags] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  // const [tags, setTags] = useState('');
 
   const handleSubmit = async () => {
-    // await axios.post()
+    await axios.post('/api/issues', {
+      title,
+      description,
+    });
   };
 
   console.log(title);
@@ -33,7 +36,7 @@ const PostIssue = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
-        <label>
+        {/* <label>
           Tags:
           <input
             type="text"
@@ -42,7 +45,8 @@ const PostIssue = () => {
             onChange={(e) => setTags(e.target.value)}
             value={tags}
           />
-        </label>
+        </label> */}
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
