@@ -1,18 +1,18 @@
-import axios from "axios";
+import axios from 'axios';
 
-const GOT_ALL_QUESTIONS = "GOT_ALL_QUESTIONS";
+const GOT_ALL_ISSUES = 'GOT_ALL_ISSUES';
 
-export const setQuestions = (questions) => ({
-  type: GOT_ALL_QUESTIONS,
-  questions,
+export const setIssues = (issues) => ({
+  type: GOT_ALL_ISSUES,
+  issues,
 });
 
-export const fetchQuestions = () => {
+export const fetchIssues = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get("/api/questions/");
-      const questions = response.data;
-      dispatch(setQuestions(questions));
+      const response = await axios.get('/api/issues/');
+      const issues = response.data;
+      dispatch(setIssues(issues));
     } catch (error) {
       console.log(error);
     }
@@ -21,10 +21,10 @@ export const fetchQuestions = () => {
 
 const initialState = [];
 
-export default function allQuestionsReducer(state = initialState, action) {
+export default function allIssuesReducer(state = initialState, action) {
   switch (action.type) {
-    case GOT_ALL_QUESTIONS:
-      return action.questions;
+    case GOT_ALL_ISSUES:
+      return action.issues;
     default:
       return state;
   }

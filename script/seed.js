@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
 const {
   db,
-  models: { User, Question, Message, Solution },
-} = require("../server/db");
+  models: { User, Issue, Message, Solution },
+} = require('../server/db');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -11,32 +11,32 @@ const {
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log("db synced!");
+  console.log('db synced!');
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: "cody@gmail.com", password: "123" }),
-    User.create({ username: "murphy@gmail.com", password: "123" }),
-    User.create({ username: "jonathan@gmail.com", password: "123" }),
-    User.create({ username: "altus@gmail.com", password: "123" }),
-    User.create({ username: "nathan@gmail.com", password: "123" }),
-    User.create({ username: "matt@gmail.com", password: "123" }),
+    User.create({ username: 'cody@gmail.com', password: '123' }),
+    User.create({ username: 'murphy@gmail.com', password: '123' }),
+    User.create({ username: 'jonathan@gmail.com', password: '123' }),
+    User.create({ username: 'altus@gmail.com', password: '123' }),
+    User.create({ username: 'nathan@gmail.com', password: '123' }),
+    User.create({ username: 'matt@gmail.com', password: '123' }),
   ]);
 
-  // Creating Questions
-  const questions = await Promise.all([
-    Question.create({
-      questionContent: `Given an array of integers, return indices of the two numbers such that they add up to a specific target.`,
+  // Creating Issues
+  const issues = await Promise.all([
+    Issue.create({
+      issueContent: `Given an array of integers, return indices of the two numbers such that they add up to a specific target.`,
     }),
-    Question.create({
-      questionContent: `Say you have an array for which the ith element is the price of a given stock on day i.
+    Issue.create({
+      issueContent: `Say you have an array for which the ith element is the price of a given stock on day i.
 
         If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
 
         Note that you cannot sell a stock before you buy one.`,
     }),
-    Question.create({
-      questionContent: `You are given the dimensions of a grid, m and n. Starting from the top left, or (0,0), you want to end up making your way to the bottom right corner. The only two moves you can make are to go one space directly to your right, or one space directly down. Write a function that can help you determine how many unique paths you can take between these two corners.`,
+    Issue.create({
+      issueContent: `You are given the dimensions of a grid, m and n. Starting from the top left, or (0,0), you want to end up making your way to the bottom right corner. The only two moves you can make are to go one space directly to your right, or one space directly down. Write a function that can help you determine how many unique paths you can take between these two corners.`,
     }),
   ]);
 
@@ -105,33 +105,33 @@ async function seed() {
   const messages = await Promise.all([
     Message.create({
       recipientID: 1,
-      questionContent: "Hey, this problem is written incorrectly.",
+      issueContent: 'Hey, this problem is written incorrectly.',
     }),
     Message.create({
       recipientID: 1,
-      questionContent: "Hi, you're missing a piece of code.",
+      issueContent: "Hi, you're missing a piece of code.",
     }),
     Message.create({
       recipientID: 1,
-      questionContent: "Excuse me, this code can't be solved.",
+      issueContent: "Excuse me, this code can't be solved.",
     }),
   ]);
 
-  await questions[0].setUser(users[2]);
-  await questions[1].setUser(users[3]);
-  await questions[2].setUser(users[4]);
+  await issues[0].setUser(users[2]);
+  await issues[1].setUser(users[3]);
+  await issues[2].setUser(users[4]);
 
-  await questions[0].addSolution(solutions[0]);
-  await questions[1].addSolution(solutions[1]);
-  await questions[2].addSolution(solutions[2]);
+  await issues[0].addSolution(solutions[0]);
+  await issues[1].addSolution(solutions[1]);
+  await issues[2].addSolution(solutions[2]);
 
   await messages[0].setUser(users[2]);
   await messages[1].setUser(users[3]);
   await messages[2].setUser(users[4]);
 
-  await messages[0].setQuestion(questions[0]);
-  await messages[1].setQuestion(questions[1]);
-  await messages[2].setQuestion(questions[2]);
+  await messages[0].setIssue(issues[0]);
+  await messages[1].setIssue(issues[1]);
+  await messages[2].setIssue(issues[2]);
 
   // console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
@@ -153,16 +153,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log("seeding...");
+  console.log('seeding...');
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log("closing db connection");
+    console.log('closing db connection');
     await db.close();
-    console.log("db connection closed");
+    console.log('db connection closed');
   }
 }
 
