@@ -1,6 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import CodeEnvironment from './Editor';
+import React from "react";
+import { connect } from "react-redux";
 
 /**
  * COMPONENT
@@ -11,8 +10,6 @@ export const Home = (props) => {
   return (
     <div>
       <h3>Welcome, {username}</h3>
-
-      <CodeEnvironment />
     </div>
   );
 };

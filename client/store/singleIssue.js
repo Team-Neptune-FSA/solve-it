@@ -1,18 +1,18 @@
-import axios from 'axios';
+import axios from "axios";
 
-const GOT_ISSUE = 'GOT_ISSUE';
+const GOT_SINGLE_ISSUE = "GOT_SINGLE_ISSUE";
 
-export const setIssue = (issue) => ({
-  type: GOT_ISSUE,
+export const setSingleIssue = (issue) => ({
+  type: GOT_SINGLE_ISSUE,
   issue,
 });
 
-export const fetchIssue = (id) => {
+export const fetchSingleIssue = (issueId) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`/api/issues/${id}`);
+      const response = await axios.get(`/api/issues/${issueId}`);
       const issue = response.data;
-      dispatch(setIssue(issue));
+      dispatch(setSingleIssue(issue));
     } catch (error) {
       console.log(error);
     }
@@ -23,7 +23,7 @@ const initialState = {};
 
 export default function singleIssueReducer(state = initialState, action) {
   switch (action.type) {
-    case GOT_ISSUE:
+    case GOT_SINGLE_ISSUE:
       return action.issue;
     default:
       return state;
