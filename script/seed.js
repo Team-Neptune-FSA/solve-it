@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const { db, User, Issue, Message, Solution } = require('../server/db');
+const { db, User, Issue, Message, Solution } = require("../server/db");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -8,68 +8,68 @@ const { db, User, Issue, Message, Solution } = require('../server/db');
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log('db synced!');
+  console.log("db synced!");
 
   // Creating Users
   const users = await Promise.all([
     User.create({
-      username: 'cody@gmail.com',
-      password: '123',
+      username: "cody@gmail.com",
+      password: "123",
       issuesAsked: 4,
       problemsSolved: 8,
       solutionsAccepted: 1,
-      name: 'Cody',
+      name: "Cody",
     }),
     User.create({
-      username: 'murphy@gmail.com',
-      password: '123',
+      username: "murphy@gmail.com",
+      password: "123",
       issuesAsked: 1,
       problemsSolved: 4,
       solutionsAccepted: 1,
-      name: 'Murphy',
+      name: "Murphy",
     }),
     User.create({
-      username: 'jonathan@gmail.com',
-      password: '123',
+      username: "jonathan@gmail.com",
+      password: "123",
       issuesAsked: 6,
       problemsSolved: 5,
       solutionsAccepted: 3,
-      name: 'Jonathan',
+      name: "Jonathan",
     }),
     User.create({
-      username: 'altus@gmail.com',
-      password: '123',
+      username: "altus@gmail.com",
+      password: "123",
       issuesAsked: 3,
       problemsSolved: 7,
       solutionsAccepted: 2,
-      name: 'Altus',
+      name: "Altus",
     }),
     User.create({
-      username: 'nathan@gmail.com',
-      password: '123',
+      username: "nathan@gmail.com",
+      password: "123",
       issuesAsked: 0,
       problemsSolved: 10,
       solutionsAccepted: 5,
-      name: 'Nathan',
+      name: "Nathan",
     }),
     User.create({
-      username: 'matt@gmail.com',
-      password: '123',
+      username: "matt@gmail.com",
+      password: "123",
       issuesAsked: 5,
       problemsSolved: 3,
       solutionsAccepted: 0,
-      name: 'Matt',
+      name: "Matt",
     }),
   ]);
 
   // Creating Issues
   const issues = await Promise.all([
     Issue.create({
-      title: 'Array of integers',
+      title: "Array of integers",
       description: `Given an array of integers, return indices of the two numbers such that they add up to a specific target.`,
     }),
     Issue.create({
-      title: 'Price of a given day',
+      title: "Price of a given day",
       description: `Say you have an array for which the ith element is the price of a given stock on day i.
 
         If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
@@ -77,7 +77,7 @@ async function seed() {
         Note that you cannot sell a stock before you buy one.`,
     }),
     Issue.create({
-      title: 'Dimensions of a grid',
+      title: "Dimensions of a grid",
       description: `You are given the dimensions of a grid, m and n. Starting from the top left, or (0,0), you want to end up making your way to the bottom right corner. The only two moves you can make are to go one space directly to your right, or one space directly down. Write a function that can help you determine how many unique paths you can take between these two corners.`,
     }),
   ]);
@@ -150,7 +150,7 @@ async function seed() {
   const messages = await Promise.all([
     Message.create({
       recipientID: 1,
-      issueContent: 'Hey, this problem is written incorrectly.',
+      issueContent: "Hey, this problem is written incorrectly.",
     }),
     Message.create({
       recipientID: 1,
@@ -165,6 +165,10 @@ async function seed() {
   await issues[0].setUser(users[2]);
   await issues[1].setUser(users[3]);
   await issues[2].setUser(users[4]);
+
+  await solutions[0].setUser(users[2]);
+  await solutions[1].setUser(users[3]);
+  await solutions[2].setUser(users[4]);
 
   await issues[0].addSolution(solutions[0]);
   await issues[1].addSolution(solutions[1]);
@@ -198,16 +202,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log('seeding...');
+  console.log("seeding...");
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log('closing db connection');
+    console.log("closing db connection");
     await db.close();
-    console.log('db connection closed');
+    console.log("db connection closed");
   }
 }
 

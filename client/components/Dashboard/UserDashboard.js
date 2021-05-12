@@ -1,21 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import IssueSolver from './IssueSolver';
-import IssueAsker from './IssueAsker';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import Solutions from "./Solutions";
+import Issues from "./Issues";
 
-const UserDashboard = ({
-  user: { name, problemsSolved, solutionsAccepted },
-}) => {
-  const [toggle, settoggle] = useState(true);
+const UserDashboard = ({ user: { name } }) => {
+  const [view, setView] = useState("solutions");
   return (
     <>
       <div id="title-section">
         <h1>Hello {name}</h1>
       </div>
-      <button onClick={() => settoggle(!toggle)}>
-        {toggle ? 'Issue Solver' : 'Issue Asker'}
+      <button
+        className={view === "solutions" ? "active" : ""}
+        onClick={() => setView("solutions")}
+      >
+        Solutions
       </button>
-      {toggle ? <IssueSolver /> : <IssueAsker />}
+      <button
+        className={view === "issues" ? "active" : ""}
+        onClick={() => setView("issues")}
+      >
+        Issues
+      </button>
+      {view === "solutions" ? <Solutions /> : <Issues />}
     </>
   );
 };

@@ -19,3 +19,27 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+/*--- Dashboard Styles ---*/
+.solutions {
+  display: flex;
+  direction: ltr;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+.solution-preview {
+  padding: 25px;
+  margin: 1rem;
+  border: 5px solid #264653;
+  opacity: 80%;
+  position: relative;
+  background-color: white;
+  max-width: 25%;
+}
+.solution-preview:hover {
+  margin: 1rem;
+  border: 5px solid #2a9d8f;
+  opacity: 100%;
+  cursor: pointer;
+}
