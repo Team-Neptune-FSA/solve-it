@@ -85,6 +85,7 @@ async function seed() {
   // Creating Solutions
   const solutions = await Promise.all([
     Solution.create({
+      explanation: `test explanation from DB`,
       code: `const twoSum = (arr, target) => {
             var result = [];
 
@@ -100,6 +101,7 @@ async function seed() {
           }`,
     }),
     Solution.create({
+      explanation: `test explanation from DB`,
       code: `const maxProfit = function(prices) {
         //intialize a variable to keep count of the current highest profit
         let maxProfit = 0;
@@ -119,6 +121,7 @@ async function seed() {
     maxProfit([7,6,4,3,1]) //0`,
     }),
     Solution.create({
+      
       code: `// initialize default value of 0 for column and row
       function uniquePaths(m, n, row = 0, col = 0) {
 

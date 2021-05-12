@@ -4,18 +4,41 @@ import { Link } from "react-router-dom";
 import { fetchSingleIssue } from "../../store/singleIssue";
 import CodeEnvironment from "../CodeEnvironment";
 import axios from "axios";
-import Editor from "@monaco-editor/react";
+import {fetchSingleSolution} from "../../store/singleSolution";
 
-const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
-  const [code, setCode] = useState("");
+const UnresolvedIssue = ({ match, getSingleIssue, singleIssue, getSingleSolution, singleSolution }) => {
+  const [code, setCode] = useState(""); 
   const [explanation, setExplanation] = useState("");
 
   useEffect(() => {
-    const { issueId } = match.params;
+    const { issueId, solutionId } = match.params;
+    const solutionCode = async () => {
+      const response = await axios.get(
+        `/api/issues/${issueId}/solutions/${solutionId}`
+        );
+        const solution = response.data;
+        setCode(solution.code)
+        setExplanation(solution.explanation)
+    }
+    solutionCode();
+    // getSingleSolution(issueId, solutionId);
     getSingleIssue(issueId);
   }, []);
 
-  // axios call to solution related to this issue id and user id that submitted the code.
+  const setSolutionCode = (code) => {
+    setCode(code);
+  };
+
+  console.log(singleSolution.code);
+  // let explanationText = JSON.stringify(singleSolution.code)
+  // console.log(explanationText);
+  // console.log(singleSolution.code)
+
+  const test = 'hello world'
+
+  if (!singleSolution.code){
+    singleSolution.code = "test"
+  }
 
   return (
     <div>
@@ -23,65 +46,27 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
       <p>{singleIssue.description}</p>
       <button>ACCEPT</button>
       <h1 style={{color:"green"}}>ISSUE RESOLVED</h1>
-      {/* <CodeEnvironment /> */}
-      <Editor
-        height="50vh"
-        width="75vw"
-        value="console.log(`testing`)"
-        defaultLanguage="javascript"
-        theme="vs-dark"
-        options={{ readOnly: true }}
-      />
+      <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
       <br />
       <h2>EXPLANATION SECTION</h2>
-      {/* explanation should be a p tag instead of a text area. Change line 38 */}
-      <textarea readOnly type="text" name="name" value="this is a test" />
+      <p>{explanation}</p>
     </div>
   );
 };
 
-// class SingleIssue extends React.Component {
-//   componentDidMount() {
-//     const { issueId } = this.props.match.params;
-//     this.props.getSingleIssue(issueId);
-//   }
-
-//   render() {
-//     console.log(this.props);
-//     const { singleIssue } = this.props;
-//     return (
-//       <div>
-//         <h2>{singleIssue.title}</h2>
-//         <p>{singleIssue.description}</p>
-//         <CodeEnvironment />
-//         <br />
-//         <h2>EXPLANATION SECTION</h2>
-//         <form>
-//           <label>
-//             <textarea type="text" name="name" />
-//           </label>
-//           <input type="submit" value="Submit" />
-//         </form>
-//         {/* <Link to={`${singleIssue.id}/edit`}>
-//           <button type="button" className="edit-button">
-//             Edit
-//           </button>
-//         </Link> */}
-//       </div>
-//     );
-//   }
-// }
 
 const mapState = (state) => {
   return {
     singleIssue: state.singleIssue,
+    singleSolution: state.singleSolution,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     getSingleIssue: (issueId) => dispatch(fetchSingleIssue(issueId)),
+    getSingleSolution : (issueId, solutionId) => dispatch(fetchSingleSolution(issueId, solutionId)),
   };
 };
 
-export default connect(mapState, mapDispatch)(SingleIssue);
+export default connect(mapState, mapDispatch)(UnresolvedIssue);
