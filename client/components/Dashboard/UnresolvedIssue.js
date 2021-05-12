@@ -22,6 +22,8 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
       <h2>{singleIssue.title}</h2>
       <p>{singleIssue.description}</p>
       <button>ACCEPT</button>
+      <h1 style={{color:"green"}}>ISSUE RESOLVED</h1>
+      {/* <CodeEnvironment /> */}
       <Editor
         height="50vh"
         width="75vw"
@@ -32,12 +34,8 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
       />
       <br />
       <h2>EXPLANATION SECTION</h2>
+      {/* explanation should be a p tag instead of a text area. Change line 38 */}
       <textarea readOnly type="text" name="name" value="this is a test" />
-      {/* <Link to={`${singleIssue.id}/edit`}>
-          <button type="button" className="edit-button">
-            Edit
-          </button>
-        </Link> */}
     </div>
   );
 };

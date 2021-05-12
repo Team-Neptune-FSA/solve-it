@@ -27,10 +27,7 @@ class Routes extends Component {
             <Route exact path="/issues" component={AllIssues} />
             <Route path="/issues/:issueId" component={SingleIssue} />
             <Route exact path="/issue/post" component={PostIssue} />
-            <Route
-              exact
-              path="/dashboard/issues/:issueId"
-              component={UnresolvedIssue}
+            <Route exact path="/solutions/:issueId/:solutionId" component={UnresolvedIssue}
             />
           </Switch>
         ) : (

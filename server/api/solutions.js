@@ -1,10 +1,8 @@
 const Solution = require('../db/models/solution');
-
 const router = require('express').Router();
-
 const {requireToken} = require('./authMiddleware')
 
-//GET /api/issues
+// GET /api/issues
 // router.get('/', async (req, res, next) => {
 //   try {
 //     const solutions = await Solution.findAll();
@@ -23,6 +21,16 @@ const {requireToken} = require('./authMiddleware')
 //     next(error);
 //   }
 // });
+
+// GET /api/issues/:issueId for dashboard single issue view
+router.get('/:solutionId', async (req, res, next) => {
+  try {
+    const solution = await Solution.findByPk(solutionId);
+    res.json(solution);
+  } catch (error) {
+    next(error);
+  }
+});
 
 //POST /api/solutions
 router.post('/', requireToken, async (req, res, next) => {
