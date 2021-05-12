@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
-import AllIssues from './components/AllIssues';
-import SingleIssue from './components/SingleIssue';
+import AllIssues from './components/Issues/AllIssues';
+import SingleIssue from './components/Issues/SingleIssue';
 import UserDashboard from './components/Dashboard/UserDashboard';
-import PostIssue from './components/PostIssue';
-import UnresolvedIssue from "./components/Dashboard/UnresolvedIssue";
+import PostIssue from './components/Issues/PostIssue';
+import UnresolvedIssue from "./components/Issues/UnresolvedIssue";
 import { me } from './store';
 
 
@@ -27,18 +27,18 @@ class Routes extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/issues" component={AllIssues} />
-            <Route path="/issues/:issueId" component={SingleIssue} />
-            <Route exact path="/issue/post" component={PostIssue} />
-            <Route exact path="/solutions/:issueId/:solutionId" component={UnresolvedIssue}
+            <Route exact path="/issues/post" component={PostIssue} />
+            <Route exact path="/issues/:issueId" component={SingleIssue} />
+            <Route exact path="/issues/:issueId/solutions/:solutionId" component={UnresolvedIssue} /> 
             <Route exact path="/dashboard" component={UserDashboard} />
           </Switch>
         ) : (
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/issues" component={AllIssues} />
-            <Route exact path="/issue/post" component={PostIssue} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/issues" component={AllIssues} />
+            <Route exact path="/issues/post" component={PostIssue} />
           </Switch>
         )}
       </div>
