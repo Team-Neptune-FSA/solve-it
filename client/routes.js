@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter, Route, Switch } from "react-router-dom";
-import { Login, Signup } from "./components/AuthForm";
-import Home from "./components/Home";
-import AllIssues from "./components/AllIssues";
-import SingleIssue from "./components/SingleIssue";
-import PostIssue from "./components/PostIssue";
-import { me } from "./store";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch } from 'react-router-dom';
+import { Login, Signup } from './components/AuthForm';
+import Home from './components/Home';
+import AllIssues from './components/AllIssues';
+import SingleIssue from './components/SingleIssue';
+import UserDashboard from './components/Dashboard/UserDashboard';
+import PostIssue from './components/PostIssue';
+import { me } from './store';
 
 /**
  * COMPONENT
@@ -26,6 +27,7 @@ class Routes extends Component {
             <Route exact path="/issues" component={AllIssues} />
             <Route path="/issues/:issueId" component={SingleIssue} />
             <Route exact path="/issue/post" component={PostIssue} />
+            <Route exact path="/dashboard" component={UserDashboard} />
           </Switch>
         ) : (
           <Switch>

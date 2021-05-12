@@ -1,9 +1,6 @@
 'use strict';
 
-const {
-  db,
-  User, Issue, Message, Solution
-} = require('../server/db');
+const { db, User, Issue, Message, Solution } = require('../server/db');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -15,12 +12,54 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody@gmail.com', password: '123' }),
-    User.create({ username: 'murphy@gmail.com', password: '123' }),
-    User.create({ username: 'jonathan@gmail.com', password: '123' }),
-    User.create({ username: 'altus@gmail.com', password: '123' }),
-    User.create({ username: 'nathan@gmail.com', password: '123' }),
-    User.create({ username: 'matt@gmail.com', password: '123' }),
+    User.create({
+      username: 'cody@gmail.com',
+      password: '123',
+      issuesAsked: 4,
+      problemsSolved: 8,
+      solutionsAccepted: 1,
+      name: 'Cody',
+    }),
+    User.create({
+      username: 'murphy@gmail.com',
+      password: '123',
+      issuesAsked: 1,
+      problemsSolved: 4,
+      solutionsAccepted: 1,
+      name: 'Murphy',
+    }),
+    User.create({
+      username: 'jonathan@gmail.com',
+      password: '123',
+      issuesAsked: 6,
+      problemsSolved: 5,
+      solutionsAccepted: 3,
+      name: 'Jonathan',
+    }),
+    User.create({
+      username: 'altus@gmail.com',
+      password: '123',
+      issuesAsked: 3,
+      problemsSolved: 7,
+      solutionsAccepted: 2,
+      name: 'Altus',
+    }),
+    User.create({
+      username: 'nathan@gmail.com',
+      password: '123',
+      issuesAsked: 0,
+      problemsSolved: 10,
+      solutionsAccepted: 5,
+      name: 'Nathan',
+    }),
+    User.create({
+      username: 'matt@gmail.com',
+      password: '123',
+      issuesAsked: 5,
+      problemsSolved: 3,
+      solutionsAccepted: 0,
+      name: 'Matt',
+    }),
   ]);
 
   // Creating Issues

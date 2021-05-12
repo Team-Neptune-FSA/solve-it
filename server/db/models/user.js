@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const axios = require("axios");
+const Sequelize = require('sequelize');
+const db = require('../db');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const axios = require('axios');
 
 const SALT_ROUNDS = 5;
 
@@ -10,13 +10,28 @@ const User = db.define('user', {
   username: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
-})
+  issuesAsked: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+  problemsSolved: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+  solutionsAccepted: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
+  name: {
+    type: Sequelize.STRING,
+  },
+});
 
 module.exports = User;
 
@@ -38,7 +53,7 @@ User.prototype.generateToken = function () {
 User.authenticate = async function ({ username, password }) {
   const user = await this.findOne({ where: { username } });
   if (!user || !(await user.correctPassword(password))) {
-    const error = Error("Incorrect username/password");
+    const error = Error('Incorrect username/password');
     error.status = 401;
     throw error;
   }
@@ -50,11 +65,11 @@ User.findByToken = async function (token) {
     const { id } = await jwt.verify(token, process.env.JWT);
     const user = User.findByPk(id);
     if (!user) {
-      throw "nooo";
+      throw 'nooo';
     }
     return user;
   } catch (ex) {
-    const error = Error("bad token");
+    const error = Error('bad token');
     error.status = 401;
     throw error;
   }
@@ -65,7 +80,7 @@ User.findByToken = async function (token) {
  */
 const hashPassword = async (user) => {
   //in case the password has been changed, we want to encrypt it with bcrypt
-  if (user.changed("password")) {
+  if (user.changed('password')) {
     user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
   }
 };
