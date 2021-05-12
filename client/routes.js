@@ -7,7 +7,9 @@ import AllIssues from './components/AllIssues';
 import SingleIssue from './components/SingleIssue';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import PostIssue from './components/PostIssue';
+import UnresolvedIssue from "./components/Dashboard/UnresolvedIssue";
 import { me } from './store';
+
 
 /**
  * COMPONENT
@@ -28,6 +30,11 @@ class Routes extends Component {
             <Route path="/issues/:issueId" component={SingleIssue} />
             <Route exact path="/issue/post" component={PostIssue} />
             <Route exact path="/dashboard" component={UserDashboard} />
+            <Route
+              exact
+              path="/dashboard/issues/:issueId"
+              component={UnresolvedIssue}
+            />
           </Switch>
         ) : (
           <Switch>

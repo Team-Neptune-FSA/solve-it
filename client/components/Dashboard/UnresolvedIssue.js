@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchSingleIssue } from "../store/singleIssue";
-import CodeEnvironment from "./CodeEnvironment";
+import { fetchSingleIssue } from "../../store/singleIssue";
+import CodeEnvironment from "../CodeEnvironment";
 import axios from "axios";
+import Editor from "@monaco-editor/react";
 
 const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
   const [code, setCode] = useState("");
@@ -14,39 +15,29 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
     getSingleIssue(issueId);
   }, []);
 
-  const handleSubmit = async () => {
-    const token = window.localStorage.getItem("token");
-    await axios.post(
-      "/api/solutions",
-      { code: code, explanation: explanation, issue: singleIssue },
-      { headers: { authorization: token } }
-    );
-  };
+  // axios call to solution related to this issue id and user id that submitted the code.
 
-  const setSolutionCode = (code) => {
-    setCode(code);
-  };
   return (
     <div>
       <h2>{singleIssue.title}</h2>
       <p>{singleIssue.description}</p>
-      <CodeEnvironment setSolutionCode={setSolutionCode} />
+      <button>ACCEPT</button>
+      <Editor
+        height="50vh"
+        width="75vw"
+        value="console.log(`testing`)"
+        defaultLanguage="javascript"
+        theme="vs-dark"
+        options={{ readOnly: true }}
+      />
       <br />
       <h2>EXPLANATION SECTION</h2>
-      <textarea
-        onChange={(event) => setExplanation(event.target.value)}
-        type="text"
-        name="name"
-      />
+      <textarea readOnly type="text" name="name" value="this is a test" />
       {/* <Link to={`${singleIssue.id}/edit`}>
           <button type="button" className="edit-button">
             Edit
           </button>
         </Link> */}
-
-      <button onClick={handleSubmit} type="button">
-        Submit Solution
-      </button>
     </div>
   );
 };

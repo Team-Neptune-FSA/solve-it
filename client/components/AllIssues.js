@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchIssues } from '../store/allIssues';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchIssues } from "../store/allIssues";
 
 class AllIssues extends React.Component {
   componentDidMount() {
@@ -9,7 +9,6 @@ class AllIssues extends React.Component {
   }
   render() {
     const { issues } = this.props;
-    console.log(this.props);
     return (
       <div>
         <Link to="/issue/post" className="button">
