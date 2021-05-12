@@ -5,10 +5,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import auth from './auth';
 import allIssuesReducer from './allIssues';
 import singleIssueReducer from './singleIssue';
+import singleSolutionReducer from './singleSolution';
 
 const reducer = combineReducers({
   auth,
   singleIssue: singleIssueReducer,
+  singleSolution: singleSolutionReducer,
   allIssues: allIssuesReducer,
 });
 const middleware = composeWithDevTools(

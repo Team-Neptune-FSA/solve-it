@@ -2,9 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Editor from '@monaco-editor/react';
 
-function codeEnvironment({setSolutionCode}) {
+function codeEnvironment({setSolutionCode, value}) {
   const [code, setCode] = useState('//enter code here...');
   const [output, setOutput] = useState('');
+  
+  useEffect(() => {
+    console.log(value); //returns undefined
+    if (value) {
+      setCode(value)
+    }
+  }, [value]);  //this renders the value from the DB if present???
 
   const handleSubmit = async () => {
     console.log(code);
