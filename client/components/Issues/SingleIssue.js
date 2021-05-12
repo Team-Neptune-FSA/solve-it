@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchSingleIssue } from "../store/singleIssue";
-import CodeEnvironment from "./CodeEnvironment";
+import { fetchSingleIssue } from "../../store/singleIssue";
+import CodeEnvironment from "../CodeEnvironment";
 import axios from "axios";
 
 const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
@@ -16,8 +16,9 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
 
   const handleSubmit = async () => {
     const token = window.localStorage.getItem("token");
+    const { issueId } = match.params;
     await axios.post(
-      "/api/solutions",
+      `/api/issues/${issueId}/solutions`,
       { code: code, explanation: explanation, issue: singleIssue },
       { headers: { authorization: token } }
     );
