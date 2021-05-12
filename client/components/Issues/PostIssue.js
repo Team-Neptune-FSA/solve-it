@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import history from "../../history";
 
 const PostIssue = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   // const [tags, setTags] = useState('');
 
-  const handleSubmit = async () => {
-    const token = window.localStorage.getItem('token');
-    await axios.post('/api/issues', {
-      title,
-      description,
-    },{headers: {authorization: token}});
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = window.localStorage.getItem("token");
+    await axios.post(
+      "/api/issues",
+      {
+        title,
+        description,
+      },
+      { headers: { authorization: token } }
+    );
+    history.push("/dashboard");
   };
-
 
   console.log(title);
   return (

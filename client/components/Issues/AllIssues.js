@@ -7,6 +7,7 @@ class AllIssues extends React.Component {
   componentDidMount() {
     this.props.fetchIssues();
   }
+
   render() {
     const { issues } = this.props;
     return (

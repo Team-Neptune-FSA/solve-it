@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import axios from "axios";
 
 const percentRank = (arr, v) => {
-  if (typeof v !== 'number') throw new TypeError('v must be a number');
+  if (typeof v !== "number") throw new TypeError("v must be a number");
   if (v === 0) {
     return;
   } else {
@@ -21,14 +21,14 @@ const percentRank = (arr, v) => {
   }
 };
 
-const IssueSolver = ({ user: { name, problemsSolved, solutionsAccepted } }) => {
+const Solutions = ({ user: { name, problemsSolved, solutionsAccepted } }) => {
   const [problemSolvedArr, setproblemSolvedArr] = useState([]);
   useEffect(() => {
     calculateRank();
   }, []);
 
   const calculateRank = async () => {
-    const { data: users } = await axios.get('/api/users');
+    const { data: users } = await axios.get("/api/users");
     if (users.length) {
       let allProblemsSolved = [];
       for (let i = 0; i < users.length; i++) {
@@ -41,9 +41,9 @@ const IssueSolver = ({ user: { name, problemsSolved, solutionsAccepted } }) => {
   return (
     <>
       <div id="info-section">
-        You have solved {problemsSolved} problems. You have had{' '}
+        You have solved {problemsSolved} problems. You have had{" "}
         {solutionsAccepted} solution(s) accepted. You have answered more
-        questions than{' '}
+        questions than{" "}
         {(percentRank(problemSolvedArr, problemsSolved) * 100).toFixed(2)}% of
         users.
       </div>
@@ -57,4 +57,4 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState)(IssueSolver);
+export default connect(mapState)(Solutions);
