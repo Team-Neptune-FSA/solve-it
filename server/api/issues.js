@@ -40,16 +40,6 @@ router.post("/", requireToken, async (req, res, next) => {
   }
 });
 
-// GET api/issues/:issueId/solutions/:solutionId
-router.get("/:issueId/solutions/:solutionId", async (req, res, next) => {
-  try {
-    const solution = await Solution.findByPk(req.params.solutionId);
-    res.json(solution);
-  } catch (error) {
-    next(error);
-  }
-});
-
 // GET api/issues/:issueId/solutions
 router.get("/:issueId/solutions", async (req, res, next) => {
   try {
@@ -58,6 +48,16 @@ router.get("/:issueId/solutions", async (req, res, next) => {
         issueId: req.params.issueId,
       },
     });
+    res.json(solution);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// GET api/issues/:issueId/solutions/:solutionId
+router.get('/:issueId/solutions/:solutionId', async (req, res, next) => {
+  try {
+    const solution = await Solution.findByPk(req.params.solutionId);
     res.json(solution);
   } catch (error) {
     next(error);
