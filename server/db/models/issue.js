@@ -8,9 +8,20 @@ const Issue = db.define("issue", {
   description: {
     type: Sequelize.TEXT,
   },
-  isOpen: {
+  isResolved: {
     type: Sequelize.BOOLEAN,
-    defaultValue: true,
+    defaultValue: false,
+  },
+  language: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0,
+    },
   },
 });
 

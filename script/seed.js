@@ -1,6 +1,6 @@
 "use strict";
 
-const { db, User, Issue, Message, Solution } = require("../server/db");
+const { db, User, Issue, Question, Solution, Stat } = require("../server/db");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -13,53 +13,33 @@ async function seed() {
   // Creating Users
   const users = await Promise.all([
     User.create({
-      username: "cody@gmail.com",
+      email: "jonathan@gmail.com",
       password: "123",
-      issuesAsked: 4,
-      problemsSolved: 8,
-      solutionsAccepted: 1,
-      name: "Cody",
-    }),
-    User.create({
-      username: "murphy@gmail.com",
-      password: "123",
-      issuesAsked: 1,
-      problemsSolved: 4,
-      solutionsAccepted: 1,
-      name: "Murphy",
-    }),
-    User.create({
-      username: "jonathan@gmail.com",
-      password: "123",
-      issuesAsked: 6,
-      problemsSolved: 5,
-      solutionsAccepted: 3,
       name: "Jonathan",
     }),
     User.create({
-      username: "altus@gmail.com",
+      email: "altus@gmail.com",
       password: "123",
-      issuesAsked: 3,
-      problemsSolved: 7,
-      solutionsAccepted: 2,
       name: "Altus",
     }),
     User.create({
-      username: "nathan@gmail.com",
+      email: "nathan@gmail.com",
       password: "123",
-      issuesAsked: 0,
-      problemsSolved: 10,
-      solutionsAccepted: 5,
       name: "Nathan",
     }),
     User.create({
-      username: "matt@gmail.com",
+      email: "matt@gmail.com",
       password: "123",
-      issuesAsked: 5,
-      problemsSolved: 3,
-      solutionsAccepted: 0,
       name: "Matt",
     }),
+  ]);
+
+  // Creating Stats
+  const stats = await Promise.all([
+    Stat.create(),
+    Stat.create(),
+    Stat.create(),
+    Stat.create(),
   ]);
 
   // Creating Issues
@@ -67,6 +47,8 @@ async function seed() {
     Issue.create({
       title: "Array of integers",
       description: `Given an array of integers, return indices of the two numbers such that they add up to a specific target.`,
+      price: 500,
+      language: "javascript",
     }),
     Issue.create({
       title: "Price of a given day",
@@ -75,10 +57,14 @@ async function seed() {
         If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
 
         Note that you cannot sell a stock before you buy one.`,
+      price: 2500,
+      language: "javascript",
     }),
     Issue.create({
       title: "Dimensions of a grid",
       description: `You are given the dimensions of a grid, m and n. Starting from the top left, or (0,0), you want to end up making your way to the bottom right corner. The only two moves you can make are to go one space directly to your right, or one space directly down. Write a function that can help you determine how many unique paths you can take between these two corners.`,
+      price: 1000,
+      language: "javascript",
     }),
   ]);
 
@@ -99,6 +85,7 @@ async function seed() {
             }
             return result;
           }`,
+      isSubmitted: true,
     }),
     Solution.create({
       explanation: `test explanation from DB`,
@@ -119,9 +106,10 @@ async function seed() {
     };
     maxProfit([7,1,5,3,6,4]) //5
     maxProfit([7,6,4,3,1]) //0`,
+      isRejected: true,
+      isSubmitted: true,
     }),
     Solution.create({
-      
       code: `// initialize default value of 0 for column and row
       function uniquePaths(m, n, row = 0, col = 0) {
 
@@ -144,56 +132,67 @@ async function seed() {
       uniquePaths(3,4);    // 10
       uniquePaths(7,3);    // 28  `,
     }),
+    Solution.create({
+      explanation: `I solved the problem`,
+      code: `const twoSum = (arr, target) => {
+            var result = [];
+
+            for (var i = 0; i < arr.length; i++) {
+              for (var j = i + 1; j < arr.length; j++) {
+                if (arr[i] + arr[j] === target) {
+                  result.push(i);
+                  result.push(j);
+                }
+              }
+            }
+            return result;
+          }`,
+      isSubmitted: true,
+    }),
   ]);
 
-  // Creating Messages
-  const messages = await Promise.all([
-    Message.create({
-      recipientID: 1,
-      issueContent: "Hey, this problem is written incorrectly.",
+  // Creating Questions
+  const questions = await Promise.all([
+    Question.create({
+      questionContent: "Hey, this problem is written incorrectly.",
+      answer: "Hey I fixed it.",
     }),
-    Message.create({
-      recipientID: 1,
-      issueContent: "Hi, you're missing a piece of code.",
+    Question.create({
+      questionContent: "Hi, you're missing a piece of code.",
     }),
-    Message.create({
-      recipientID: 1,
-      issueContent: "Excuse me, this code can't be solved.",
+    Question.create({
+      questionContent: "Excuse me, this code can't be solved.",
     }),
   ]);
 
-  await issues[0].setUser(users[2]);
-  await issues[1].setUser(users[3]);
-  await issues[2].setUser(users[4]);
+  await stats[0].setUser(users[0]);
+  await stats[1].setUser(users[1]);
+  await stats[2].setUser(users[2]);
+  await stats[3].setUser(users[3]);
 
-  await solutions[0].setUser(users[2]);
-  await solutions[1].setUser(users[3]);
-  await solutions[2].setUser(users[4]);
+  await issues[0].setUser(users[1]);
+  await issues[1].setUser(users[2]);
+  await issues[2].setUser(users[3]);
+
+  await solutions[0].setUser(users[0]);
+  await solutions[1].setUser(users[1]);
+  await solutions[2].setUser(users[2]);
+  await solutions[3].setUser(users[3]);
 
   await issues[0].addSolution(solutions[0]);
   await issues[1].addSolution(solutions[1]);
   await issues[2].addSolution(solutions[2]);
+  await issues[0].addSolution(solutions[3]);
 
-  await messages[0].setUser(users[2]);
-  await messages[1].setUser(users[3]);
-  await messages[2].setUser(users[4]);
+  await questions[0].setUser(users[0]);
+  await questions[1].setUser(users[1]);
+  await questions[2].setUser(users[2]);
 
-  await messages[0].setIssue(issues[0]);
-  await messages[1].setIssue(issues[1]);
-  await messages[2].setIssue(issues[2]);
+  await questions[0].setIssue(issues[0]);
+  await questions[1].setIssue(issues[1]);
+  await questions[2].setIssue(issues[2]);
 
-  // console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
-  // return {
-  //   users: {
-  //     cody: users[0],
-  //     murphy: users[1],
-  //     Jonathan: users[2],
-  //     Altus: users[3],
-  //     Nathan: users[4],
-  //     Matt: users[5],
-  //   },
-  // };
 }
 
 /*
