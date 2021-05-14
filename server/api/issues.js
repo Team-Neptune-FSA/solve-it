@@ -55,27 +55,41 @@ router.get("/:issueId/solutions", async (req, res, next) => {
 });
 
 // GET api/issues/:issueId/solutions/:solutionId
-router.get('/:issueId/solutions/:solutionId', async (req, res, next) => {
+router.get("/:issueId/mySolution", requireToken, async (req, res, next) => {
   try {
-    const solution = await Solution.findByPk(req.params.solutionId);
+    const solution = await Solution.findOne({
+      where: {
+        userId: req.user.id,
+        issueId: req.params.issueId,
+      },
+    });
+    console.log(solution);
     res.json(solution);
   } catch (error) {
     next(error);
   }
 });
 
-//POST /api/issues/:issueId/solutions
+// PUT /api/issues.issueId/solutions
 router.post("/:issueId/solutions", requireToken, async (req, res, next) => {
   try {
-    const { explanation, code, issue } = req.body;
-    const solution = await Solution.create({
-      explanation,
-      code,
+    const solution = await Solution.findOne({
+      where: {
+        userId: req.user.id,
+        issueId: req.params.issueId,
+      },
     });
-    await solution.setUser(req.user);
-    await solution.setIssue(issue.id);
-    // await issue.addSolution(solution)
-    res.json(solution);
+    if (solution) {
+      const updatedSolution = await solution.update(req.body);
+      res.json(updatedSolution);
+    } else {
+      const newSolution = await Solution.create({
+        ...req.body, 
+        userId: req.user.id,
+        issueId: req.params.issueId
+      })
+      res.json(newSolution);
+    }
   } catch (error) {
     next(error);
   }

@@ -13,7 +13,7 @@ export const fetchSingleSolution = (issueId, solutionId) => {
       const response = await axios.get(
         `/api/issues/${issueId}/solutions/${solutionId}`
       );
-      const {solution} = response.data;
+      const solution = response.data;
       dispatch(setSingleSolution(solution));
     } catch (error) {
       console.log(error);

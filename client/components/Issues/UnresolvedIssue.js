@@ -29,16 +29,6 @@ const UnresolvedIssue = ({ match, getSingleIssue, singleIssue, getSingleSolution
     setCode(code);
   };
 
-  console.log(singleSolution.code);
-  // let explanationText = JSON.stringify(singleSolution.code)
-  // console.log(explanationText);
-  // console.log(singleSolution.code)
-
-  const test = 'hello world'
-
-  if (!singleSolution.code){
-    singleSolution.code = "test"
-  }
 
   return (
     <div>
