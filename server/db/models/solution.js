@@ -20,6 +20,10 @@ const Solution = db.define("solution", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
+  isStarred: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 module.exports = Solution;
