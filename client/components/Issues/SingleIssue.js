@@ -8,13 +8,35 @@ import axios from "axios";
 const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
   const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
+  // const [solution, setSolution] = useState("");
 
   useEffect(() => {
     const { issueId } = match.params;
+    const token = window.localStorage.getItem("token");
     getSingleIssue(issueId);
+    const getSolution = async () => {
+      const { data: solution } = await axios.get(`/api/issues/${issueId}/mySolution/`,
+      { headers: { authorization: token }})
+      if (solution){
+        // setSolution(solution)
+        setCode(solution.code)
+        setExplanation(solution.explanation)
+      }
+    }
+    getSolution();
   }, []);
 
   const handleSubmit = async () => {
+    const token = window.localStorage.getItem("token");
+    const { issueId } = match.params;
+    await axios.post(
+      `/api/issues/${issueId}/solutions`,
+      { code: code, explanation: explanation, issue: singleIssue, isSubmitted: true },
+      { headers: { authorization: token } }
+    );
+  };
+
+  const handleSave = async () => {
     const token = window.localStorage.getItem("token");
     const { issueId } = match.params;
     await axios.post(
@@ -24,6 +46,7 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
     );
   };
 
+
   const setSolutionCode = (code) => {
     setCode(code);
   };
@@ -31,58 +54,25 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
     <div>
       <h2>{singleIssue.title}</h2>
       <p>{singleIssue.description}</p>
-      <CodeEnvironment setSolutionCode={setSolutionCode} />
+      <CodeEnvironment value = {code} setSolutionCode={setSolutionCode} />
       <br />
       <h2>EXPLANATION SECTION</h2>
       <textarea
         onChange={(event) => setExplanation(event.target.value)}
         type="text"
+        value = {explanation}
         name="name"
       />
-      {/* <Link to={`${singleIssue.id}/edit`}>
-          <button type="button" className="edit-button">
-            Edit
-          </button>
-        </Link> */}
 
       <button onClick={handleSubmit} type="button">
         Submit Solution
       </button>
+      <button onClick = {handleSave} type="button">
+        Save Solution
+      </button>
     </div>
   );
 };
-
-// class SingleIssue extends React.Component {
-//   componentDidMount() {
-//     const { issueId } = this.props.match.params;
-//     this.props.getSingleIssue(issueId);
-//   }
-
-//   render() {
-//     console.log(this.props);
-//     const { singleIssue } = this.props;
-//     return (
-//       <div>
-//         <h2>{singleIssue.title}</h2>
-//         <p>{singleIssue.description}</p>
-//         <CodeEnvironment />
-//         <br />
-//         <h2>EXPLANATION SECTION</h2>
-//         <form>
-//           <label>
-//             <textarea type="text" name="name" />
-//           </label>
-//           <input type="submit" value="Submit" />
-//         </form>
-//         {/* <Link to={`${singleIssue.id}/edit`}>
-//           <button type="button" className="edit-button">
-//             Edit
-//           </button>
-//         </Link> */}
-//       </div>
-//     );
-//   }
-// }
 
 const mapState = (state) => {
   return {

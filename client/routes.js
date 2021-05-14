@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
+import { me } from './store';
 import Home from './components/Home';
 import AllIssues from './components/Issues/AllIssues';
 import SingleIssue from './components/Issues/SingleIssue';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import PostIssue from './components/Issues/PostIssue';
 import UnresolvedIssue from "./components/Issues/UnresolvedIssue";
-import { me } from './store';
 
 
 /**
