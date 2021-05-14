@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-const Solution = db.define('solution', {
+const Solution = db.define("solution", {
   explanation: {
     type: Sequelize.TEXT,
   },
@@ -13,6 +13,10 @@ const Solution = db.define('solution', {
     defaultValue: false,
   },
   isAccepted: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+  isRejected: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
