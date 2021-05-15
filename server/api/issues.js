@@ -55,6 +55,21 @@ router.get("/:issueId/solutions", async (req, res, next) => {
 });
 
 // GET api/issues/:issueId/solutions/:solutionId
+router.get(
+  "/:issueId/solutions/:solutionId",
+  requireToken,
+  async (req, res, next) => {
+    try {
+      const solution = await Solution.findByPk(req.params.solutionId);
+      console.log(solution);
+      res.json(solution);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// GET api/issues/:issueId/solutions/:solutionId
 router.get("/:issueId/mySolution", requireToken, async (req, res, next) => {
   try {
     const solution = await Solution.findOne({
@@ -63,7 +78,6 @@ router.get("/:issueId/mySolution", requireToken, async (req, res, next) => {
         issueId: req.params.issueId,
       },
     });
-    console.log(solution);
     res.json(solution);
   } catch (error) {
     next(error);
@@ -84,10 +98,10 @@ router.post("/:issueId/solutions", requireToken, async (req, res, next) => {
       res.json(updatedSolution);
     } else {
       const newSolution = await Solution.create({
-        ...req.body, 
+        ...req.body,
         userId: req.user.id,
-        issueId: req.params.issueId
-      })
+        issueId: req.params.issueId,
+      });
       res.json(newSolution);
     }
   } catch (error) {
