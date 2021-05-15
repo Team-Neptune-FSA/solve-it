@@ -8,7 +8,6 @@ import axios from "axios";
 const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
   const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
-  // const [solution, setSolution] = useState("");
 
   useEffect(() => {
     const { issueId } = match.params;
@@ -19,9 +18,7 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
         `/api/issues/${issueId}/mySolution/`,
         { headers: { authorization: token } }
       );
-      console.log("solution", solution);
       if (solution) {
-        // setSolution(solution)
         setCode(solution.code);
         setExplanation(solution.explanation);
       }
