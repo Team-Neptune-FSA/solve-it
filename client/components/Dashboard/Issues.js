@@ -21,25 +21,59 @@ const Issues = ({ user: { issuesAsked }, loadInitialData }) => {
     getUserIssues();
   }, []);
 
-  console.log(userIssues);
+  const handleAccept = async (solutionId) => {
+    console.log(solutionId);
+  };
+
+  const handleReject = async (solutionId) => {
+    console.log(solutionId);
+  };
+
+  const toggleStar = async (solutionId) => {
+    console.log(solutionId);
+  };
+
   return (
     <>
       <div className="stats-section">You have raised {issuesAsked} issues.</div>
       <div className="dashboard-info">
         {userIssues.map((issue) => (
-          <div key={issue.id}>
+          <div className="issue" key={issue.id}>
             <Link to={`/issues/${issue.id}`}>
               <h3>{issue.title}</h3>
             </Link>
-            <div>
-              {issue.solutions.map((solution) => (
-                <Link
-                  to={`/issues/${issue.id}/solutions/${solution.id}`}
-                  key={solution.id}
-                >
+            <p>{issue.description}</p>
+            <div className="box">
+              {issue.solutions.map((solution, idx) => (
+                <div className="issue-solution" key={solution.id}>
+                  <div className="flex">
+                    <Link to={`/issues/${issue.id}/solutions/${solution.id}`}>
+                      <h3>Solution #{idx + 1}</h3>
+                    </Link>
+                    <i
+                      onClick={() => toggleStar(solution.id)}
+                      className={
+                        solution.isStarred
+                          ? "fas fa-star blue"
+                          : "far fa-star blue"
+                      }
+                    ></i>
+                  </div>
                   {solution.code && <code>{solution.code}</code>}
                   {solution.explanation && <p>{solution.explanation}</p>}
-                </Link>
+                  <button
+                    onClick={() => handleAccept(solution.id)}
+                    className="btn blue-bg white"
+                  >
+                    Accept Solution
+                  </button>
+                  <button
+                    onClick={() => handleReject(solution.id)}
+                    className="btn black-bg white"
+                  >
+                    Reject Solution
+                  </button>
+                </div>
               ))}
             </div>
           </div>

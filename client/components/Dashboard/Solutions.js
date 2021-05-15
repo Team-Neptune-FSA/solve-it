@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -78,7 +77,7 @@ const Solutions = () => {
       </div>
       <div className="dashboard-info">
         {userSolutions.map((solution) => (
-          <div key={solution.id}>
+          <div className="solution box" key={solution.id}>
             <Link to={`/issues/${solution.issue.id}`}>
               <h3>{solution.issue.title}</h3>
             </Link>
@@ -90,10 +89,4 @@ const Solutions = () => {
   );
 };
 
-const mapState = (state) => {
-  return {
-    user: state.auth,
-  };
-};
-
-export default connect(mapState)(Solutions);
+export default Solutions;
