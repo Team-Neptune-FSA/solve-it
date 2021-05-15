@@ -15,14 +15,17 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
     const token = window.localStorage.getItem("token");
     getSingleIssue(issueId);
     const getSolution = async () => {
-      const { data: solution } = await axios.get(`/api/issues/${issueId}/mySolution/`,
-      { headers: { authorization: token }})
-      if (solution){
+      const { data: solution } = await axios.get(
+        `/api/issues/${issueId}/mySolution/`,
+        { headers: { authorization: token } }
+      );
+      console.log("solution", solution);
+      if (solution) {
         // setSolution(solution)
-        setCode(solution.code)
-        setExplanation(solution.explanation)
+        setCode(solution.code);
+        setExplanation(solution.explanation);
       }
-    }
+    };
     getSolution();
   }, []);
 
@@ -31,7 +34,12 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
     const { issueId } = match.params;
     await axios.post(
       `/api/issues/${issueId}/solutions`,
-      { code: code, explanation: explanation, issue: singleIssue, isSubmitted: true },
+      {
+        code: code,
+        explanation: explanation,
+        issue: singleIssue,
+        isSubmitted: true,
+      },
       { headers: { authorization: token } }
     );
   };
@@ -46,7 +54,6 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
     );
   };
 
-
   const setSolutionCode = (code) => {
     setCode(code);
   };
@@ -54,20 +61,20 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
     <div>
       <h2>{singleIssue.title}</h2>
       <p>{singleIssue.description}</p>
-      <CodeEnvironment value = {code} setSolutionCode={setSolutionCode} />
+      <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
       <br />
       <h2>EXPLANATION SECTION</h2>
       <textarea
         onChange={(event) => setExplanation(event.target.value)}
         type="text"
-        value = {explanation}
+        value={explanation}
         name="name"
       />
 
       <button onClick={handleSubmit} type="button">
         Submit Solution
       </button>
-      <button onClick = {handleSave} type="button">
+      <button onClick={handleSave} type="button">
         Save Solution
       </button>
     </div>

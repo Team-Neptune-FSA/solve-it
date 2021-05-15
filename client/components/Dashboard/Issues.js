@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { me } from "../../store";
 
@@ -23,17 +24,22 @@ const Issues = ({ user: { issuesAsked }, loadInitialData }) => {
   console.log(userIssues);
   return (
     <>
-      <div id="info-section">You have raised {issuesAsked} issues.</div>
-      <div>
+      <div className="stats-section">You have raised {issuesAsked} issues.</div>
+      <div className="dashboard-info">
         {userIssues.map((issue) => (
-          <div className="issues" key={issue.id}>
-            <h3>{issue.title}</h3>
-            <div className="solutions">
+          <div key={issue.id}>
+            <Link to={`/issues/${issue.id}`}>
+              <h3>{issue.title}</h3>
+            </Link>
+            <div>
               {issue.solutions.map((solution) => (
-                <div className="solution-preview" key={solution.id}>
+                <Link
+                  to={`/issues/${issue.id}/solutions/${solution.id}`}
+                  key={solution.id}
+                >
                   {solution.code && <code>{solution.code}</code>}
                   {solution.explanation && <p>{solution.explanation}</p>}
-                </div>
+                </Link>
               ))}
             </div>
           </div>
