@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const { db, User, Issue, Question, Solution, Stat } = require("../server/db");
+const { db, User, Issue, Question, Solution, Stat } = require('../server/db');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -8,63 +8,69 @@ const { db, User, Issue, Question, Solution, Stat } = require("../server/db");
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log("db synced!");
+  console.log('db synced!');
 
   // Creating Users
   const users = await Promise.all([
     User.create({
-      email: "jonathan@gmail.com",
-      password: "123",
-      name: "Jonathan",
+      email: 'jonathan@gmail.com',
+      password: '123',
+      name: 'Jonathan',
     }),
     User.create({
-      email: "altus@gmail.com",
-      password: "123",
-      name: "Altus",
+      email: 'altus@gmail.com',
+      password: '123',
+      name: 'Altus',
     }),
     User.create({
-      email: "nathan@gmail.com",
-      password: "123",
-      name: "Nathan",
+      email: 'nathan@gmail.com',
+      password: '123',
+      name: 'Nathan',
     }),
     User.create({
-      email: "matt@gmail.com",
-      password: "123",
-      name: "Matt",
+      email: 'matt@gmail.com',
+      password: '123',
+      name: 'Matt',
     }),
   ]);
 
   // Creating Stats
   const stats = await Promise.all([
     Stat.create(),
-    Stat.create(),
-    Stat.create(),
-    Stat.create(),
+    Stat.create({
+      totalEscrow: 500,
+    }),
+    Stat.create({
+      totalEscrow: 2500,
+    }),
+    Stat.create({
+      totalEscrow: 1000,
+    }),
   ]);
 
   // Creating Issues
   const issues = await Promise.all([
     Issue.create({
-      title: "Array of integers",
+      title: 'Array of integers',
       description: `Given an array of integers, return indices of the two numbers such that they add up to a specific target.`,
       price: 500,
-      language: "javascript",
+      language: 'javascript',
     }),
     Issue.create({
-      title: "Price of a given day",
+      title: 'Price of a given day',
       description: `Say you have an array for which the ith element is the price of a given stock on day i.
 
         If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
 
         Note that you cannot sell a stock before you buy one.`,
       price: 2500,
-      language: "javascript",
+      language: 'javascript',
     }),
     Issue.create({
-      title: "Dimensions of a grid",
+      title: 'Dimensions of a grid',
       description: `You are given the dimensions of a grid, m and n. Starting from the top left, or (0,0), you want to end up making your way to the bottom right corner. The only two moves you can make are to go one space directly to your right, or one space directly down. Write a function that can help you determine how many unique paths you can take between these two corners.`,
       price: 1000,
-      language: "javascript",
+      language: 'javascript',
     }),
   ]);
 
@@ -106,7 +112,6 @@ async function seed() {
     };
     maxProfit([7,1,5,3,6,4]) //5
     maxProfit([7,6,4,3,1]) //0`,
-      isRejected: true,
       isSubmitted: true,
     }),
     Solution.create({
@@ -154,8 +159,8 @@ async function seed() {
   // Creating Questions
   const questions = await Promise.all([
     Question.create({
-      questionContent: "Hey, this problem is written incorrectly.",
-      answer: "Hey I fixed it.",
+      questionContent: 'Hey, this problem is written incorrectly.',
+      answer: 'Hey I fixed it.',
     }),
     Question.create({
       questionContent: "Hi, you're missing a piece of code.",
@@ -201,16 +206,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log("seeding...");
+  console.log('seeding...');
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log("closing db connection");
+    console.log('closing db connection');
     await db.close();
-    console.log("db connection closed");
+    console.log('db connection closed');
   }
 }
 

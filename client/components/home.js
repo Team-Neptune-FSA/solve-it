@@ -18,8 +18,8 @@ export const Home = (props) => {
             placeholder="Search.."
           ></input>
           <form method="get" action="/issues">
-            <button type="submit">Search Issues</button>
-            <button type="submit">Search Solutions</button>
+            <button className="issueButton" type="submit">Search Issues</button>
+            <button className="submitButton" type="submit">Search Solutions</button>
           </form>
         </div>
       </div>
@@ -36,7 +36,7 @@ export const Home = (props) => {
       <div className="submitIssues">
         <form className="browseIssues" method="get" action="/issues/post">
           <h1>Need help with a problem?</h1>
-          <button className="submitButton" type="submit">
+          <button className="submitNewIssueButton" type="submit">
             Submit a new issue
           </button>
         </form>
