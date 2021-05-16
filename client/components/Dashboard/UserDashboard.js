@@ -22,7 +22,9 @@ const UserDashboard = ({ user: { name } }) => {
       >
         Issues
       </button>
-      {view === "solutions" ? <Solutions /> : <Issues />}
+      <div className="dashboard">
+        {view === "solutions" ? <Solutions /> : <Issues />}
+      </div>
     </>
   );
 };
