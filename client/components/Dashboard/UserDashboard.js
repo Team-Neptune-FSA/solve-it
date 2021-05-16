@@ -9,7 +9,7 @@ const UserDashboard = ({ user: { name } }) => {
     <>
       <div className="component" id="title-section">
         <h1>Hello {name}</h1>
-      </div>
+      {/* </div> */}
       <button
         className={view === "solutions" ? "active" : ""}
         onClick={() => setView("solutions")}
@@ -23,6 +23,7 @@ const UserDashboard = ({ user: { name } }) => {
         Issues
       </button>
       {view === "solutions" ? <Solutions /> : <Issues />}
+    </div>
     </>
   );
 };
