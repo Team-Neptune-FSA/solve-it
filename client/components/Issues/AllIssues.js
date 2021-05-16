@@ -9,12 +9,12 @@ class AllIssues extends React.Component {
   }
 
   render() {
-    const { issues } = this.props;
-    return (
-      <div>
+    const {issues} = this.props; return (
+      <div className="component">
         <Link to="/issues/post" className="button">
-          Post an Issue
+          <h1>Post an Issue</h1>
         </Link>
+        <br />
         <h1>All Issues</h1>
         {issues.length ? (
           issues
@@ -32,7 +32,7 @@ class AllIssues extends React.Component {
           <h2 className="none-in-database">There are no issues, sorry.</h2>
         )}
       </div>
-    );
+      );
   }
 }
 
