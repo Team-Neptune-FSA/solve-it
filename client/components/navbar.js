@@ -1,31 +1,50 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { logout } from '../store';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+// import styled from "styled-components";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div>
-    <h1>Welcome to Solve-It!</h1>
+  <div className="topHeader">
+  <div className="header">
+    <h1 className="title">Solve.It</h1>
     <nav>
       {isLoggedIn ? (
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="/issues">Issues</Link>
-          <Link to="/dashboard">User Dashboard</Link>
-          <a href="/" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
+        <ul className="nav-links">
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/issues">Issues</a>
+          </li>
+          <li>
+            <a href="/dashboard">Dashboard</a>
+          </li>
+          <li>
+            <a href="/" onClick={handleClick}>
+              {" "}
+              Logout{" "}
+            </a>
+          </li>
+        </ul>
       ) : (
-        <div>
-          <Link to="/">Home</Link>
-          <Link to="/issues">Issues</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
+        <ul className="nav-links">
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="Issues">Issues</a>
+          </li>
+          <li>
+            <a href="Login">Login</a>
+          </li>
+          <li>
+            <a href="Signup">Signup</a>
+          </li>
+        </ul>
       )}
     </nav>
-    <hr />
+  </div>
   </div>
 );
 

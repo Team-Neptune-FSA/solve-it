@@ -7,7 +7,7 @@ const UserDashboard = ({ user: { name } }) => {
   const [view, setView] = useState("solutions");
   return (
     <>
-      <div id="title-section">
+      <div className="component" id="title-section">
         <h1>Hello {name}</h1>
       </div>
       <button

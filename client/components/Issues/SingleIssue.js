@@ -55,7 +55,7 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
     setCode(code);
   };
   return (
-    <div>
+    <div className="component">
       <h2>{singleIssue.title}</h2>
       <p>{singleIssue.description}</p>
       <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
