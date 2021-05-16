@@ -58,7 +58,7 @@ router.post('/', requireToken, async (req, res, next) => {
       },
     });
     issue.setUser(req.user);
-    stats.totalEscrow += price;
+    stats.totalEscrow += Number(price);
     await stats.save();
     res.json(issue);
   } catch (error) {

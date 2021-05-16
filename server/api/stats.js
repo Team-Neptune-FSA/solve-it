@@ -25,9 +25,10 @@ router.put('/', async (req, res, next) => {
           userId: req.body.solution.userId,
         },
       });
-      issueOwner.totalEscrow -= req.body.issue.price;
-      issueOwner.totalPaid += req.body.issue.price;
-      problemSolver.totalEarned += req.body.issue.price;
+      issueOwner.totalEscrow -= Number(req.body.issue.price);
+      issueOwner.totalPaid += Number(req.body.issue.price);
+      problemSolver.totalEarned += Number(req.body.issue.price);
+      console.log(typeof issueOwner.totalEscrow);
       await issueOwner.save();
       await problemSolver.save();
       console.log('hi from stats');
