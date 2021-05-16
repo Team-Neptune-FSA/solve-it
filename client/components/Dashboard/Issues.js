@@ -63,10 +63,7 @@ const Issues = ({ user: { issuesAsked }, loadInitialData }) => {
                   {solution.explanation && <p>{solution.explanation}</p>}
                   <button
                     onClick={() => handleAccept(solution.id)}
-                    className="btn blue-bg white"
-                  >
-                    Accept Solution
-                  </button>
+                    className="btn blue-bg white">Accept Solution</button>
                   <button
                     onClick={() => handleReject(solution.id)}
                     className="btn black-bg white"
