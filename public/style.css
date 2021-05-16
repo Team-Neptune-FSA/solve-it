@@ -7,7 +7,7 @@ body {
   font-weight: bold;
   color: gray;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 20px;
 }
 h1.title {
   color: gray;
@@ -15,7 +15,7 @@ h1.title {
 }
 
 h1 {
-  font-size: 50px;
+  font-size: 30px;
   margin: 0;
 }
 
@@ -59,9 +59,10 @@ ul.nav-links {
   color: #00a4c7;
 }
 
-a {
+a p {
   text-decoration: none;
   color: inherit;
+  margin: 1px;
 }
 
 label {
@@ -134,17 +135,44 @@ h4 {
   justify-content: space-between;
 }
 
-.searchTitle,
-input.searchbar,
-button {
+
+div.issue {
+  margin: 20px;
+}
+
+div#title-section.dashboardDivRight.component {
+  float: right;
+  width: 75%;
+  margin-top: 100px;
+}
+
+div#title-section.dashboardDivLeft.component {
+  float: right;
+  width: 25%;
+  margin-top: 100px;
+}
+
+.userStats {
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+div.postIssue, div.search {
+  float: right;
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.searchTitle, input.searchbar, button {
   margin: 10px;
 }
 
-button.browseButton,
-button {
-  background-color: #00a4c7;
+button.browseButton {
+  background-color: #00A4C7;
   border-radius: 10px;
-  width: 450px;
+  width: 300px;
   height: 80px;
   color: white;
   font-size: 30px;
@@ -153,17 +181,45 @@ button {
 }
 
 button.submitButton {
-  background-color: white;
-  color: black;
+  background-color: #00A4C7;
+  color: white;
   border-radius: 10px;
-  width: 450px;
+  width: 300px;
   height: 80px;
   font-size: 30px;
   border-color: none;
 }
 
+button.issueButton {
+  background-color: #00A4C7;
+  color: white;
+  border-radius: 10px;
+  width: 300px;
+  height: 80px;
+  font-size: 30px;
+  border-color: none;
+}
+
+button.submitNewIssueButton {
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  width: 350px;
+  height: 80px;
+  font-size: 30px;
+  border-color: none;
+}
+
+button {
+  background-color: #00A4C7;
+  color: white;
+  border-radius: 5px;
+  border-color: transparent;
+  box-shadow: 5px 5px 5px #9e9e9e;
+}
+
 .searchbar {
-  width: 910px;
+  width: 610px;
   height: 50px;
   font-size: 20px;
   border-radius: 10px;
@@ -226,5 +282,25 @@ div.slider {
 }
 
 .component {
-  margin-top: 150px;
+  margin-top: 100px;
+}
+
+div.single-issue {
+  width: 450px;
+  height: 450px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px;
+  overflow-wrap: break-word;
+  display: inline-table;
+  justify-content: center;
+  align-items: center;
+}
+
+div.insideAllIssues {
+  margin: 20px;
+}
+
+.issueTitle{
+  color: black;
 }

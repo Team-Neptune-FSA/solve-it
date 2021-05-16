@@ -27,6 +27,7 @@ const PostIssue = () => {
   console.log(title);
   return (
     <div className="component">
+      <h1>Post an Issue</h1>
       <form onSubmit={handleSubmit}>
         <label>Title: </label>
         <input
