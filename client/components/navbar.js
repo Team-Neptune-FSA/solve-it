@@ -25,6 +25,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               {" "}
               Logout{" "}
             </a>
+          {/* <hr className="line"/> */}
           </li>
         </ul>
       ) : (

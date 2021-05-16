@@ -9,30 +9,53 @@ class AllIssues extends React.Component {
   }
 
   render() {
-    const {issues} = this.props; return (
+    const { issues } = this.props;
+    return (
       <div className="component">
-        <Link to="/issues/post" className="button">
-          <h1>Post an Issue</h1>
-        </Link>
+        <div className="search">
+          <input
+            className="searchbar"
+            type="text"
+            placeholder="Search.."
+          ></input>
+        </div>
+
+        <div className="postIssue">
+          <form method="get" action="/issues/post">
+            <button className="btn blue-bg white" type="submit">
+              Post an Issue
+            </button>
+          </form>
+        </div>
+
         <br />
-        <h1>All Issues</h1>
-        {issues.length ? (
-          issues
-            .map((issue) => (
-              <div key={issue.id} className="single-issue">
-                <Link to={`/issues/${issue.id}`}>
-                  <h2>{issue.title}</h2>
-                  <p>{issue.description}</p>
-                </Link>
-                <hr />
-              </div>
-            ))
-            .reverse()
-        ) : (
-          <h2 className="none-in-database">There are no issues, sorry.</h2>
-        )}
+
+        <div className="allIssues">
+          <h1>All Issues</h1>
+          {issues.length ? (
+            issues
+              .map((issue) => (
+                <div key={issue.id} className="single-issue">
+                  <div className="insideAllIssues">
+                    <h2 className="issueTitle">{issue.title}</h2>
+                    <p>{issue.description}</p>
+
+                    <form method="get" action={`/issues/${issue.id}`}>
+                      <button className="btn blue-bg white" type="submit">
+                        Solution
+                      </button>
+                    </form>
+                    
+                  </div>
+                </div>
+              ))
+              .reverse()
+          ) : (
+            <h2 className="none-in-database">There are no issues, sorry.</h2>
+          )}
+        </div>
       </div>
-      );
+    );
   }
 }
 

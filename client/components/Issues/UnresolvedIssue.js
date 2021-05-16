@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { fetchSingleIssue } from "../../store/singleIssue";
 import CodeEnvironment from "../CodeEnvironment";
 import axios from "axios";
-import {fetchSingleSolution} from "../../store/singleSolution";
+import { fetchSingleSolution } from "../../store/singleSolution";
 
-const UnresolvedIssue = ({ match, getSingleIssue, singleIssue, getSingleSolution, singleSolution }) => {
-  const [code, setCode] = useState(""); 
+const UnresolvedIssue = ({ match, getSingleIssue, singleIssue }) => {
+  const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
 
   useEffect(() => {
+    const token = window.localStorage.getItem("token");
     const { issueId, solutionId } = match.params;
     const solutionCode = async () => {
+      console.log("getting solution code");
       const response = await axios.get(
-        `/api/issues/${issueId}/solutions/${solutionId}`
-        );
-        const solution = response.data;
-        setCode(solution.code)
-        setExplanation(solution.explanation)
-    }
+        `/api/issues/${issueId}/solutions/${solutionId}`,
+        { headers: { authorization: token } }
+      );
+      const solution = response.data;
+      console.log("solution ", solution);
+      setCode(solution.code);
+      setExplanation(solution.explanation);
+    };
     solutionCode();
-    // getSingleSolution(issueId, solutionId);
     getSingleIssue(issueId);
   }, []);
 
@@ -29,13 +31,12 @@ const UnresolvedIssue = ({ match, getSingleIssue, singleIssue, getSingleSolution
     setCode(code);
   };
 
-
   return (
     <div>
       <h2>{singleIssue.title}</h2>
       <p>{singleIssue.description}</p>
       <button>ACCEPT</button>
-      <h1 style={{color:"green"}}>ISSUE RESOLVED</h1>
+      <h1 style={{ color: "green" }}>ISSUE RESOLVED</h1>
       <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
       <br />
       <h2>EXPLANATION SECTION</h2>
@@ -43,7 +44,6 @@ const UnresolvedIssue = ({ match, getSingleIssue, singleIssue, getSingleSolution
     </div>
   );
 };
-
 
 const mapState = (state) => {
   return {
@@ -55,7 +55,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getSingleIssue: (issueId) => dispatch(fetchSingleIssue(issueId)),
-    getSingleSolution : (issueId, solutionId) => dispatch(fetchSingleSolution(issueId, solutionId)),
+    getSingleSolution: (issueId, solutionId) =>
+      dispatch(fetchSingleSolution(issueId, solutionId)),
   };
 };
 

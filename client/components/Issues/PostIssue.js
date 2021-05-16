@@ -2,25 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import history from "../../history";
 
-// REACT MDE
-// import ReactMde from "react-mde";
-// import * as Showdown from "showdown";
-// import "react-mde/lib/styles/css/react-mde-all.css";
-
-// const converter = new Showdown.Converter({
-//   tables: true,
-//   simplifiedAutoLink: true,
-//   strikethrough: true,
-//   tasklists: true,
-// });
-
 const PostIssue = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  // React MDE
-  // const [value, setValue] = React.useState("**Hello world!!!**");
-  // const [selectedTab, setSelectedTab] = React.useState("write");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +23,7 @@ const PostIssue = () => {
   console.log(title);
   return (
     <div className="component">
+      <h1>Post an Issue</h1>
       <form onSubmit={handleSubmit}>
         <label>Title: </label>
         <input
@@ -49,20 +34,6 @@ const PostIssue = () => {
           placeholder="e.g. Please help me solve this algorithm"
         />
         <label>Description: </label>
-        {/* <ReactMde
-          value={value}
-          onChange={setValue}
-          selectedTab={selectedTab}
-          onTabChange={setSelectedTab}
-          generateMarkdownPreview={(markdown) =>
-            Promise.resolve(converter.makeHtml(markdown))
-          }
-          childProps={{
-            writeButton: {
-              tabIndex: -1,
-            },
-          }}
-        /> */}
         <textarea
           id="issue-md"
           type="text"
