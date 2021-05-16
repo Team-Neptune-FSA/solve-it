@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const percentRank = (arr, v) => {
-  if (typeof v !== "number") throw new TypeError("v must be a number");
+  if (typeof v !== 'number') throw new TypeError('v must be a number');
   if (v === 0) {
     return 0;
   } else {
@@ -28,9 +28,9 @@ const Solutions = () => {
   const [userSolutions, setUserSolutions] = useState([]);
 
   useEffect(() => {
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     const getStats = async () => {
-      const { data: singleUserStats } = await axios.get("/api/users/stats", {
+      const { data: singleUserStats } = await axios.get('/api/users/stats', {
         headers: {
           authorization: token,
         },
@@ -39,12 +39,11 @@ const Solutions = () => {
       setsingleUserAccepted(singleUserStats[0].solutionsAccepted);
 
       const getUserSolutions = async () => {
-        const { data: solutions } = await axios.get("/api/users/solutions", {
+        const { data: solutions } = await axios.get('/api/users/solutions', {
           headers: {
             authorization: token,
           },
         });
-        console.log(solutions);
         setUserSolutions(solutions);
       };
       getUserSolutions();
@@ -54,7 +53,7 @@ const Solutions = () => {
   }, []);
 
   const calculateRank = async () => {
-    const { data: allStats } = await axios.get("/api/stats");
+    const { data: allStats } = await axios.get('/api/stats');
     if (allStats.length) {
       let allSolutionsAttempted = [];
       for (let i = 0; i < allStats.length; i++) {
@@ -67,9 +66,9 @@ const Solutions = () => {
   return (
     <>
       <div className="stats-section">
-        You have solved {singleUserAttempted} problems. You have had{" "}
+        You have solved {singleUserAttempted} problems. You have had{' '}
         {singleUserAccepted} solution(s) accepted. You have answered more
-        questions than{" "}
+        questions than{' '}
         {(
           percentRank(solutionsAttemptedArr, singleUserAttempted) * 100
         ).toFixed(2)}

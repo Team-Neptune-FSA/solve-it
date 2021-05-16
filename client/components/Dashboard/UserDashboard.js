@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import Solutions from "./Solutions";
-import Issues from "./Issues";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import Solutions from './Solutions';
+import Issues from './Issues';
+import Payment from './Payment';
 
 const UserDashboard = ({ user: { name } }) => {
-  const [view, setView] = useState("solutions");
+  const [view, setView] = useState('solutions');
   return (
     <>
       <div>
@@ -23,8 +24,15 @@ const UserDashboard = ({ user: { name } }) => {
           >
             Issues
           </button>
-          {view === "solutions" ? <Solutions /> : <Issues />}
-        </div>
+          <button
+        className={view === 'payment' ? 'active' : ''}
+        onClick={() => setView('payment')}
+      >
+        Payment
+      </button>
+        {view === 'solutions' && <Solutions />}
+        {view === 'issues' && <Issues />}
+        {view === 'payment' && <Payment />}
 
         <div className="dashboardDivLeft component" id="title-section">
         <div className="userStats">
@@ -42,7 +50,6 @@ const UserDashboard = ({ user: { name } }) => {
             </form>
           </div>
         </div>
-
       </div>
     </>
   );
