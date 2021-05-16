@@ -25,6 +25,14 @@ router.get('/:issueId', async (req, res, next) => {
   }
 });
 
+
+//PUT /api/issues/:issueId
+// router.put("/:issueId", requireToken, async (req, res, next) => {
+//   try {
+//     const issue = await Issue.findByPk(req.params.issueId);
+//     const updatedIssue = await issue.update(req.body);
+//     res.json(updatedIssue);
+// =======
 // PUT /api/issues/:issueId
 router.put('/:issueId', requireToken, async (req, res, next) => {
   try {

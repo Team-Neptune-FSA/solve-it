@@ -1,18 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchSingleIssue } from "../../store/singleIssue";
 import CodeEnvironment from "../CodeEnvironment";
 import axios from "axios";
 
-const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
+const SingleIssue = ({ match, auth }) => {
   const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
+  const [titleView, setTitleView] = useState("edit");
+  const [descriptionView, setDescriptionView] = useState("edit");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [singleIssue, setSingleIssue] = useState({});
+
+  const setSolutionCode = (code) => {
+    setCode(code);
+  };
 
   useEffect(() => {
     const { issueId } = match.params;
     const token = window.localStorage.getItem("token");
-    getSingleIssue(issueId);
+    const getSingleIssue = async () => {
+      const { data: singleIssue } = await axios.get(`/api/issues/${issueId}`);
+      setSingleIssue(singleIssue);
+      setTitle(singleIssue.title);
+      setDescription(singleIssue.description);
+    };
+    getSingleIssue();
     const getSolution = async () => {
       const { data: solution } = await axios.get(
         `/api/issues/${issueId}/mySolution/`,
@@ -51,43 +64,118 @@ const SingleIssue = ({ match, getSingleIssue, singleIssue }) => {
     );
   };
 
-  const setSolutionCode = (code) => {
-    setCode(code);
+  const handleEdit = async (event) => {
+    const token = window.localStorage.getItem("token");
+    event.preventDefault();
+    await axios.put(
+      `/api/issues/${singleIssue.id}`,
+      { title, description },
+      { headers: { authorization: token } }
+    );
   };
-  return (
-    <div className="component">
-      <h2>{singleIssue.title}</h2>
-      <p>{singleIssue.description}</p>
-      <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
-      <br />
-      <h2>EXPLANATION SECTION</h2>
-      <textarea
-        onChange={(event) => setExplanation(event.target.value)}
-        type="text"
-        value={explanation}
-        name="name"
-      />
 
-      <button onClick={handleSubmit} type="button">
-        Submit Solution
-      </button>
-      <button onClick={handleSave} type="button">
-        Save Solution
-      </button>
-    </div>
+  return (
+    <>
+      {singleIssue.userId === auth.id ? (
+        <div className="component">
+          <div>
+            {titleView === "edit" ? (
+              <div>
+                <h2>{title}</h2>
+                <button onClick={() => setTitleView("submit")}>edit</button>
+              </div>
+            ) : (
+              <div>
+                <label>
+                  <input
+                    value={title}
+                    onChange={(event) => setTitle(event.target.value)}
+                  />
+                </label>
+                <button
+                  type="submit"
+                  onClick={(event) => {
+                    handleEdit(event);
+                    setTitleView("edit");
+                  }}
+                >
+                  submit changes
+                </button>
+              </div>
+            )}
+            {descriptionView === "edit" ? (
+              <div>
+                <h2>{description}</h2>
+                <button onClick={() => setDescriptionView("submit")}>
+                  edit
+                </button>
+              </div>
+            ) : (
+              <div>
+                <label>
+                  <input
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                  />
+                </label>
+                <button
+                  type="submit"
+                  onClick={(event) => {
+                    handleEdit(event);
+                    setDescriptionView("edit");
+                  }}
+                >
+                  submit changes
+                </button>
+              </div>
+            )}
+          </div>
+          <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
+          <br />
+          <h2>EXPLANATION SECTION</h2>
+          <textarea
+            onChange={(event) => setExplanation(event.target.value)}
+            type="text"
+            value={explanation}
+            name="name"
+          />
+          <button onClick={handleSubmit} type="button">
+            Submit Solution
+          </button>
+          <button onClick={handleSave} type="button">
+            Save Solution
+          </button>
+        </div>
+      ) : (
+        <div className="component">
+          <h2>{singleIssue.title}</h2>
+          <p>{singleIssue.description}</p>
+          <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
+          <br />
+          <h2>EXPLANATION SECTION</h2>
+          <textarea
+            onChange={(event) => setExplanation(event.target.value)}
+            type="text"
+            value={explanation}
+            name="name"
+          />
+
+          <button onClick={handleSubmit} type="button">
+            Submit Solution
+          </button>
+          <button onClick={handleSave} type="button">
+            Save Solution
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 
 const mapState = (state) => {
   return {
-    singleIssue: state.singleIssue,
+    auth: state.auth,
   };
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    getSingleIssue: (issueId) => dispatch(fetchSingleIssue(issueId)),
-  };
-};
-
-export default connect(mapState, mapDispatch)(SingleIssue);
+export default connect(mapState, null)(SingleIssue);
