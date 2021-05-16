@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
+const Sequelize = require('sequelize');
+const db = require('../db');
 
-const Stat = db.define("stat", {
+const Stat = db.define('stat', {
   solutionsAttempted: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
@@ -13,14 +13,23 @@ const Stat = db.define("stat", {
   totalPaid: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
+    validate: {
+      min: 0,
+    },
   },
   totalEarned: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
+    validate: {
+      min: 0,
+    },
   },
   totalEscrow: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
+    validate: {
+      min: 0,
+    },
   },
 });
 
