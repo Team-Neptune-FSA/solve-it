@@ -23,6 +23,17 @@ router.get("/:issueId", async (req, res, next) => {
   }
 });
 
+//PUT /api/issues/:issueId
+router.put("/:issueId", requireToken, async (req, res, next) => {
+  try {
+    const issue = await Issue.findByPk(req.params.issueId);
+    const updatedIssue = await issue.update(req.body);
+    res.json(updatedIssue);
+  } catch (error) {
+    next(error);
+  }
+});
+
 //POST /api/issues
 router.post("/", requireToken, async (req, res, next) => {
   try {
@@ -84,7 +95,7 @@ router.get("/:issueId/mySolution", requireToken, async (req, res, next) => {
   }
 });
 
-// PUT /api/issues.issueId/solutions
+// POST /api/issues.issueId/solutions
 router.post("/:issueId/solutions", requireToken, async (req, res, next) => {
   try {
     const solution = await Solution.findOne({
