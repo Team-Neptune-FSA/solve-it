@@ -50,7 +50,6 @@ const UserDashboard = ({ user: { name } }) => {
             </form>
           </div>
         </div>
-      </div>
     </>
   );
 };
