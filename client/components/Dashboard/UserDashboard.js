@@ -9,7 +9,6 @@ const UserDashboard = ({ user: { name } }) => {
   return (
     <>
       <div>
-
         <div className="dashboardDivRight component" id="title-section">
           <h1>Hello {name}</h1>
           {/* </div> */}
@@ -34,9 +33,9 @@ const UserDashboard = ({ user: { name } }) => {
           {view === "solutions" && <Solutions />}
           {view === "issues" && <Issues />}
           {view === "payment" && <Payment />}
-          </div>
+        </div>
 
-          {/* <div className="dashboardDivLeft component" id="title-section">
+        {/* <div className="dashboardDivLeft component" id="title-section">
             <h1>What are you looking for?</h1>
             <div>
               <form method="get" action="/issues/post">
@@ -46,8 +45,7 @@ const UserDashboard = ({ user: { name } }) => {
               </form>
             </div>
           </div> */}
-
-        </div>
+      </div>
     </>
   );
 };
