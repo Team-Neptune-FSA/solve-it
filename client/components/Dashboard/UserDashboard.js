@@ -36,13 +36,7 @@ const UserDashboard = ({ user: { name } }) => {
           {view === "payment" && <Payment />}
           </div>
 
-          <div className="dashboardDivLeft component" id="title-section">
-            <div className="userStats">
-              <h1>You have solved X problems!</h1>
-              <h1>You have X Accepted Solutions</h1>
-              <h1>You have helped more than % of users!</h1>
-            </div>
-
+          {/* <div className="dashboardDivLeft component" id="title-section">
             <h1>What are you looking for?</h1>
             <div>
               <form method="get" action="/issues/post">
@@ -51,7 +45,8 @@ const UserDashboard = ({ user: { name } }) => {
                 </button>
               </form>
             </div>
-          </div>
+          </div> */}
+
         </div>
     </>
   );

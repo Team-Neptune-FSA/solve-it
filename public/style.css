@@ -140,21 +140,20 @@ div.issue {
   margin: 20px;
 }
 
-div#title-section.dashboardDivRight.component {
+/* div#title-section.dashboardDivRight.component {
   float: right;
   width: 75%;
   margin-top: 100px;
-  /* margin: 1px; */
 }
 
 div#title-section.dashboardDivLeft.component {
   float: right;
   width: 25%;
   margin-top: 100px;
-}
+} */
 
-.userStats {
-  border: 1px solid black;
+.dashboard-solution-left{
+  border: 1px solid gray;
   border-radius: 10px;
   font-size: 15px;
 }
@@ -163,6 +162,15 @@ div.postIssue, div.search {
   float: right;
   width: 50%;
   margin-bottom: 10px;
+}
+
+.insideStats {
+  margin: 10px;
+}
+
+span {
+  color: #00A4C7;
+  font-size: 30px;
 }
 
 /* Buttons */
@@ -284,6 +292,8 @@ div.slider {
 
 .component {
   margin-top: 100px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 div.single-issue {
