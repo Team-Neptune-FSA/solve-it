@@ -7,44 +7,44 @@ import { authenticate, authenticateSignup } from "../store";
  */
 const AuthForm = (props) => {
   const { name, displayName, handleLogin, handleSignup, error } = props;
-    return (
-      <div className="component">
-    <div id="login-window">
-      <form
-        onSubmit={name === "login" ? handleLogin : handleSignup}
-        name={name}
-        id="login-form"
-      >
-        {error && error.response && <p> {error.response.data} </p>}
-        <div className="input-div">
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" className="login-input" />
-        </div>
-        {name === "signup" ? (
+  return (
+    <div className="component">
+      <div id="login-window">
+        <form
+          onSubmit={name === "login" ? handleLogin : handleSignup}
+          name={name}
+          id="login-form"
+        >
+          {error && error.response && <p> {error.response.data} </p>}
           <div className="input-div">
-            <label htmlFor="name">
-              <small>Name</small>
+            <label htmlFor="email">
+              <small>Email</small>
             </label>
-            <input name="name" type="text" className="login-input" />
+            <input name="email" type="text" className="login-input" />
           </div>
-        ) : (
-          ""
-        )}
-        <div className="input-div">
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" className="login-input" />
-        </div>
-        <button type="submit" id="form-submit">
-          {displayName}
-        </button>
-      </form>
-  </div>;
+          {name === "signup" ? (
+            <div className="input-div">
+              <label htmlFor="name">
+                <small>Name</small>
+              </label>
+              <input name="name" type="text" className="login-input" />
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="input-div">
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" className="login-input" />
+          </div>
+          <button type="submit" id="form-submit">
+            {displayName}
+          </button>
+        </form>
+      </div>
     </div>
-    );
+  );
 };
 
 /**

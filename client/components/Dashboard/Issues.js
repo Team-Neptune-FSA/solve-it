@@ -104,10 +104,12 @@ const Issues = ({ loadInitialData }) => {
   return (
     <>
       <div className="dashboard-info">
-        <select onChange={filterIssues}>
+        <div className="custom-select">
+        <select className="filterOptions" onChange={filterIssues}>
           <option value="Unresolved">Unresolved</option>
           <option value="Resolved">Resolved</option>
         </select>
+        </div>
         {current.map((issue) => (
           <div className="issue" key={issue.id}>
             <Link to={`/issues/${issue.id}`}>

@@ -170,7 +170,7 @@ div.postIssue, div.search {
 
 span {
   color: #00A4C7;
-  font-size: 30px;
+  /* font-size: 30px; */
 }
 
 /* Buttons */
@@ -314,4 +314,44 @@ div.insideAllIssues {
 
 .issueTitle{
   color: black;
+}
+
+
+.stats-section, .issueStats {
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+.insideIssueStats, .insideStats {
+  margin: 10px;
+}
+
+.filterOptions {
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+.custom-select {
+  border-radius: 5px;
+}
+
+form#login-form {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  margin-top: 200px;
+}
+
+div.post-issue {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  margin-top: 150px;
+  /* padding: 10px; */
+}
+
+.all-issues-title{
+  margin-left: 15px;
 }

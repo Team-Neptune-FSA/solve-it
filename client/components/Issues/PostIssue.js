@@ -26,7 +26,7 @@ const PostIssue = () => {
 
   console.log(title);
   return (
-    <div className="component">
+    <div className="component post-issue">
       <h1>Post an Issue</h1>
       <form onSubmit={handleSubmit}>
         <label>Title: </label>
@@ -35,7 +35,7 @@ const PostIssue = () => {
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="e.g. Please help me solve this algorithm"
+          // placeholder="Title..."
         />
         <label>Description: </label>
         <textarea
@@ -61,8 +61,8 @@ const PostIssue = () => {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />
-        <button type="submit">Submit</button>
       </form>
+        <button type="submit">Submit</button>
     </div>
   );
 };
