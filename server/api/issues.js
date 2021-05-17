@@ -205,7 +205,7 @@ router.get('/solutions/accepted', requireToken, async(req, res, next) => { //fin
 
 
 // if issue is accepted, the payment is paid out(negative price for the issue poster)
-// if issue if unresolved, the payment is pending in escrow.
+// if issue is unresolved, the payment is pending in escrow.
 // if solution is accepted, price is recieved. 
 
 module.exports = router;

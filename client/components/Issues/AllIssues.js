@@ -31,7 +31,7 @@ class AllIssues extends React.Component {
         <br />
 
         <div className="allIssues">
-          <h1>All Issues</h1>
+          <h1 className="all-issues-title">All Issues</h1>
           {issues.length ? (
             issues
               .map((issue) => (

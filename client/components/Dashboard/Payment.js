@@ -36,47 +36,62 @@ const Payment = () => {
 
   return (
     <>
+      <br />
+      <br />
+
+      <h1>Overall Balance</h1>
+
       <div className="stats-section">
-        Escrow: ${(stats.totalEscrow / 100).toFixed(2)}
-        <br />
-        Paid: ${(stats.totalPaid / 100).toFixed(2)}
-        <br />
-        Earned: ${(stats.totalEarned / 100).toFixed(2)}
-        <br />
+        <div className="insideStats">
+          Escrow: ${(stats.totalEscrow / 100).toFixed(2)}
+          <br />
+          Paid: ${(stats.totalPaid / 100).toFixed(2)}
+          <br />
+          Earned: ${(stats.totalEarned / 100).toFixed(2)}
+          <br />
+        </div>
       </div>
 
-      <hr />
-      {transactions.length ? (
-        <div>
-          {transactions.map((transaction) => {
-            return (
-              <div key={transaction.id}>
-                {/* <br/> */}
-                <h2>{transaction.title || transaction.issue.title}</h2>
-                <h3>
-                  {dateformat(transaction.createdAt, "mmmm dS, yyyy")}
-                </h3>{" "}
-                {/* Udpate this */}
-                <h3>
-                  $
-                  {(
-                    transaction.price / 100 || transaction.issue.price / 100
-                  ).toFixed(2)}
-                </h3>
-                <h3>
-                  {transaction.isResolved === true
-                    ? "Paid"
-                    : transaction.isResolved === false
-                    ? "Pending"
-                    : "Recieved"}
-                </h3>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <h3>No Current Tranactions!</h3>
-      )}
+      <br />
+      <br />
+
+      <h1>Individual Issue</h1>
+
+      <div className="issueStats">
+        {transactions.length ? (
+          <div className="insideIssueStats">
+            {transactions.map((transaction) => {
+              return (
+                <div key={transaction.id}>
+                  {/* <br/> */}
+                  <h2>Title: {transaction.title || transaction.issue.title}</h2>
+                  <h3>
+                    Date:
+                    {dateformat(transaction.createdAt, "mmmm dS, yyyy")}
+                  </h3>{" "}
+                  {/* Udpate this */}
+                  <h3>
+                    $
+                    {(
+                      transaction.price / 100 || transaction.issue.price / 100
+                    ).toFixed(2)}
+                  </h3>
+                  <h3>
+                    Status:
+                    {transaction.isResolved === true
+                      ? "Paid"
+                      : transaction.isResolved === false
+                      ? "Pending"
+                      : "Recieved"}
+                  </h3>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <h3>No Current Tranactions!</h3>
+        )}
+      </div>
 
       {/* Goal: make a div with a map of all issues(prices) and solutions where IsAccepted(prices) */}
     </>
