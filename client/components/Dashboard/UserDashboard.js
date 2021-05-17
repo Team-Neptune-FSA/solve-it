@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import Solutions from './Solutions';
-import Issues from './Issues';
-import Payment from './Payment';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import Solutions from "./Solutions";
+import Issues from "./Issues";
+import Payment from "./Payment";
 
 const UserDashboard = ({ user: { name } }) => {
-  const [view, setView] = useState('solutions');
+  const [view, setView] = useState("solutions");
   return (
     <>
       <div>
@@ -25,21 +25,21 @@ const UserDashboard = ({ user: { name } }) => {
             Issues
           </button>
           <button
-        className={view === 'payment' ? 'active' : ''}
-        onClick={() => setView('payment')}
-      >
-        Payment
-      </button>
-        {view === 'solutions' && <Solutions />}
-        {view === 'issues' && <Issues />}
-        {view === 'payment' && <Payment />}
-
-        <div className="dashboardDivLeft component" id="title-section">
-        <div className="userStats">
-          <h1>You have solved 10 problems!</h1>
-          <h1>You have 5 Accepted Solutions</h1>
-          <h1>You have helped more than 97% of users!</h1>
+            className={view === "payment" ? "active" : ""}
+            onClick={() => setView("payment")}
+          >
+            Payment
+          </button>
+          {view === "solutions" && <Solutions />}
+          {view === "issues" && <Issues />}
+          {view === "payment" && <Payment />}
         </div>
+        <div className="dashboardDivLeft component" id="title-section">
+          <div className="userStats">
+            <h1>You have solved 10 problems!</h1>
+            <h1>You have 5 Accepted Solutions</h1>
+            <h1>You have helped more than 97% of users!</h1>
+          </div>
 
           <h1>What are you looking for?</h1>
           <div>
@@ -50,7 +50,6 @@ const UserDashboard = ({ user: { name } }) => {
             </form>
           </div>
         </div>
-       </div>
       </div>
     </>
   );
