@@ -111,10 +111,10 @@ const Issues = ({ loadInitialData }) => {
         {current.map((issue) => (
           <div className="issue" key={issue.id}>
             <Link to={`/issues/${issue.id}`}>
-              <h3>{issue.title}</h3>
+              <h3>Issue Title: {issue.title}</h3>
+              <p>Issue Description: {issue.description}</p>
             </Link>
-            <p>${(issue.price / 100).toFixed(2)}</p>
-            <p>{issue.description}</p>
+            <p>Issue Price: ${(issue.price / 100).toFixed(2)}</p>
             <div>
               {issue.solutions.map((solution, idx) => (
                 <div

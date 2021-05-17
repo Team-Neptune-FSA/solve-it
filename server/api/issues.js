@@ -15,6 +15,20 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// GET /api/issues/myIssues
+router.get('/myIssues', requireToken, async (req, res, next) => {
+  try {
+    const issues = await Issue.findAll({
+      where: {
+        userId: req.user.id
+      },
+    });
+    res.json(issues);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // GET /api/issues/:issueId
 router.get('/:issueId', async (req, res, next) => {
   try {
@@ -25,14 +39,6 @@ router.get('/:issueId', async (req, res, next) => {
   }
 });
 
-
-//PUT /api/issues/:issueId
-// router.put("/:issueId", requireToken, async (req, res, next) => {
-//   try {
-//     const issue = await Issue.findByPk(req.params.issueId);
-//     const updatedIssue = await issue.update(req.body);
-//     res.json(updatedIssue);
-// =======
 // PUT /api/issues/:issueId
 router.put('/:issueId', requireToken, async (req, res, next) => {
   try {
@@ -109,7 +115,7 @@ router.put('/:issueId/solutions', async (req, res, next) => {
   }
 });
 
-// GET api/issues/:issueId/solutions/:solutionId
+// GET /api/issues/:issueId/solutions/:solutionId
 router.get(
   '/:issueId/solutions/:solutionId',
   requireToken,
@@ -124,7 +130,7 @@ router.get(
   }
 );
 
-// PUT api/issues/:issueId/solutions/:solutionId
+// PUT /api/issues/:issueId/solutions/:solutionId
 router.put(
   '/:issueId/solutions/:solutionId',
   requireToken,
@@ -139,7 +145,7 @@ router.put(
   }
 );
 
-// GET api/issues/:issueId/solutions/:solutionId
+// GET /api/issues/:issueId/solutions/:solutionId
 router.get('/:issueId/mySolution', requireToken, async (req, res, next) => {
   try {
     const solution = await Solution.findOne({
@@ -154,7 +160,7 @@ router.get('/:issueId/mySolution', requireToken, async (req, res, next) => {
   }
 });
 
-// PUT /api/issues.issueId/solutions
+// PUT /api/issues/issueId/solutions
 router.post('/:issueId/solutions', requireToken, async (req, res, next) => {
   try {
     const solution = await Solution.findOne({
@@ -178,5 +184,28 @@ router.post('/:issueId/solutions', requireToken, async (req, res, next) => {
     next(error);
   }
 });
+
+
+//GET /api/issues/solutions/accepted
+router.get('/solutions/accepted', requireToken, async(req, res, next) => { //finds all accepted solutions
+  try {
+    const solution = await Solution.findAll({
+      where: {
+        userId: req.user.id,
+        isAccepted: true
+      },
+      include: [Issue]  
+      //grabs the price of the attached issue.
+    });
+    res.json(solution);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+// if issue is accepted, the payment is paid out(negative price for the issue poster)
+// if issue if unresolved, the payment is pending in escrow.
+// if solution is accepted, price is recieved. 
 
 module.exports = router;
