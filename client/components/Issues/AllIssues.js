@@ -42,10 +42,10 @@ class AllIssues extends React.Component {
 
                     <form method="get" action={`/issues/${issue.id}`}>
                       <button className="btn blue-bg white" type="submit">
-                        Solution
+                        Solve
                       </button>
                     </form>
-                    
+
                   </div>
                 </div>
               ))
