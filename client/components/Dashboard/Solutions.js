@@ -66,13 +66,15 @@ const Solutions = () => {
   return (
     <>
       <div className="stats-section">
-        You have solved {singleUserAttempted} problems. You have had{' '}
-        {singleUserAccepted} solution(s) accepted. You have answered more
-        questions than{' '}
+        You have solved {singleUserAttempted} problems. 
+        <br />
+        You have had{' '} {singleUserAccepted} solution(s) accepted. 
+        <br />
+        You have answered more questions than{' '}
         {(
           percentRank(solutionsAttemptedArr, singleUserAttempted) * 100
-        ).toFixed(2)}
-        % of users.
+        ).toFixed(2)} % of users.
+        <br />
       </div>
       <div className="dashboard-info">
         {userSolutions.map((solution) => (

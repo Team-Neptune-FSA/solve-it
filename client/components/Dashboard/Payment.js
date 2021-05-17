@@ -21,9 +21,13 @@ const Payment = () => {
     <>
       <div className="stats-section">
         Escrow: ${(stats.totalEscrow / 100).toFixed(2)}
+        <br/>
         Paid: ${(stats.totalPaid / 100).toFixed(2)}
+        <br/>
         Earned: ${(stats.totalEarned / 100).toFixed(2)}
+        <br/>
       </div>
+    {/* Goal: make a div with a map of all issues(prices) and solutions where IsAccepted. */}
     </>
   );
 };

@@ -171,4 +171,23 @@ router.post('/:issueId/solutions', requireToken, async (req, res, next) => {
   }
 });
 
+
+//GET api/issue/solutions/accepted
+router.get('/solutions/accepted', async (req, res, next) => { //finds all accepted solutions
+  try {
+    const solution = await Solution.findAll({
+      where: {
+        isAccepted: true
+      },
+      include: [Issue]  //grabs the price of the attached issue.
+    });
+    res.json(solution);
+  } catch (error) {
+    next(error);
+  }
+});
+// if issue is accepted, the payment is paid out(negative price for the issue poster)
+// if issue if unresolved, the payment is pending in escrow.
+// if solution with issue price is accepted, price is recieved. 
+
 module.exports = router;

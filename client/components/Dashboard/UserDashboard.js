@@ -40,7 +40,7 @@ const UserDashboard = ({ user: { name } }) => {
             <div className="userStats">
               <h1>You have solved X problems!</h1>
               <h1>You have X Accepted Solutions</h1>
-              <h1>You have helped more than X% of users!</h1>
+              <h1>You have helped more than % of users!</h1>
             </div>
 
             <h1>What are you looking for?</h1>
