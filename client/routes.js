@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import { me } from './store';
 import Home from './components/Home';
@@ -43,9 +43,9 @@ class Routes extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/issues" component={AllIssues} />
             <Route exact path="/issues/post" component={PostIssue} />
-            <Route exact path="/issues/:issueId">
+            {/* <Route exact path="/issues/:issueId">
               <Redirect to="/login" />
-            </Route>
+            </Route> */}
           </Switch>
         )}
       </div>
