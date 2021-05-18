@@ -7,40 +7,42 @@ import { logout } from '../store';
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div className="topHeader">
     <div className="header">
-      <h1 className="title">Solve.It</h1>
+      <Link to="/">
+        <h1 className="title">Solve.It</h1>
+      </Link>
       <nav>
         {isLoggedIn ? (
           <ul className="nav-links">
             <li>
-              <a href="/">Home</a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a href="/issues">Issues</a>
+              <Link to="/issues">Issues</Link>
             </li>
             <li>
-              <a href="/dashboard">Dashboard</a>
+              <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <a href="/" onClick={handleClick}>
+              <Link to="/" onClick={handleClick}>
                 {' '}
                 Logout{' '}
-              </a>
+              </Link>
               {/* <hr className="line"/> */}
             </li>
           </ul>
         ) : (
           <ul className="nav-links">
             <li>
-              <a href="#">Home</a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a href="Issues">Issues</a>
+              <Link to="/issues">Issues</Link>
             </li>
             <li>
-              <a href="Login">Login</a>
+              <Link to="/login">Login</Link>
             </li>
             <li>
-              <a href="Signup">Signup</a>
+              <Link to="/signup">Signup</Link>
             </li>
           </ul>
         )}
