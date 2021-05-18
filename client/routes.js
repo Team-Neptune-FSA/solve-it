@@ -9,7 +9,6 @@ import SingleIssue from './components/Issues/SingleIssue';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import PostIssue from './components/Issues/PostIssue';
 import UnresolvedIssue from './components/Issues/UnresolvedIssue';
-import router from '../server/api/issues';
 
 /**
  * COMPONENT
