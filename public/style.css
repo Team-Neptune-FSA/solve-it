@@ -9,6 +9,7 @@ body {
   text-decoration: none;
   font-size: 20px;
 }
+
 h1.title {
   color: gray;
   right: 0;
@@ -390,4 +391,17 @@ div.post-issue {
   border: 1px solid gray;
   border-radius: 10px;
   padding: 5px
+}
+
+/*--- Code Environment ---*/
+div.code-environment-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.output-box {
+  background-color: #001628;
+  height: 50vh;
+  width: 24vw;
+  color: white;
 }
