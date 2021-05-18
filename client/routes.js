@@ -14,12 +14,19 @@ import UnresolvedIssue from './components/Issues/UnresolvedIssue';
  * COMPONENT
  */
 class Routes extends Component {
+  constructor() {
+    super();
+    let state = {
+      loading: true,
+    };
+  }
   componentDidMount() {
     this.props.loadInitialData();
   }
 
   render() {
     const { isLoggedIn } = this.props;
+    console.log(isLoggedIn);
     return (
       <div>
         {isLoggedIn ? (
