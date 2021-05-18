@@ -19,6 +19,7 @@ const Issue = db.define("issue", {
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    defaultValue: 0,
     validate: {
       min: 0,
     },

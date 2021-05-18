@@ -17,6 +17,7 @@ const Payment = () => {
         `/api/issues/solutions/accepted`,
         { headers: { authorization: token } }
       );
+      console.log([...issues, ...solutions]);
       setTransactions([...issues, ...solutions]);
     };
     getTransactions();
@@ -56,34 +57,32 @@ const Payment = () => {
       <br />
 
       <h1>Individual Issue</h1>
+      
 
       <div className="issueStats">
         {transactions.length ? (
           <div className="insideIssueStats">
             {transactions.map((transaction) => {
+
+              let paymentPrice = transaction.price
+              // if (!paymentPrice){
+              //   paymentPrice = transaction.issue.price || 1;
+              // }
+
               return (
                 <div key={transaction.id}>
                   {/* <br/> */}
                   <h2>Title: {transaction.title || transaction.issue.title}</h2>
-                  <h3>
-                    Date:
-                    {dateformat(transaction.createdAt, "mmmm dS, yyyy")}
+                  <h3>Date: {dateformat(transaction.createdAt, "mmmm dS, yyyy")}
                   </h3>{" "}
-                  {/* Udpate this */}
-                  <h3>
-                    $
-                    {(
-                      transaction.price / 100 || transaction.issue.price / 100
-                    ).toFixed(2)}
-                  </h3>
-                  <h3>
-                    Status:
-                    {transaction.isResolved === true
+                  <h3>Price: ${(paymentPrice / 100).toFixed(2)}</h3>
+                  <h3>Status: {transaction.isResolved === true
                       ? "Paid"
                       : transaction.isResolved === false
                       ? "Pending"
                       : "Recieved"}
                   </h3>
+                  <hr/>
                 </div>
               );
             })}

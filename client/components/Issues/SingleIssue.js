@@ -81,7 +81,7 @@ const SingleIssue = ({ match, auth }) => {
           <div>
             {titleView === "edit" ? (
               <div>
-                <h2>{title}</h2>
+                <h1><strong>{title}</strong></h1>
                 <button onClick={() => setTitleView("submit")}>edit</button>
               </div>
             ) : (
@@ -148,7 +148,7 @@ const SingleIssue = ({ match, auth }) => {
         </div>
       ) : (
         <div className="component">
-          <h2>{singleIssue.title}</h2>
+          <h1 className="issueTitle">{singleIssue.title}</h1>
           <p>{singleIssue.description}</p>
           <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
           <br />

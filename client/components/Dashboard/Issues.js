@@ -142,9 +142,7 @@ const Issues = ({ loadInitialData }) => {
                   {solution.explanation && <p>{solution.explanation}</p>}
                   <button
                     onClick={() => handleAccept(solution, issue)}
-                    className="btn blue-bg white"
-                  >
-                    Accept Solution
+                    className="btn blue white">Accept Solution
                   </button>
                   <button
                     onClick={() => handleReject(solution, issue)}
