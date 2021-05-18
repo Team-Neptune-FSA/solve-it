@@ -1,8 +1,9 @@
-html, body {
-  margin:0;
+html,
+body {
+  margin: 0;
 }
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: bold;
   color: gray;
   text-decoration: none;
@@ -18,7 +19,7 @@ h1 {
   margin: 0;
 }
 
-div.header{
+div.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,7 +56,7 @@ ul.nav-links {
 }
 
 .nav-links li a:hover {
-  color: #00A4C7;
+  color: #00a4c7;
 }
 
 a {
@@ -68,7 +69,6 @@ label {
 }
 nav {
   display: flex;
-
 }
 
 nav a {
@@ -130,12 +130,15 @@ h4 {
   justify-content: space-between;
 }
 
-.searchTitle, input.searchbar, button {
+.searchTitle,
+input.searchbar,
+button {
   margin: 10px;
 }
 
-button.browseButton, button {
-  background-color: #00A4C7;
+button.browseButton,
+button {
+  background-color: #00a4c7;
   border-radius: 10px;
   width: 450px;
   height: 80px;
@@ -162,7 +165,8 @@ button.submitButton {
   border-radius: 10px;
 }
 
-.browseIssues, .submitIssues {
+.browseIssues,
+.submitIssues {
   float: left;
   width: 50%;
   height: 400px;
@@ -173,10 +177,9 @@ button.submitButton {
 }
 
 div.submitIssues {
-  background-color: #00A4C7;
+  background-color: #00a4c7;
   color: white;
 }
-
 
 form.browseIssues {
   width: 700px;
@@ -208,9 +211,29 @@ div.titleScreen {
 }
 
 div.slider {
-  background-image: linear-gradient(to bottom, #808080, #9e9e9e, #bdbebd, #dedede, #ffffff);
+  background-image: linear-gradient(
+    to bottom,
+    #808080,
+    #9e9e9e,
+    #bdbebd,
+    #dedede,
+    #ffffff
+  );
 }
 
 .component {
   margin-top: 150px;
+}
+
+/*--- Code Environment ---*/
+.code-environment-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.output-box {
+  background-color: #001628;
+  height: 50vh;
+  width: 24vw;
+  color: white;
 }
