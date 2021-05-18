@@ -25,9 +25,9 @@ function codeEnvironment({ setSolutionCode, value }) {
   };
 
   return (
-    <div>
-      <div className="editor">
-        <Editor //main editor
+    <>
+      <div className="code-environment-container">
+        <Editor
           height="50vh"
           width="75vw"
           value={code}
@@ -36,14 +36,11 @@ function codeEnvironment({ setSolutionCode, value }) {
           onChange={handleChange}
           options={{ readOnly: false }}
         />
+        <br />
+        <div className="output-box">{output}</div>
       </div>
-      
-      <br />
-
-      <div>{output}</div>
-
       <button onClick={() => handleSubmit()}>Run Code</button>
-    </div>
+    </>
   );
 }
 
