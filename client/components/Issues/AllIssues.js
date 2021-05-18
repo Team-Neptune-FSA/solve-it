@@ -22,7 +22,7 @@ class AllIssues extends React.Component {
 
         <div className="postIssue">
           <form method="get" action="/issues/post">
-            <button className="btn blue-bg white" type="submit">
+            <button className="post-issue-button" type="submit">
               Post an Issue
             </button>
           </form>
@@ -41,11 +41,9 @@ class AllIssues extends React.Component {
                     <p>{issue.description}</p>
 
                     <form method="get" action={`/issues/${issue.id}`}>
-                      <button className="btn blue-bg white" type="submit">
-                        Solve
-                      </button>
+                      <button className="btn blue-bg white" type="submit">Solve</button>
                     </form>
-
+                    <h1 className="issue-price">${issue.price}</h1>
                   </div>
                 </div>
               ))

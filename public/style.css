@@ -3,7 +3,7 @@ body {
   margin: 0;
 }
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: bold;
   color: gray;
   text-decoration: none;
@@ -23,12 +23,13 @@ div.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 75px;
+  padding: 0 60px;
+  background-color: black;
 }
 
 .topHeader {
   top: 0;
-  position: fixed;
+  /* position: fixed; */
   z-index: 100;
   background-color: transparent;
 }
@@ -36,6 +37,10 @@ div.header {
 li a {
   text-decoration: none;
   color: gray;
+}
+
+li {
+  padding: 10px;
 }
 
 ul.nav-links {
@@ -135,7 +140,6 @@ h4 {
   justify-content: space-between;
 }
 
-
 div.issue {
   margin: 20px;
 }
@@ -152,13 +156,14 @@ div#title-section.dashboardDivLeft.component {
   margin-top: 100px;
 } */
 
-.dashboard-solution-left{
+.dashboard-solution-left {
   border: 1px solid gray;
   border-radius: 10px;
   font-size: 15px;
 }
 
-div.postIssue, div.search {
+div.postIssue,
+div.search {
   float: right;
   width: 50%;
   margin-bottom: 10px;
@@ -169,17 +174,19 @@ div.postIssue, div.search {
 }
 
 span {
-  color: #00A4C7;
+  color: #00a4c7;
   /* font-size: 30px; */
 }
 
 /* Buttons */
-.searchTitle, input.searchbar, button {
+.searchTitle,
+input.searchbar,
+button {
   margin: 10px;
 }
 
 button.browseButton {
-  background-color: #00A4C7;
+  background-color: #00a4c7;
   border-radius: 10px;
   width: 300px;
   height: 80px;
@@ -190,7 +197,7 @@ button.browseButton {
 }
 
 button.submitButton {
-  background-color: #00A4C7;
+  background-color: #00a4c7;
   color: white;
   border-radius: 10px;
   width: 300px;
@@ -200,7 +207,7 @@ button.submitButton {
 }
 
 button.issueButton {
-  background-color: #00A4C7;
+  background-color: #00a4c7;
   color: white;
   border-radius: 10px;
   width: 300px;
@@ -220,7 +227,7 @@ button.submitNewIssueButton {
 }
 
 button {
-  background-color: #00A4C7;
+  background-color: #00a4c7;
   color: white;
   border-radius: 5px;
   border-color: transparent;
@@ -266,7 +273,7 @@ img.homeImg {
 }
 
 div.titleScreen {
-  background-image: url('Images/computer.jpeg');
+  background-image: url("Images/computer.jpeg");
   background-size: cover;
   background-position: center;
   height: 75vh;
@@ -297,6 +304,7 @@ div.slider {
 }
 
 div.single-issue {
+  position: relative;
   width: 450px;
   height: 450px;
   border: 1px solid black;
@@ -308,21 +316,43 @@ div.single-issue {
   align-items: center;
 }
 
+.issue-price {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  color: green;
+}
+
+button.btn.blue-bg.white {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+button.post-issue-button {
+  padding: 10px;
+}
+
 div.insideAllIssues {
   margin: 20px;
 }
 
-.issueTitle{
+.issueTitle {
   color: black;
 }
 
-
-.stats-section, .issueStats {
+.stats-section,
+.issueStats {
   border: 1px solid gray;
   border-radius: 10px;
 }
 
-.insideIssueStats, .insideStats {
+.insideIssueStats,
+.insideStats {
   margin: 10px;
 }
 
@@ -352,6 +382,6 @@ div.post-issue {
   /* padding: 10px; */
 }
 
-.all-issues-title{
+.all-issues-title {
   margin-left: 15px;
 }

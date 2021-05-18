@@ -5,8 +5,8 @@ import history from '../../history';
 const PostIssue = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(0);
-  const [language, setLanguage] = useState('');
+  const [price, setPrice] = useState(1);
+  const [language, setLanguage] = useState('javascript');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,10 +59,10 @@ const PostIssue = () => {
           type="text"
           name="price-amount"
           value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={(e) => setPrice(Number(e.target.value))}
         />
-      </form>
         <button type="submit">Submit</button>
+      </form>
     </div>
   );
 };
