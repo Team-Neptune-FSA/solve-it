@@ -105,56 +105,69 @@ const Issues = ({ loadInitialData }) => {
     <>
       <div className="dashboard-info">
         <div className="custom-select">
-        <select className="filterOptions" onChange={filterIssues}>
-          <option value="Unresolved">Unresolved</option>
-          <option value="Resolved">Resolved</option>
-        </select>
+          <select className="filterOptions" onChange={filterIssues}>
+            <option value="Unresolved">Unresolved</option>
+            <option value="Resolved">Resolved</option>
+          </select>
         </div>
-        {current.map((issue) => (
-          <div className="issue" key={issue.id}>
-            <Link to={`/issues/${issue.id}`}>
-              <h3>Issue Title: {issue.title}</h3>
-              <p>Issue Description: {issue.description}</p>
-            </Link>
-            <p>Issue Price: ${(issue.price / 100).toFixed(2)}</p>
-            <div>
-              {issue.solutions.map((solution, idx) => (
-                <div
-                  className={`issue-solution box ${
-                    solution.isRejected && 'rejected'
-                  }`}
-                  key={solution.id}
-                >
-                  <div className="flex">
-                    <Link to={`/issues/${issue.id}/solutions/${solution.id}`}>
-                      <h3>Solution #{idx + 1}</h3>
-                    </Link>
-                    <i
-                      onClick={() => toggleStar(solution, issue)}
-                      className={
-                        solution.isStarred
-                          ? 'fas fa-star blue'
-                          : 'far fa-star blue'
-                      }
-                    ></i>
-                  </div>
-                  {solution.code && <code>{solution.code}</code>}
-                  {solution.explanation && <p>{solution.explanation}</p>}
-                  <button
-                    onClick={() => handleAccept(solution, issue)}
-                    className="btn blue white">Accept Solution
-                  </button>
-                  <button
-                    onClick={() => handleReject(solution, issue)}
-                    className="btn black-bg white"
-                  >
-                    Reject Solution
-                  </button>
+        {current.length >= 1 ? (
+          <div>
+            {current.map((issue) => (
+              <div className="issue" key={issue.id}>
+                <Link to={`/issues/${issue.id}`}>
+                  <h3>Issue Title: {issue.title}</h3>
+                  <p>Issue Description: {issue.description}</p>
+                </Link>
+                <p>Issue Price: ${(issue.price / 100).toFixed(2)}</p>
+                <div>
+                  {issue.solutions.map((solution, idx) => (
+                    <div
+                      className={`issue-solution box ${
+                        solution.isRejected && 'rejected'
+                      }`}
+                      key={solution.id}
+                    >
+                      <div className="flex">
+                        <Link
+                          to={`/issues/${issue.id}/solutions/${solution.id}`}
+                        >
+                          <h3>Solution #{idx + 1}</h3>
+                        </Link>
+                        <i
+                          onClick={() => toggleStar(solution, issue)}
+                          className={
+                            solution.isStarred
+                              ? 'fas fa-star blue'
+                              : 'far fa-star blue'
+                          }
+                        ></i>
+                      </div>
+                      {solution.code && <code>{solution.code}</code>}
+                      {solution.explanation && <p>{solution.explanation}</p>}
+                      <button
+                        onClick={() => handleAccept(solution, issue)}
+                        className="btn blue white"
+                      >
+                        Accept Solution
+                      </button>
+                      <button
+                        onClick={() => handleReject(solution, issue)}
+                        className="btn black-bg white"
+                      >
+                        Reject Solution
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <div>
+            <br />
+            <p>Looks like you have no issues here, must be nice!</p>
+          </div>
+        )}
       </div>
     </>
   );
