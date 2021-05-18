@@ -21,11 +21,9 @@ class AllIssues extends React.Component {
         </div>
 
         <div className="postIssue">
-          <form method="get" action="/issues/post">
-            <button className="post-issue-button" type="submit">
-              Post an Issue
-            </button>
-          </form>
+          <Link to="/issues/post">
+            <button className="post-issue-button">Post an Issue</button>
+          </Link>
         </div>
 
         <br />
@@ -42,8 +40,9 @@ class AllIssues extends React.Component {
                     <Link to={`/issues/${issue.id}`}>
                       <button className="btn blue-bg white">Solve</button>
                     </Link>
-                    <h1 className="issue-price">${issue.price}</h1>
-
+                    <h1 className="issue-price">
+                      ${(issue.price / 100).toFixed(2)}
+                    </h1>
                   </div>
                 </div>
               ))

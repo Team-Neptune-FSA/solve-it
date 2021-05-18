@@ -48,9 +48,11 @@ class Routes extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/issues" component={AllIssues} />
-            <Route exact path="/issues/post" component={PostIssue} />
+            <Route exact path="/issues/post">
+              <Redirect to="/signup" />
+            </Route>
             <Route exact path="/issues/:issueId">
-              <Redirect to="/login" />
+              <Redirect to="/signup" />
             </Route>
           </Switch>
         )}

@@ -1,5 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 // import Search from "./Search";
 
 /**
@@ -18,35 +19,34 @@ export const Home = (props) => {
             placeholder="Search.."
           ></input>
           <form method="get" action="/issues">
-            <button className="issueButton" type="submit">Search Issues</button>
-            <button className="submitButton" type="submit">Search Solutions</button>
+            <button className="issueButton" type="submit">
+              Search Issues
+            </button>
+            <button className="submitButton" type="submit">
+              Search Solutions
+            </button>
           </form>
         </div>
       </div>
 
       <div className="browseIssues">
-        <form className="browseIssues" method="get" action="/issues">
-          <h1>Looking for solve people's issues?</h1>
-          <button className="browseButton" type="submit">
-            Browse Issues
-          </button>
-        </form>
+        <h1>Looking to solve coding issues for cash?</h1>
+        <Link to="/issues">
+          <button className="browseButton">Browse Issues</button>
+        </Link>
       </div>
 
       <div className="submitIssues">
-        <form className="browseIssues" method="get" action="/issues/post">
-          <h1>Need help with a problem?</h1>
-          <button className="submitNewIssueButton" type="submit">
-            Submit a new issue
-          </button>
-        </form>
+        <h1>Need help with a problem?</h1>
+        <Link to="/issues/post">
+          <button className="submitNewIssueButton">Submit a new issue</button>
+        </Link>
       </div>
 
       {/* <div className="slider">
         <h1>Javascript</h1>
         <h1>Python</h1>
       </div> */}
-
     </div>
   );
 };

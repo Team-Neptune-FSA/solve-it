@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import dateformat from "dateformat";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import dateformat from 'dateformat';
 
 const Payment = () => {
   const [stats, setstats] = useState([]);
   const [transactions, setTransactions] = useState([]);
   useEffect(() => {
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
 
     const getTransactions = async () => {
       const { data: issues } = await axios.get(`/api/issues/myIssues`, {
@@ -23,7 +23,7 @@ const Payment = () => {
     getTransactions();
 
     const getPayment = async () => {
-      const { data: singleUserStats } = await axios.get("/api/users/stats", {
+      const { data: singleUserStats } = await axios.get('/api/users/stats', {
         headers: {
           authorization: token,
         },
@@ -32,9 +32,6 @@ const Payment = () => {
     };
     getPayment();
   }, []);
-
-  console.log(transactions);
-
   return (
     <>
       <br />
@@ -56,15 +53,13 @@ const Payment = () => {
       <br />
       <br />
 
-      <h1>Individual Issue</h1>
-      
+      <h1>Transactions</h1>
 
       <div className="issueStats">
         {transactions.length ? (
           <div className="insideIssueStats">
             {transactions.map((transaction) => {
-
-              let paymentPrice = transaction.price
+              let paymentPrice = transaction.price;
               // if (!paymentPrice){
               //   paymentPrice = transaction.issue.price || 1;
               // }
@@ -73,16 +68,19 @@ const Payment = () => {
                 <div key={transaction.id}>
                   {/* <br/> */}
                   <h2>Title: {transaction.title || transaction.issue.title}</h2>
-                  <h3>Date: {dateformat(transaction.createdAt, "mmmm dS, yyyy")}
-                  </h3>{" "}
+                  <h3>
+                    Date: {dateformat(transaction.createdAt, 'mmmm dS, yyyy')}
+                  </h3>{' '}
                   <h3>Price: ${(paymentPrice / 100).toFixed(2)}</h3>
-                  <h3>Status: {transaction.isResolved === true
-                      ? "Paid"
+                  <h3>
+                    Status:{' '}
+                    {transaction.isResolved === true
+                      ? 'Paid'
                       : transaction.isResolved === false
-                      ? "Pending"
-                      : "Recieved"}
+                      ? 'Pending'
+                      : 'Recieved'}
                   </h3>
-                  <hr/>
+                  <hr />
                 </div>
               );
             })}
