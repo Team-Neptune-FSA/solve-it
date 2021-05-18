@@ -4,6 +4,11 @@ module.exports = {
     path: __dirname,
     filename: './public/bundle.js',
   },
+  resolve: {
+    fallback: {
+      util: require.resolve('util/'),
+    },
+  },
   devtool: 'source-map',
   module: {
     rules: [
