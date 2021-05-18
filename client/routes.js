@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import { me } from './store';
 import Home from './components/Home';
@@ -8,19 +8,25 @@ import AllIssues from './components/Issues/AllIssues';
 import SingleIssue from './components/Issues/SingleIssue';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import PostIssue from './components/Issues/PostIssue';
-import UnresolvedIssue from "./components/Issues/UnresolvedIssue";
-
+import UnresolvedIssue from './components/Issues/UnresolvedIssue';
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
+  constructor() {
+    super();
+    let state = {
+      loading: true,
+    };
+  }
   componentDidMount() {
     this.props.loadInitialData();
   }
 
   render() {
     const { isLoggedIn } = this.props;
+    console.log(isLoggedIn);
     return (
       <div>
         {isLoggedIn ? (
@@ -29,7 +35,11 @@ class Routes extends Component {
             <Route exact path="/issues" component={AllIssues} />
             <Route exact path="/issues/post" component={PostIssue} />
             <Route exact path="/issues/:issueId" component={SingleIssue} />
-            <Route exact path="/issues/:issueId/solutions/:solutionId" component={UnresolvedIssue} /> 
+            <Route
+              exact
+              path="/issues/:issueId/solutions/:solutionId"
+              component={UnresolvedIssue}
+            />
             <Route exact path="/dashboard" component={UserDashboard} />
           </Switch>
         ) : (
@@ -39,6 +49,9 @@ class Routes extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/issues" component={AllIssues} />
             <Route exact path="/issues/post" component={PostIssue} />
+            <Route exact path="/issues/:issueId">
+              <Redirect to="/login" />
+            </Route>
           </Switch>
         )}
       </div>

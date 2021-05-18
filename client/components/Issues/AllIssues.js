@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchIssues } from "../../store/allIssues";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchIssues } from '../../store/allIssues';
 
 class AllIssues extends React.Component {
   componentDidMount() {
@@ -39,11 +39,11 @@ class AllIssues extends React.Component {
                   <div className="insideAllIssues">
                     <h2 className="issueTitle">{issue.title}</h2>
                     <p>{issue.description}</p>
-
-                    <form method="get" action={`/issues/${issue.id}`}>
-                      <button className="btn blue-bg white" type="submit">Solve</button>
-                    </form>
+                    <Link to={`/issues/${issue.id}`}>
+                      <button className="btn blue-bg white">Solve</button>
+                    </Link>
                     <h1 className="issue-price">${issue.price}</h1>
+
                   </div>
                 </div>
               ))

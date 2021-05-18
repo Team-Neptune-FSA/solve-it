@@ -64,11 +64,10 @@ const Payment = () => {
           <div className="insideIssueStats">
             {transactions.map((transaction) => {
 
-              // let paymentPrice = transaction.price
+              let paymentPrice = transaction.price
               // if (!paymentPrice){
               //   paymentPrice = transaction.issue.price || 1;
               // }
-
 
               return (
                 <div key={transaction.id}>
@@ -76,7 +75,7 @@ const Payment = () => {
                   <h2>Title: {transaction.title || transaction.issue.title}</h2>
                   <h3>Date: {dateformat(transaction.createdAt, "mmmm dS, yyyy")}
                   </h3>{" "}
-                  {/* <h3>Price: ${(paymentPrice / 100).toFixed(2)}</h3> */}
+                  <h3>Price: ${(paymentPrice / 100).toFixed(2)}</h3>
                   <h3>Status: {transaction.isResolved === true
                       ? "Paid"
                       : transaction.isResolved === false

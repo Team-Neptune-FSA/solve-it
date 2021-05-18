@@ -298,7 +298,7 @@ div.slider {
 }
 
 .component {
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -342,7 +342,7 @@ div.insideAllIssues {
 }
 
 .issueTitle {
-  color: black;
+  color: black !important;
 }
 
 .stats-section,
@@ -384,4 +384,10 @@ div.post-issue {
 
 .all-issues-title {
   margin-left: 15px;
+}
+
+.issue {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 5px
 }

@@ -1,6 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { authenticate, authenticateSignup } from "../store";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { authenticate, authenticateSignup } from '../store';
 
 /**
  * COMPONENT
@@ -11,7 +12,7 @@ const AuthForm = (props) => {
     <div className="component">
       <div id="login-window">
         <form
-          onSubmit={name === "login" ? handleLogin : handleSignup}
+          onSubmit={name === 'login' ? handleLogin : handleSignup}
           name={name}
           id="login-form"
         >
@@ -22,7 +23,7 @@ const AuthForm = (props) => {
             </label>
             <input name="email" type="text" className="login-input" />
           </div>
-          {name === "signup" ? (
+          {name === 'signup' ? (
             <div className="input-div">
               <label htmlFor="name">
                 <small>Name</small>
@@ -30,7 +31,7 @@ const AuthForm = (props) => {
               <input name="name" type="text" className="login-input" />
             </div>
           ) : (
-            ""
+            ''
           )}
           <div className="input-div">
             <label htmlFor="password">
@@ -38,6 +39,17 @@ const AuthForm = (props) => {
             </label>
             <input name="password" type="password" className="login-input" />
           </div>
+          {name === 'login' ? (
+            <div>
+              Don't have an account? Click{' '}
+              <Link to="/signup" style={{ color: 'blue' }}>
+                here{' '}
+              </Link>{' '}
+              to sign up!
+            </div>
+          ) : (
+            <div></div>
+          )}
           <button type="submit" id="form-submit">
             {displayName}
           </button>
@@ -56,16 +68,16 @@ const AuthForm = (props) => {
  */
 const mapLogin = (state) => {
   return {
-    name: "login",
-    displayName: "Login",
+    name: 'login',
+    displayName: 'Login',
     error: state.auth.error,
   };
 };
 
 const mapSignup = (state) => {
   return {
-    name: "signup",
-    displayName: "Sign Up",
+    name: 'signup',
+    displayName: 'Sign Up',
     error: state.auth.error,
   };
 };
