@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 import { Login, Signup } from "./components/AuthForm";
 import Home from "./components/Home";
 import AllIssues from "./components/Issues/AllIssues";
@@ -13,7 +13,6 @@ const Routes = () => {
   const { getCurrentUser, isLoggedIn } = useAuth();
 
   useEffect(() => {
-    console.log("hizza");
     const authenticate = async () => {
       await getCurrentUser();
     };
@@ -49,12 +48,8 @@ const Routes = () => {
             render={() => <Signup name="signup" displayName="Sign Up" />}
           />
           <Route exact path="/issues" component={AllIssues} />
-          <Route exact path="/issues/post">
-            <Redirect to="/signup" />
-          </Route>
-          <Route exact path="/issues/:issueId">
-            <Redirect to="/signup" />
-          </Route>
+          <Route exact path="/issues/post" component={PostIssue} />
+          <Route exact path="/issues/:issueId" component={SingleIssue} />
         </Switch>
       )}
     </div>
