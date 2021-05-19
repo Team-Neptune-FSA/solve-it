@@ -1,7 +1,17 @@
 html,
 body {
   margin: 0;
+  /* background-image: linear-gradient(
+    to bottom,
+    #f5f5f5,
+    #f7f7f7,
+    #fafafa,
+    #fcfcfc,
+    #ffffff
+  ); */
+  z-index: -100;
 }
+
 * {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
@@ -13,11 +23,67 @@ body {
 h1.title {
   color: gray;
   right: 0;
+  font-size: 40px;
 }
 
 h1 {
   font-size: 30px;
   margin: 0;
+}
+
+svg#logo path:nth-child(2) {
+  stroke-dasharray: 507.99310302734375;
+  stroke-dashoffset: 507.99310302734375;
+  animation: line-anim 3s ease forwards 0.5s;
+}
+svg#logo path:nth-child(3) {
+  stroke-dasharray: 415.94134521484375;
+  stroke-dashoffset: 415.94134521484375;
+  animation: line-anim 3s ease forwards 0.5s;
+}
+svg#logo path:nth-child(4) {
+  stroke-dasharray: 241.34402465820312;
+  stroke-dashoffset: 241.34402465820312;
+  animation: line-anim 3s ease forwards 0.5s;
+}
+svg#logo path:nth-child(5) {
+  stroke-dasharray: 342.05206298828125;
+  stroke-dashoffset: 342.05206298828125;
+  animation: line-anim 3s ease forwards 0.5s;
+}
+svg#logo path:nth-child(6) {
+  stroke-dasharray: 482.4542236328125;
+  stroke-dashoffset: 482.4542236328125;
+  animation: line-anim 3s ease forwards 0.5s;
+}
+svg#logo path:nth-child(7) {
+  stroke-dasharray: 61.62703323364258;
+  stroke-dashoffset: 61.62703323364258;
+  animation: line-anim 3s ease forwards 0.5s;
+}
+svg#logo path:nth-child(8) {
+  stroke-dasharray: 230.4000244140625;
+  stroke-dashoffset: 230.4000244140625;
+  animation: line-anim 3s ease forwards 0.5s;
+}
+svg#logo path:nth-child(9) {
+  stroke-dasharray: 322.00323486328125;
+  stroke-dashoffset: 322.00323486328125;
+  animation: line-anim 3s ease forwards 0.5s;
+}
+
+@keyframes line-anim{
+  to {
+    stroke-dashoffset: 0;;
+  }
+}
+@keyframes fill {
+  from {
+    fill: transparent;
+  }
+  to {
+    fill: white;
+  }
 }
 
 div.header {
@@ -145,18 +211,6 @@ div.issue {
   margin: 20px;
 }
 
-/* div#title-section.dashboardDivRight.component {
-  float: right;
-  width: 75%;
-  margin-top: 100px;
-}
-
-div#title-section.dashboardDivLeft.component {
-  float: right;
-  width: 25%;
-  margin-top: 100px;
-} */
-
 .dashboard-solution-left {
   border: 1px solid gray;
   border-radius: 10px;
@@ -176,14 +230,21 @@ div.search {
 
 span {
   color: #00a4c7;
-  /* font-size: 30px; */
+  font-size: 20px;
+  /* font-style: italic; */
+}
+
+h1.prompt,
+.searchTitle {
+  font-size: 50px;
+  color: #00a4c7;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Buttons */
-.searchTitle,
 input.searchbar,
 button {
-  margin: 10px;
+  margin: 20px;
 }
 
 button.browseButton {
@@ -194,7 +255,17 @@ button.browseButton {
   color: white;
   font-size: 30px;
   border-color: none;
-  /* margin: 30px; */
+}
+
+button.browseButton:hover {
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 10px;
+  width: 300px;
+  height: 80px;
+  color: #00a4c7;
+  font-size: 30px;
+  border-color: none;
 }
 
 button.submitButton {
@@ -230,12 +301,31 @@ button.active {
   background-color: orange;
 }
 
+button.submitNewIssueButton:hover {
+  border: 1px solid white;
+  background-color: #00a4c7;
+  color: white;
+  border-radius: 10px;
+  width: 350px;
+  height: 80px;
+  font-size: 30px;
+  border-color: none;
+}
+
 button {
   background-color: #00a4c7;
   color: white;
   border-radius: 5px;
   border-color: transparent;
   box-shadow: 5px 5px 5px #9e9e9e;
+}
+
+.looking {
+  color: black
+}
+
+.need {
+  color: white;
 }
 
 .searchbar {
@@ -277,17 +367,38 @@ img.homeImg {
 }
 
 div.titleScreen {
-  background-image: url('Images/computer.jpeg');
   background-size: cover;
-  background-position: center;
-  height: 75vh;
+  background-position: 400px 50%;
+  height: 70vh;
   width: 100%;
   display: flex;
   align-items: center;
+  animation: bgfade 20s infinite;
 }
 
+@keyframes bgfade {
+  0% {
+    background-image: url("Images/computer.jpeg");
+  }
+  50% {
+    background-image: url("Images/computer1.jpeg");
+  }
+  75% {
+    background-image: url("Images/computer2.jpeg");
+  }
+  100% {
+    background-image: url("Images/computer.jpeg");
+  }
+}
+
+div.titleScreen:before {
+  opacity: 0.3;
+}
+
+/*  */
 .container {
   padding: 0 75px;
+  margin-bottom: 400px;
 }
 
 div.slider {
