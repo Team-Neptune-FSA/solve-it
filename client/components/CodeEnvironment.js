@@ -7,14 +7,12 @@ function codeEnvironment({ setSolutionCode, value }) {
   const [output, setOutput] = useState('');
 
   useEffect(() => {
-    console.log(value); //returns undefined
     if (value) {
       setCode(value);
     }
   }, [value]); //this renders the value from the DB if present???
 
   const handleSubmit = async () => {
-    console.log(code);
     const { data: output } = await axios.post('/api/execute', { code });
     setOutput(output);
   };

@@ -35,8 +35,10 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "pg": "^8.5.1",
+    "react-confirm-alert": "^2.7.0",
     "react-mde": "^11.5.0",
     "react-search-field": "^1.2.1",
+    "react-toastify": "^7.0.4",
     "sequelize": "^6.3.5",
     "showdown": "^1.9.1",
     "util": "^0.12.3"
