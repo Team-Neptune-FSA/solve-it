@@ -1,12 +1,12 @@
-const Issue = require('../db/models/issue');
-const Solution = require('../db/models/solution');
-const Stat = require('../db/models/stat');
-const router = require('express').Router();
-const { requireToken } = require('./authMiddleware');
-const { Op } = require('sequelize');
+const Issue = require("../db/models/issue");
+const Solution = require("../db/models/solution");
+const Stat = require("../db/models/stat");
+const router = require("express").Router();
+const { requireToken } = require("./authMiddleware");
+const { Op } = require("sequelize");
 
 //GET /api/issues
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const issues = await Issue.findAll({
       where: {
@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // GET /api/issues/myIssues
-router.get('/myIssues', requireToken, async (req, res, next) => {
+router.get("/myIssues", requireToken, async (req, res, next) => {
   try {
     const issues = await Issue.findAll({
       where: {
@@ -34,7 +34,7 @@ router.get('/myIssues', requireToken, async (req, res, next) => {
 });
 
 // GET /api/issues/:issueId
-router.get('/:issueId', async (req, res, next) => {
+router.get("/:issueId", async (req, res, next) => {
   try {
     const issue = await Issue.findByPk(req.params.issueId);
     res.json(issue);
@@ -43,8 +43,24 @@ router.get('/:issueId', async (req, res, next) => {
   }
 });
 
+// PUT /api/issues/:issueId/edit
+router.put("/:issueId/edit", requireToken, async (req, res, next) => {
+  try {
+    const issue = await Issue.findOne({
+      where: {
+        userId: req.user.id,
+        id: req.params.issueId,
+      },
+    });
+    const updatedIssue = issue.update(req.body);
+    res.json(updatedIssue);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // PUT /api/issues/:issueId
-router.put('/:issueId', requireToken, async (req, res, next) => {
+router.put("/:issueId", requireToken, async (req, res, next) => {
   try {
     const issue = await Issue.findOne({
       where: {
@@ -61,7 +77,7 @@ router.put('/:issueId', requireToken, async (req, res, next) => {
 });
 
 //POST /api/issues
-router.post('/', requireToken, async (req, res, next) => {
+router.post("/", requireToken, async (req, res, next) => {
   try {
     const { title, description, price, language } = req.body;
     const issue = await Issue.create({
@@ -85,7 +101,7 @@ router.post('/', requireToken, async (req, res, next) => {
 });
 
 // GET api/issues/:issueId/solutions
-router.get('/:issueId/solutions', async (req, res, next) => {
+router.get("/:issueId/solutions", async (req, res, next) => {
   try {
     const solution = await Solution.findAll({
       where: {
@@ -99,7 +115,7 @@ router.get('/:issueId/solutions', async (req, res, next) => {
 });
 
 // PUT api/issues/:issueId/solutions
-router.put('/:issueId/solutions', async (req, res, next) => {
+router.put("/:issueId/solutions", async (req, res, next) => {
   try {
     const solution = await Solution.findAll({
       where: {
@@ -121,7 +137,7 @@ router.put('/:issueId/solutions', async (req, res, next) => {
 
 // GET /api/issues/:issueId/solutions/:solutionId
 router.get(
-  '/:issueId/solutions/:solutionId',
+  "/:issueId/solutions/:solutionId",
   requireToken,
   async (req, res, next) => {
     try {
@@ -135,7 +151,7 @@ router.get(
 
 // PUT /api/issues/:issueId/solutions/:solutionId
 router.put(
-  '/:issueId/solutions/:solutionId',
+  "/:issueId/solutions/:solutionId",
   requireToken,
   async (req, res, next) => {
     try {
@@ -149,7 +165,7 @@ router.put(
 );
 
 // GET /api/issues/:issueId/solutions/:solutionId
-router.get('/:issueId/mySolution', requireToken, async (req, res, next) => {
+router.get("/:issueId/mySolution", requireToken, async (req, res, next) => {
   try {
     const solution = await Solution.findOne({
       where: {
@@ -164,7 +180,7 @@ router.get('/:issueId/mySolution', requireToken, async (req, res, next) => {
 });
 
 // POST /api/issues/issueId/solutions
-router.post('/:issueId/solutions', requireToken, async (req, res, next) => {
+router.post("/:issueId/solutions", requireToken, async (req, res, next) => {
   try {
     const solution = await Solution.findOne({
       where: {
@@ -196,7 +212,7 @@ router.post('/:issueId/solutions', requireToken, async (req, res, next) => {
 });
 
 //GET /api/issues/solutions/accepted
-router.get('/solutions/accepted', requireToken, async (req, res, next) => {
+router.get("/solutions/accepted", requireToken, async (req, res, next) => {
   //finds all accepted solutions
   try {
     const solution = await Solution.findAll({

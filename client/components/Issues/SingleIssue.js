@@ -18,6 +18,10 @@ const SingleIssue = ({ match, auth }) => {
   const [description, setDescription] = useState("");
   const [singleIssue, setSingleIssue] = useState({});
   const [view, setView] = useState("overview");
+
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+
   const notifySubmit = () =>
     toast("Solution submitted!", { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
@@ -99,7 +103,7 @@ const SingleIssue = ({ match, auth }) => {
     const token = window.localStorage.getItem("token");
     event.preventDefault();
     await axios.put(
-      `/api/issues/${singleIssue.id}`,
+      `/api/issues/${singleIssue.id}/edit`,
       { title, description },
       { headers: { authorization: token } }
     );
