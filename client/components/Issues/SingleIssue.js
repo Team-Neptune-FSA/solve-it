@@ -6,11 +6,12 @@ import axios from "axios";
 const SingleIssue = ({ match, auth }) => {
   const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
-  const [titleView, setTitleView] = useState("edit");
-  const [descriptionView, setDescriptionView] = useState("edit");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [singleIssue, setSingleIssue] = useState({});
+  const [view, setView] = useState("overview");
+  const [titleView, setTitleView] = useState("edit");
+  const [descriptionView, setDescriptionView] = useState("edit");
 
   const setSolutionCode = (code) => {
     setCode(code);
@@ -78,94 +79,115 @@ const SingleIssue = ({ match, auth }) => {
     <>
       {singleIssue.userId === auth.id ? (
         <div className="component">
-          <div>
-            {titleView === "edit" ? (
-              <div>
-                <h1><strong>{title}</strong></h1>
-                <button onClick={() => setTitleView("submit")}>edit</button>
-              </div>
-            ) : (
-              <div>
-                <label>
-                  <input
-                    value={title}
-                    onChange={(event) => setTitle(event.target.value)}
-                  />
-                </label>
-                <button
-                  type="submit"
-                  onClick={(event) => {
-                    handleEdit(event);
-                    setTitleView("edit");
-                  }}
-                >
-                  submit changes
-                </button>
-              </div>
-            )}
-            {descriptionView === "edit" ? (
-              <div>
-                <h2>{description}</h2>
-                <button onClick={() => setDescriptionView("submit")}>
-                  edit
-                </button>
-              </div>
-            ) : (
-              <div>
-                <label>
-                  <input
-                    value={description}
-                    onChange={(event) => setDescription(event.target.value)}
-                  />
-                </label>
-                <button
-                  type="submit"
-                  onClick={(event) => {
-                    handleEdit(event);
-                    setDescriptionView("edit");
-                  }}
-                >
-                  submit changes
-                </button>
-              </div>
-            )}
-          </div>
-          <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
-          <br />
-          <h2>EXPLANATION SECTION</h2>
-          <textarea
-            onChange={(event) => setExplanation(event.target.value)}
-            type="text"
-            value={explanation}
-            name="name"
-          />
-          <button onClick={handleSubmit} type="button">
-            Submit Solution
-          </button>
-          <button onClick={handleSave} type="button">
-            Save Solution
-          </button>
+          <button onClick={() => setView("overview")}>Overview</button>
+          <button onClick={() => setView("workspace")}>Workspace</button>
+
+          {view === "overview" ? (
+            <div>
+              {titleView === "edit" ? (
+                <div>
+                  <h1>
+                    <strong>{title}</strong>
+                  </h1>
+                  <button onClick={() => setTitleView("submit")}>edit</button>
+                </div>
+              ) : (
+                <div>
+                  <label>
+                    <input
+                      value={title}
+                      onChange={(event) => setTitle(event.target.value)}
+                    />
+                  </label>
+                  <button
+                    type="submit"
+                    onClick={(event) => {
+                      handleEdit(event);
+                      setTitleView("edit");
+                    }}
+                  >
+                    submit changes
+                  </button>
+                </div>
+              )}
+
+              {descriptionView === "edit" ? (
+                <div>
+                  <h2>{description}</h2>
+                  <button onClick={() => setDescriptionView("submit")}>
+                    edit
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <label>
+                    <input
+                      value={description}
+                      onChange={(event) => setDescription(event.target.value)}
+                    />
+                  </label>
+                  <button
+                    type="submit"
+                    onClick={(event) => {
+                      handleEdit(event);
+                      setDescriptionView("edit");
+                    }}
+                  >
+                    submit changes
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
+              <br />
+              <h2>EXPLANATION SECTION</h2>
+              <textarea
+                onChange={(event) => setExplanation(event.target.value)}
+                type="text"
+                value={explanation}
+                name="name"
+              />
+              <button onClick={handleSubmit} type="button">
+                Submit Solution
+              </button>
+              <button onClick={handleSave} type="button">
+                Save Solution
+              </button>
+            </>
+          )}
         </div>
       ) : (
         <div className="component">
-          <h1 className="issueTitle">{singleIssue.title}</h1>
-          <p>{singleIssue.description}</p>
-          <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
-          <br />
-          <h2>EXPLANATION SECTION</h2>
-          <textarea
-            onChange={(event) => setExplanation(event.target.value)}
-            type="text"
-            value={explanation}
-            name="name"
-          />
+          <button onClick={() => setView("overview")}>Overview</button>
+          <button onClick={() => setView("workspace")}>Workspace</button>
 
-          <button onClick={handleSubmit} type="button">
-            Submit Solution
-          </button>
-          <button onClick={handleSave} type="button">
-            Save Solution
-          </button>
+          {view === "overview" ? (
+            <>
+              <h1 className="issueTitle">{singleIssue.title}</h1>
+              <p>{singleIssue.description}</p>
+            </>
+          ) : (
+            <>
+              <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
+              <br />
+              <h2>EXPLANATION SECTION</h2>
+              <textarea
+                onChange={(event) => setExplanation(event.target.value)}
+                type="text"
+                value={explanation}
+                name="name"
+              />
+
+              <button onClick={handleSubmit} type="button">
+                Submit Solution
+              </button>
+              <button onClick={handleSave} type="button">
+                Save Solution
+              </button>
+            </>
+          )}
         </div>
       )}
     </>
@@ -179,3 +201,98 @@ const mapState = (state) => {
 };
 
 export default connect(mapState, null)(SingleIssue);
+
+// {singleIssue.userId === auth.id ? (
+//   <div className="component">
+//     <div>
+//       {titleView === "edit" ? (
+//         <div>
+//           <h1>
+//             <strong>{title}</strong>
+//           </h1>
+//           <button onClick={() => setTitleView("submit")}>edit</button>
+//         </div>
+//       ) : (
+//         <div>
+//           <label>
+//             <input
+//               value={title}
+//               onChange={(event) => setTitle(event.target.value)}
+//             />
+//           </label>
+//           <button
+//             type="submit"
+//             onClick={(event) => {
+//               handleEdit(event);
+//               setTitleView("edit");
+//             }}
+//           >
+//             submit changes
+//           </button>
+//         </div>
+//       )}
+//       {descriptionView === "edit" ? (
+//         <div>
+//           <h2>{description}</h2>
+//           <button onClick={() => setDescriptionView("submit")}>
+//             edit
+//           </button>
+//         </div>
+//       ) : (
+//         <div>
+//           <label>
+//             <input
+//               value={description}
+//               onChange={(event) => setDescription(event.target.value)}
+//             />
+//           </label>
+//           <button
+//             type="submit"
+//             onClick={(event) => {
+//               handleEdit(event);
+//               setDescriptionView("edit");
+//             }}
+//           >
+//             submit changes
+//           </button>
+//         </div>
+//       )}
+//     </div>
+//     <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
+//     <br />
+//     <h2>EXPLANATION SECTION</h2>
+//     <textarea
+//       onChange={(event) => setExplanation(event.target.value)}
+//       type="text"
+//       value={explanation}
+//       name="name"
+//     />
+//     <button onClick={handleSubmit} type="button">
+//       Submit Solution
+//     </button>
+//     <button onClick={handleSave} type="button">
+//       Save Solution
+//     </button>
+//   </div>
+// ) : (
+//   <div className="component">
+//     <h1 className="issueTitle">{singleIssue.title}</h1>
+//     <p>{singleIssue.description}</p>
+//     <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
+//     <br />
+//     <h2>EXPLANATION SECTION</h2>
+//     <textarea
+//       onChange={(event) => setExplanation(event.target.value)}
+//       type="text"
+//       value={explanation}
+//       name="name"
+//     />
+
+//     <button onClick={handleSubmit} type="button">
+//       Submit Solution
+//     </button>
+//     <button onClick={handleSave} type="button">
+//       Save Solution
+//     </button>
+//   </div>
+// )}
