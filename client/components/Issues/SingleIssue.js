@@ -1,28 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import CodeEnvironment from '../CodeEnvironment';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import history from '../../history';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import CodeEnvironment from "../CodeEnvironment";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import history from "../../history";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 toast.configure();
 const SingleIssue = ({ match, auth }) => {
-  const [code, setCode] = useState('');
-  const [explanation, setExplanation] = useState('');
-  const [titleView, setTitleView] = useState('edit');
-  const [descriptionView, setDescriptionView] = useState('edit');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [code, setCode] = useState("");
+  const [explanation, setExplanation] = useState("");
+  const [titleView, setTitleView] = useState("edit");
+  const [descriptionView, setDescriptionView] = useState("edit");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [singleIssue, setSingleIssue] = useState({});
   const [view, setView] = useState("overview");
-  const notifySubmit = () =>
-    toast('Solution submitted!', { position: toast.POSITION.BOTTOM_RIGHT });
-  const notifySave = () =>
-    toast('Solution saved!', { position: toast.POSITION.BOTTOM_RIGHT });
 
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+
+  const notifySubmit = () =>
+    toast("Solution submitted!", { position: toast.POSITION.BOTTOM_RIGHT });
+  const notifySave = () =>
+    toast("Solution saved!", { position: toast.POSITION.BOTTOM_RIGHT });
 
   const setSolutionCode = (code) => {
     setCode(code);
@@ -30,7 +33,7 @@ const SingleIssue = ({ match, auth }) => {
 
   useEffect(() => {
     const { issueId } = match.params;
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     const getSingleIssue = async () => {
       const { data: singleIssue } = await axios.get(`/api/issues/${issueId}`);
       setSingleIssue(singleIssue);
@@ -53,16 +56,16 @@ const SingleIssue = ({ match, auth }) => {
 
   const confirmSubmit = () => {
     confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure you want to submit this solution?',
+      title: "Confirm to submit",
+      message: "Are you sure you want to submit this solution?",
       buttons: [
         {
-          label: 'Yes',
+          label: "Yes",
           onClick: () => handleSubmit(),
         },
         {
-          label: 'No',
-          onClick: () => console.log('back'),
+          label: "No",
+          onClick: () => console.log("back"),
         },
       ],
     });
@@ -70,7 +73,7 @@ const SingleIssue = ({ match, auth }) => {
 
   const handleSubmit = async () => {
     notifySubmit();
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     const { issueId } = match.params;
     await axios.post(
       `/api/issues/${issueId}/solutions`,
@@ -82,12 +85,12 @@ const SingleIssue = ({ match, auth }) => {
       },
       { headers: { authorization: token } }
     );
-    history.push('/dashboard');
+    history.push("/dashboard");
   };
 
   const handleSave = async () => {
     notifySave();
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     const { issueId } = match.params;
     await axios.post(
       `/api/issues/${issueId}/solutions`,
@@ -97,7 +100,7 @@ const SingleIssue = ({ match, auth }) => {
   };
 
   const handleEdit = async (event) => {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     event.preventDefault();
     await axios.put(
       `/api/issues/${singleIssue.id}`,
@@ -168,6 +171,16 @@ const SingleIssue = ({ match, auth }) => {
                   </button>
                 </div>
               )}
+              <>
+                <div>Answer the Questions About This Issue</div>
+                <input
+                  value={answer}
+                  onChange={(e) => setAnswer(e.target.value)}
+                  placeholder="Send answer to user..."
+                />
+                <button>Submit Answer</button>
+                <textarea readOnly></textarea>
+              </>
             </div>
           ) : (
             <>
@@ -198,6 +211,16 @@ const SingleIssue = ({ match, auth }) => {
             <>
               <h1 className="issueTitle">{singleIssue.title}</h1>
               <p>{singleIssue.description}</p>
+              <>
+                <div>Ask A Question About This Issue</div>
+                <input
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                  placeholder="Send message to question owner..."
+                />
+                <button>Ask Question</button>
+                <textarea readOnly></textarea>
+              </>
             </>
           ) : (
             <>
@@ -210,13 +233,13 @@ const SingleIssue = ({ match, auth }) => {
                 value={explanation}
                 name="name"
               />
-          <button onClick={confirmSubmit} type="button">
-            Submit Solution
-          </button>
-          <button onClick={handleSave} type="button">
-            Save Solution
-          </button>
-         </>
+              <button onClick={confirmSubmit} type="button">
+                Submit Solution
+              </button>
+              <button onClick={handleSave} type="button">
+                Save Solution
+              </button>
+            </>
           )}
         </div>
       )}
