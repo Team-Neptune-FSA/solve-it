@@ -19,6 +19,9 @@ const SingleIssue = ({ match }) => {
   const [singleIssue, setSingleIssue] = useState({});
   const [view, setView] = useState("overview");
 
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+
   const notifySubmit = () =>
     toast("Solution submitted!", { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
