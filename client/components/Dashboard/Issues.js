@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { me } from '../../store';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { useAuth } from "../../context/auth";
 
-const Issues = ({ loadInitialData }) => {
+const Issues = () => {
   const [unresolved, setunresolved] = useState([]);
   const [resolved, setresolved] = useState([]);
   const [current, setcurrent] = useState([]);
   const [dummy, setdummy] = useState(true);
-  const [view, setView] = useState('unresolved');
+  const { getCurrentUser } = useAuth();
+  const [view, setView] = useState("unresolved");
 
   useEffect(() => {
-    const token = window.localStorage.getItem('token');
-    loadInitialData();
+    const token = window.localStorage.getItem("token");
+    getCurrentUser();
     const getUserIssues = async () => {
-      const { data: userIssues } = await axios.get('/api/users/issues', {
+      const { data: userIssues } = await axios.get("/api/users/issues", {
         headers: {
           authorization: token,
         },
@@ -28,18 +28,18 @@ const Issues = ({ loadInitialData }) => {
   }, [dummy]);
 
   const filterIssues = (e) => {
-    if (e.target.value === 'Unresolved') {
+    if (e.target.value === "Unresolved") {
       setcurrent(unresolved);
-      setView('unresolved');
+      setView("unresolved");
     } else {
       setcurrent(resolved);
-      setView('resolved');
+      setView("resolved");
     }
   };
 
   const handleAccept = async (solution, issue) => {
     setdummy(!dummy);
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     //sets issue to isResolved
     await axios.put(`/api/issues/${issue.id}`, null, {
       headers: {
@@ -64,7 +64,7 @@ const Issues = ({ loadInitialData }) => {
       solutionId: solution.id,
     });
     //handles payment
-    await axios.put('/api/stats', {
+    await axios.put("/api/stats", {
       issue,
       solution,
     });
@@ -88,7 +88,7 @@ const Issues = ({ loadInitialData }) => {
   // };
 
   const toggleStar = async (solution, issue) => {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     setdummy(!dummy);
     await axios.put(
       `/api/issues/${issue.id}/solutions/${solution.id}`,
@@ -126,7 +126,7 @@ const Issues = ({ loadInitialData }) => {
                   {issue.solutions.map((solution, idx) => (
                     <div
                       className={`issue-solution box ${
-                        solution.isRejected && 'rejected'
+                        solution.isRejected && "rejected"
                       }`}
                       key={solution.id}
                     >
@@ -140,8 +140,8 @@ const Issues = ({ loadInitialData }) => {
                           onClick={() => toggleStar(solution, issue)}
                           className={
                             solution.isStarred
-                              ? 'fas fa-star blue'
-                              : 'far fa-star blue'
+                              ? "fas fa-star blue"
+                              : "far fa-star blue"
                           }
                         ></i>
                       </div>
@@ -149,7 +149,7 @@ const Issues = ({ loadInitialData }) => {
                         {solution.code && <code>{solution.code}</code>}
                         {solution.explanation && <p>{solution.explanation}</p>}
                       </Link>
-                      {view === 'unresolved' ? (
+                      {view === "unresolved" ? (
                         <button
                           onClick={() => handleAccept(solution, issue)}
                           className="btn blue white"
@@ -182,14 +182,4 @@ const Issues = ({ loadInitialData }) => {
   );
 };
 
-const mapState = (state) => {
-  return {
-    user: state.auth,
-  };
-};
-
-const mapDispatch = (dispatch) => ({
-  loadInitialData: () => dispatch(me()),
-});
-
-export default connect(mapState, mapDispatch)(Issues);
+export default Issues;

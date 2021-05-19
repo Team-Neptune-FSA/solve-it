@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Editor from '@monaco-editor/react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Editor from "@monaco-editor/react";
 
-function codeEnvironment({ setSolutionCode, value }) {
-  const [code, setCode] = useState('//enter code here...');
-  const [output, setOutput] = useState('');
+const codeEnvironment = ({ setSolutionCode, value }) => {
+  const [code, setCode] = useState("//enter code here...");
+  const [output, setOutput] = useState("");
 
   useEffect(() => {
     if (value) {
       setCode(value);
     }
-  }, [value]); 
+  }, [value]);
 
   const handleSubmit = async () => {
-    const { data: output } = await axios.post('/api/execute', { code });
+    const { data: output } = await axios.post("/api/execute", { code });
     setOutput(output);
   };
 
@@ -35,8 +35,8 @@ function codeEnvironment({ setSolutionCode, value }) {
           defaultLanguage="javascript"
           theme="vs-dark"
           onChange={handleChange}
-          options={{ 
-            readOnly: false
+          options={{
+            readOnly: false,
           }}
         />
         <br />
@@ -45,6 +45,6 @@ function codeEnvironment({ setSolutionCode, value }) {
       <button onClick={() => handleSubmit()}>Run Code</button>
     </>
   );
-}
+};
 
 export default codeEnvironment;
