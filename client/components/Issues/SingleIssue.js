@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
 import CodeEnvironment from "../CodeEnvironment";
 import axios from "axios";
+import { useAuth } from "../../context/auth";
 
-const SingleIssue = ({ match, auth }) => {
+const SingleIssue = ({ match }) => {
   const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
   const [titleView, setTitleView] = useState("edit");
@@ -11,6 +11,7 @@ const SingleIssue = ({ match, auth }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [singleIssue, setSingleIssue] = useState({});
+  const { user } = useAuth();
 
   const setSolutionCode = (code) => {
     setCode(code);
@@ -76,12 +77,14 @@ const SingleIssue = ({ match, auth }) => {
 
   return (
     <>
-      {singleIssue.userId === auth.id ? (
+      {singleIssue.userId === user.id ? (
         <div className="component">
           <div>
             {titleView === "edit" ? (
               <div>
-                <h1><strong>{title}</strong></h1>
+                <h1>
+                  <strong>{title}</strong>
+                </h1>
                 <button onClick={() => setTitleView("submit")}>edit</button>
               </div>
             ) : (
@@ -172,10 +175,4 @@ const SingleIssue = ({ match, auth }) => {
   );
 };
 
-const mapState = (state) => {
-  return {
-    auth: state.auth,
-  };
-};
-
-export default connect(mapState, null)(SingleIssue);
+export default SingleIssue;
