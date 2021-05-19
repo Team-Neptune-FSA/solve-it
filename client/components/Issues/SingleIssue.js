@@ -210,13 +210,14 @@ const SingleIssue = ({ match, auth }) => {
                 value={explanation}
                 name="name"
               />
-
           <button onClick={confirmSubmit} type="button">
             Submit Solution
           </button>
           <button onClick={handleSave} type="button">
             Save Solution
           </button>
+         </>
+          )}
         </div>
       )}
     </>
