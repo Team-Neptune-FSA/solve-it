@@ -1,19 +1,19 @@
 html,
 body {
   margin: 0;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to bottom,
     #f5f5f5,
     #f7f7f7,
     #fafafa,
     #fcfcfc,
     #ffffff
-  );
+  ); */
   z-index: -100;
 }
 
 * {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   color: gray;
   text-decoration: none;
@@ -296,6 +296,9 @@ button.submitNewIssueButton {
   height: 80px;
   font-size: 30px;
   border-color: none;
+}
+button.active {
+  background-color: orange;
 }
 
 button.submitNewIssueButton:hover {

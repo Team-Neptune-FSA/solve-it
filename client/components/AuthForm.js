@@ -48,7 +48,13 @@ const AuthForm = (props) => {
               to sign up!
             </div>
           ) : (
-            <div></div>
+            <div>
+              Already have an account? Click{' '}
+              <Link to="/login" style={{ color: 'blue' }}>
+                here{' '}
+              </Link>{' '}
+              to log in!
+            </div>
           )}
           <button type="submit" id="form-submit">
             {displayName}

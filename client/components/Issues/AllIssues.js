@@ -12,11 +12,11 @@ class AllIssues extends React.Component {
     const { issues } = this.props;
     return (
       <div className="component">
-          <form method="get" action="/issues/post">
-            <button className="post-issue-button" type="submit">
+          <Link to ="/issues/post">
+            <button className="post-issue-button">
               Post an Issue
             </button>
-          </form>
+          </Link>
         <div className="postIssue">
         </div>
 
@@ -36,8 +36,9 @@ class AllIssues extends React.Component {
                     <Link to={`/issues/${issue.id}`}>
                       <button className="btn blue-bg white">Solve</button>
                     </Link>
-                    <h1 className="issue-price">${issue.price}</h1>
-
+                    <h1 className="issue-price">
+                      ${(issue.price / 100).toFixed(2)}
+                    </h1>
                   </div>
                 </div>
               ))

@@ -1,6 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import AllIssues from "./Issues/AllIssues"
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+// import Search from "./Search";
 
 /**
  * COMPONENT

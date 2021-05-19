@@ -23,8 +23,6 @@ const PostIssue = () => {
     );
     history.push('/dashboard');
   };
-
-  console.log(title);
   return (
     <div className="component post-issue">
       <h1>Post an Issue</h1>
@@ -56,11 +54,12 @@ const PostIssue = () => {
         <label>Price: </label>
         $
         <input
-          type="text"
+          type="integer"
           name="price-amount"
           value={price}
           onChange={(e) => setPrice(Number(e.target.value))}
-        />
+        />{' '}
+        (in cents)
         <button type="submit">Submit</button>
       </form>
     </div>

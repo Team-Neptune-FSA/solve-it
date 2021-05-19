@@ -39,12 +39,15 @@ async function seed() {
     Stat.create(),
     Stat.create({
       totalEscrow: 500,
+      solutionsAttempted: 2,
     }),
     Stat.create({
       totalEscrow: 2500,
+      solutionsAttempted: 1,
     }),
     Stat.create({
       totalEscrow: 1000,
+      solutionsAttempted: 1,
     }),
   ]);
 
@@ -63,48 +66,47 @@ async function seed() {
         If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
 
         Note that you cannot sell a stock before you buy one.`,
-      price: 25,
+      price: 2500,
       language: 'javascript',
     }),
     Issue.create({
       title: 'Dimensions of a grid',
       description: `You are given the dimensions of a grid, m and n. Starting from the top left, or (0,0), you want to end up making your way to the bottom right corner. The only two moves you can make are to go one space directly to your right, or one space directly down. Write a function that can help you determine how many unique paths you can take between these two corners.`,
-      price: 50,
+      price: 1000,
       language: 'javascript',
     }),
     Issue.create({
       title: 'Valid Parentheses',
       description: `Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.`,
-      price: 20,
+      price: 2000,
       language: 'javascript',
     }),
     Issue.create({
       title: 'Defanging an IP Address',
       description: `Given a valid (IPv4) IP address, return a defanged version of that IP address. A defanged IP address replaces every period "." with "[.]".`,
-      price: 30,
+      price: 3000,
       language: 'javascript',
     }),
     Issue.create({
       title: 'Redundant Connection II',
       description: `In this problem, a rooted tree is a directed graph such that, there is exactly one node (the root) for which all other nodes are descendants of this node, plus every node has exactly one parent, except for the root node which has no parents.
       The given input is a directed graph that started as a rooted tree with n nodes (with distinct values from 1 to n), with one additional directed edge added. The added edge has two different vertices chosen from 1 to n, and was not an edge that already existed.`,
-      price: 75,
+      price: 7500,
       language: 'javascript',
     }),
     Issue.create({
       title: 'Richest Customer Wealth',
       description: `You are given an m x n integer grid accounts where accounts[i][j] is the amount of money the i​​​​​​​​​​​th​​​​ customer has in the j​​​​​​​​​​​th​​​​ bank. Return the wealth that the richest customer has. A customer's wealth is the amount of money they have in all their bank accounts. The richest customer is the customer that has the maximum wealth.`,
-      price: 100,
+      price: 10000,
       language: 'javascript',
     }),
     Issue.create({
       title: 'Recover Binary Search Tree',
       description: `You are given the root of a binary search tree (BST), where exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.`,
-      price: 150,
+      price: 15000,
       language: 'javascript',
     }),
   ]);
-
 
   // Creating Solutions
   const solutions = await Promise.all([
@@ -211,7 +213,7 @@ async function seed() {
   await issues[1].setUser(users[2]);
   await issues[2].setUser(users[3]);
 
-  await solutions[0].setUser(users[0]);
+  await solutions[0].setUser(users[1]);
   await solutions[1].setUser(users[1]);
   await solutions[2].setUser(users[2]);
   await solutions[3].setUser(users[3]);

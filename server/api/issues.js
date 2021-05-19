@@ -8,7 +8,11 @@ const { Op } = require('sequelize');
 //GET /api/issues
 router.get('/', async (req, res, next) => {
   try {
-    const issues = await Issue.findAll();
+    const issues = await Issue.findAll({
+      where: {
+        isResolved: false,
+      },
+    });
     res.json(issues);
   } catch (error) {
     next(error);
@@ -20,7 +24,7 @@ router.get('/myIssues', requireToken, async (req, res, next) => {
   try {
     const issues = await Issue.findAll({
       where: {
-        userId: req.user.id
+        userId: req.user.id,
       },
     });
     res.json(issues);
@@ -122,7 +126,6 @@ router.get(
   async (req, res, next) => {
     try {
       const solution = await Solution.findByPk(req.params.solutionId);
-      console.log(solution);
       res.json(solution);
     } catch (error) {
       next(error);
@@ -160,13 +163,18 @@ router.get('/:issueId/mySolution', requireToken, async (req, res, next) => {
   }
 });
 
-// PUT /api/issues/issueId/solutions
+// POST /api/issues/issueId/solutions
 router.post('/:issueId/solutions', requireToken, async (req, res, next) => {
   try {
     const solution = await Solution.findOne({
       where: {
         userId: req.user.id,
         issueId: req.params.issueId,
+      },
+    });
+    const stats = await Stat.findOne({
+      where: {
+        userId: req.user.id,
       },
     });
     if (solution) {
@@ -178,6 +186,8 @@ router.post('/:issueId/solutions', requireToken, async (req, res, next) => {
         userId: req.user.id,
         issueId: req.params.issueId,
       });
+      stats.solutionsAttempted += 1;
+      await stats.save();
       res.json(newSolution);
     }
   } catch (error) {
@@ -185,16 +195,16 @@ router.post('/:issueId/solutions', requireToken, async (req, res, next) => {
   }
 });
 
-
 //GET /api/issues/solutions/accepted
-router.get('/solutions/accepted', requireToken, async(req, res, next) => { //finds all accepted solutions
+router.get('/solutions/accepted', requireToken, async (req, res, next) => {
+  //finds all accepted solutions
   try {
     const solution = await Solution.findAll({
       where: {
         userId: req.user.id,
-        isAccepted: true
+        isAccepted: true,
       },
-      include: [Issue]  
+      include: [Issue],
       //grabs the price of the attached issue.
     });
     res.json(solution);
@@ -203,9 +213,8 @@ router.get('/solutions/accepted', requireToken, async(req, res, next) => { //fin
   }
 });
 
-
 // if issue is accepted, the payment is paid out(negative price for the issue poster)
 // if issue is unresolved, the payment is pending in escrow.
-// if solution is accepted, price is recieved. 
+// if solution is accepted, price is recieved.
 
 module.exports = router;
