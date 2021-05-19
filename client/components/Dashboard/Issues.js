@@ -10,6 +10,7 @@ const Issues = () => {
   const [dummy, setdummy] = useState(true);
   const { getCurrentUser } = useAuth();
   const [view, setView] = useState("unresolved");
+  const [toggleView, setToggleView] = useState("solutions");
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
@@ -107,76 +108,90 @@ const Issues = () => {
   return (
     <>
       <div className="dashboard-info">
-        <button>Question</button>
         <div className="custom-select">
           <select className="filterOptions" onChange={filterIssues}>
             <option value="Unresolved">Unresolved</option>
             <option value="Resolved">Resolved</option>
           </select>
         </div>
-        {current.length >= 1 ? (
-          <div>
-            {current.map((issue) => (
-              <div className="issue" key={issue.id}>
-                <Link to={`/issues/${issue.id}`}>
-                  <h3>Issue Title: {issue.title}</h3>
-                  <p>Issue Description: {issue.description}</p>
-                </Link>
-                <p>Issue Price: ${(issue.price / 100).toFixed(2)}</p>
-                <div>
-                  {issue.solutions.map((solution, idx) => (
-                    <div
-                      className={`issue-solution box ${
-                        solution.isRejected && "rejected"
-                      }`}
-                      key={solution.id}
-                    >
-                      <div className="flex">
-                        <Link
-                          to={`/issues/${issue.id}/solutions/${solution.id}`}
+        {toggleView === "solutions" ? (
+          <>
+            <button onClick={() => setToggleView("questions")}>Question</button>
+            {current.length >= 1 ? (
+              <div>
+                {current.map((issue) => (
+                  <div className="issue" key={issue.id}>
+                    <Link to={`/issues/${issue.id}`}>
+                      <h3>Issue Title: {issue.title}</h3>
+                      <p>Issue Description: {issue.description}</p>
+                    </Link>
+                    <p>Issue Price: ${(issue.price / 100).toFixed(2)}</p>
+                    <div>
+                      {issue.solutions.map((solution, idx) => (
+                        <div
+                          className={`issue-solution box ${
+                            solution.isRejected && "rejected"
+                          }`}
+                          key={solution.id}
                         >
-                          <h3>Solution #{idx + 1}</h3>
-                        </Link>
-                        <i
-                          onClick={() => toggleStar(solution, issue)}
-                          className={
-                            solution.isStarred
-                              ? "fas fa-star blue"
-                              : "far fa-star blue"
-                          }
-                        ></i>
-                      </div>
-                      <Link to={`/issues/${issue.id}/solutions/${solution.id}`}>
-                        {solution.code && <code>{solution.code}</code>}
-                        {solution.explanation && <p>{solution.explanation}</p>}
-                      </Link>
-                      {view === "unresolved" ? (
-                        <button
-                          onClick={() => handleAccept(solution, issue)}
-                          className="btn blue white"
+                          <div className="flex">
+                            <Link
+                              to={`/issues/${issue.id}/solutions/${solution.id}`}
+                            >
+                              <h3>Solution #{idx + 1}</h3>
+                            </Link>
+                            <i
+                              onClick={() => toggleStar(solution, issue)}
+                              className={
+                                solution.isStarred
+                                  ? "fas fa-star blue"
+                                  : "far fa-star blue"
+                              }
+                            ></i>
+                          </div>
+                          <Link
+                            to={`/issues/${issue.id}/solutions/${solution.id}`}
+                          >
+                            {solution.code && <code>{solution.code}</code>}
+                            {solution.explanation && (
+                              <p>{solution.explanation}</p>
+                            )}
+                          </Link>
+                          {view === "unresolved" ? (
+                            <button
+                              onClick={() => handleAccept(solution, issue)}
+                              className="btn blue white"
+                            >
+                              Accept Solution
+                            </button>
+                          ) : (
+                            <div></div>
+                          )}
+                          {/* <button
+                          onClick={() => handleReject(solution, issue)}
+                          className="btn black-bg white"
                         >
-                          Accept Solution
-                        </button>
-                      ) : (
-                        <div></div>
-                      )}
-                      {/* <button
-                        onClick={() => handleReject(solution, issue)}
-                        className="btn black-bg white"
-                      >
-                        Reject Solution
-                      </button> */}
+                          Reject Solution
+                        </button> */}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            ) : (
+              <div>
+                <br />
+                <p>Looks like you have no issues here, must be nice!</p>
+              </div>
+            )}
+          </>
         ) : (
-          <div>
-            <br />
-            <p>Looks like you have no issues here, must be nice!</p>
-          </div>
+          <>
+            <button onClick={() => setToggleView("solutions")}>
+              Solutions
+            </button>
+          </>
         )}
       </div>
     </>
