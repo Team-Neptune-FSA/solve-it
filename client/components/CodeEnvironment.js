@@ -30,11 +30,14 @@ function codeEnvironment({ setSolutionCode, value }) {
         <Editor
           height="50vh"
           width="75vw"
+          fontsize="12px"
           value={code}
           defaultLanguage="javascript"
           theme="vs-dark"
           onChange={handleChange}
-          options={{ readOnly: false }}
+          options={{ 
+            readOnly: false
+          }}
         />
         <br />
         <div className="output-box">{output}</div>

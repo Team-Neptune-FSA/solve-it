@@ -12,4 +12,8 @@ const App = () => {
   )
 }
 
+const logo = document.querySelectorAll('#logo path');
+console.log(logo);
+console.log('hello')
+
 export default App
