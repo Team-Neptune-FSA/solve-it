@@ -11,6 +11,7 @@ import AllIssues from "./Issues/AllIssues"
  
  export const Home = (props) => {
    const { name } = props;
+
    return (
      <div>
       <div className="titleScreen">
