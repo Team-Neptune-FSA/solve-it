@@ -17,12 +17,11 @@ const SingleIssue = ({ match, auth }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [singleIssue, setSingleIssue] = useState({});
-  const [view, setView] = useState("overview");
+  const [view, setView] = useState('overview');
   const notifySubmit = () =>
     toast('Solution submitted!', { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
     toast('Solution saved!', { position: toast.POSITION.BOTTOM_RIGHT });
-
 
   const setSolutionCode = (code) => {
     setCode(code);
@@ -54,7 +53,7 @@ const SingleIssue = ({ match, auth }) => {
   const confirmSubmit = () => {
     confirmAlert({
       title: 'Confirm to submit',
-      message: 'Are you sure you want to submit this solution?',
+      message: 'Are you sure you want to submit a new solution?',
       buttons: [
         {
           label: 'Yes',
@@ -110,17 +109,17 @@ const SingleIssue = ({ match, auth }) => {
     <>
       {singleIssue.userId === auth.id ? (
         <div className="component">
-          <button onClick={() => setView("overview")}>Overview</button>
-          <button onClick={() => setView("workspace")}>Workspace</button>
+          <button onClick={() => setView('overview')}>Overview</button>
+          <button onClick={() => setView('workspace')}>Workspace</button>
 
-          {view === "overview" ? (
+          {view === 'overview' ? (
             <div>
-              {titleView === "edit" ? (
+              {titleView === 'edit' ? (
                 <div>
                   <h1>
                     <strong>{title}</strong>
                   </h1>
-                  <button onClick={() => setTitleView("submit")}>edit</button>
+                  <button onClick={() => setTitleView('submit')}>edit</button>
                 </div>
               ) : (
                 <div>
@@ -134,7 +133,7 @@ const SingleIssue = ({ match, auth }) => {
                     type="submit"
                     onClick={(event) => {
                       handleEdit(event);
-                      setTitleView("edit");
+                      setTitleView('edit');
                     }}
                   >
                     submit changes
@@ -142,10 +141,10 @@ const SingleIssue = ({ match, auth }) => {
                 </div>
               )}
 
-              {descriptionView === "edit" ? (
+              {descriptionView === 'edit' ? (
                 <div>
                   <h2>{description}</h2>
-                  <button onClick={() => setDescriptionView("submit")}>
+                  <button onClick={() => setDescriptionView('submit')}>
                     edit
                   </button>
                 </div>
@@ -161,7 +160,7 @@ const SingleIssue = ({ match, auth }) => {
                     type="submit"
                     onClick={(event) => {
                       handleEdit(event);
-                      setDescriptionView("edit");
+                      setDescriptionView('edit');
                     }}
                   >
                     submit changes
@@ -191,10 +190,10 @@ const SingleIssue = ({ match, auth }) => {
         </div>
       ) : (
         <div className="component">
-          <button onClick={() => setView("overview")}>Overview</button>
-          <button onClick={() => setView("workspace")}>Workspace</button>
+          <button onClick={() => setView('overview')}>Overview</button>
+          <button onClick={() => setView('workspace')}>Workspace</button>
 
-          {view === "overview" ? (
+          {view === 'overview' ? (
             <>
               <h1 className="issueTitle">{singleIssue.title}</h1>
               <p>{singleIssue.description}</p>
@@ -210,13 +209,13 @@ const SingleIssue = ({ match, auth }) => {
                 value={explanation}
                 name="name"
               />
-          <button onClick={confirmSubmit} type="button">
-            Submit Solution
-          </button>
-          <button onClick={handleSave} type="button">
-            Save Solution
-          </button>
-         </>
+              <button onClick={confirmSubmit} type="button">
+                Submit Solution
+              </button>
+              <button onClick={handleSave} type="button">
+                Save Solution
+              </button>
+            </>
           )}
         </div>
       )}
