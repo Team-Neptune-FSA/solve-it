@@ -24,44 +24,65 @@ const PostIssue = () => {
     history.push('/dashboard');
   };
   return (
+    <div className="post">
     <div className="component post-issue">
-      <h1>Post an Issue</h1>
+      <h1>What problem are you having trouble with?</h1>
+      {/* <br/> */}
+      <p>Describe the service you're looking to purchase - please be as detailed as possible:</p>
+      <br/>
       <form onSubmit={handleSubmit}>
-        <label>Title: </label>
+        <h2><label>Title: </label></h2>
         <input
           type="text"
           name="title"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          // placeholder="Title..."
-        />
-        <label>Description: </label>
+          onChange={(e) => setTitle(e.target.value)}/>
+        <br/>
+
+        <h2><label>Description: </label></h2>
         <textarea
           id="issue-md"
           type="text"
           name="description"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <label>Language: </label>
+          onChange={(e) => setDescription(e.target.value)}></textarea>
+          <br/>
+
+          <div style={{display:"flex"}}>
+          <h2><label>Language: </label></h2>
         <select
+          className="language-input"
           name="language"
           value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-        >
+          onChange={(e) => setLanguage(e.target.value)}>
           <option value="javascript">Javascript</option>
         </select>
-        <label>Price: </label>
-        $
+        </div>
+        <br/>
+        <div style={{display:"flex"}}>
+        <h2><label>Incentive Amount Price:$ (in cents)  </label></h2>
         <input
+          className="price-input"
           type="integer"
           name="price-amount"
           value={price}
           onChange={(e) => setPrice(Number(e.target.value))}
         />{' '}
-        (in cents)
-        <button type="submit">Submit</button>
+        </div>
+
+        <br/>
+        <div className="payment-div credit">
+        <img style={{height: "100%", width: "100%", objectFit: "scale-down"}} src="../Images/credit.png" alt=""/>
+        </div>
+        <div className="payment-div paypal">
+        <img style={{height: "100%", width: "100%", objectFit: "scale-down"}} src="../Images/paypal.png" alt=""/>
+        </div>
+        <div className="payment-div google-pay">
+        <img style={{height: "100%", width: "100%", objectFit: "scale-down"}} src="../Images/googlepay.png" alt=""/>
+        </div>
+        <button className="post-issue-submit" type="submit">Submit Request</button>
       </form>
+    </div>
     </div>
   );
 };

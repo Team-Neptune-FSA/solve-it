@@ -9,7 +9,7 @@ const UserDashboard = ({ user: { name } }) => {
   return (
     <>
       <div>
-        <div className="dashboardDivRight component" id="title-section">
+        <div className="dashboardDivRight component" id="-section">
           <h1>Hello {name}!</h1>
           {/* </div> */}
           <button

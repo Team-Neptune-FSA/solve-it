@@ -13,9 +13,8 @@ body {
 }
 
 * {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
-  color: gray;
+  font-family: "Montserrat", sans-serif;
+  color: rgb(69, 69, 69);
   text-decoration: none;
   font-size: 20px;
 }
@@ -29,6 +28,7 @@ h1.title {
 h1 {
   font-size: 30px;
   margin: 0;
+  font-weight: bold;
 }
 
 svg#logo path:nth-child(2) {
@@ -72,9 +72,9 @@ svg#logo path:nth-child(9) {
   animation: line-anim 3s ease forwards 0.5s;
 }
 
-@keyframes line-anim{
+@keyframes line-anim {
   to {
-    stroke-dashoffset: 0;;
+    stroke-dashoffset: 0;
   }
 }
 @keyframes fill {
@@ -131,10 +131,16 @@ ul.nav-links {
   color: #00a4c7;
 }
 
-a p {
+p {
   text-decoration: none;
   color: inherit;
-  margin: 1px;
+  margin: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  margin: 0;
 }
 
 label {
@@ -242,9 +248,15 @@ h1.prompt,
 }
 
 /* Buttons */
-input.searchbar,
+.searchbar,
 button {
   margin: 20px;
+}
+
+button:hover {
+  background-color: white;
+  color: #00a4c7;
+  border: 1px solid black;
 }
 
 button.browseButton {
@@ -321,7 +333,7 @@ button {
 }
 
 .looking {
-  color: black
+  color: black;
 }
 
 .need {
@@ -398,7 +410,7 @@ div.titleScreen:before {
 /*  */
 .container {
   padding: 0 75px;
-  margin-bottom: 400px;
+  display: grid;
 }
 
 div.slider {
@@ -448,6 +460,12 @@ button.btn.blue-bg.white {
   margin-bottom: 20px;
 }
 
+button.btn.blue-bg.white:hover {
+  background-color: white;
+  color: #00a4c7;
+  border: 1px solid black;
+}
+
 button.post-issue-button {
   padding: 10px;
 }
@@ -493,8 +511,7 @@ div.post-issue {
   justify-content: center;
   align-items: center;
   font-size: 50px;
-  margin-top: 150px;
-  /* padding: 10px; */
+  margin-top: 50px;
 }
 
 .all-issues-title {
@@ -518,4 +535,72 @@ div.code-environment-container {
   height: 50vh;
   width: 24vw;
   color: white;
+}
+
+textarea {
+  width: 500px;
+  height: 100px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #ededed;
+  margin-bottom: 20px;
+}
+
+input,
+select {
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 500px;
+}
+
+input.price-input,
+select.language-input {
+  width: 140px !important;
+}
+
+button.post-issue-submit {
+  background-color: #00a4c7;
+  border-radius: 10px;
+  width: 250px;
+  height: 60px;
+  color: white;
+  font-size: 20px;
+  border-color: none;
+  position: relative;
+  left: 20%;
+}
+
+button.post-issue-submit:hover {
+  background-color: white;
+  color: #00a4c7;
+  font-size: 20px;
+  border-color: black;
+}
+
+div.component.post-issue,
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+div.component.post-issue {
+  border-radius: 10px;
+}
+
+.post {
+  display: flex;
+  justify-content: center;
+}
+
+.payment-div {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 500px;
+  height: 50px;
+  margin: 10px;
+}
+
+textarea#issue-md {
+  background-color: white;
+  height: 250px;
 }
