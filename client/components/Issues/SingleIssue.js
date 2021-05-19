@@ -18,10 +18,6 @@ const SingleIssue = ({ match, auth }) => {
   const [description, setDescription] = useState("");
   const [singleIssue, setSingleIssue] = useState({});
   const [view, setView] = useState("overview");
-
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-
   const notifySubmit = () =>
     toast("Solution submitted!", { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
@@ -57,7 +53,7 @@ const SingleIssue = ({ match, auth }) => {
   const confirmSubmit = () => {
     confirmAlert({
       title: "Confirm to submit",
-      message: "Are you sure you want to submit this solution?",
+      message: "Are you sure you want to submit a new solution?",
       buttons: [
         {
           label: "Yes",

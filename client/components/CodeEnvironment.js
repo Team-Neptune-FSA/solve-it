@@ -10,7 +10,7 @@ function codeEnvironment({ setSolutionCode, value }) {
     if (value) {
       setCode(value);
     }
-  }, [value]); //this renders the value from the DB if present???
+  }, [value]); 
 
   const handleSubmit = async () => {
     const { data: output } = await axios.post('/api/execute', { code });
@@ -30,11 +30,14 @@ function codeEnvironment({ setSolutionCode, value }) {
         <Editor
           height="50vh"
           width="75vw"
+          fontsize="12px"
           value={code}
           defaultLanguage="javascript"
           theme="vs-dark"
           onChange={handleChange}
-          options={{ readOnly: false }}
+          options={{ 
+            readOnly: false
+          }}
         />
         <br />
         <div className="output-box">{output}</div>

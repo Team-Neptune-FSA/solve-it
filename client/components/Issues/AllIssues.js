@@ -12,21 +12,17 @@ class AllIssues extends React.Component {
     const { issues } = this.props;
     return (
       <div className="component">
-        <div className="search">
-          <input
-            className="searchbar"
-            type="text"
-            placeholder="Search.."
-          ></input>
-        </div>
-
-        <div className="postIssue">
-          <Link to="/issues/post">
-            <button className="post-issue-button">Post an Issue</button>
+          <Link to ="/issues/post">
+            <button className="post-issue-button">
+              Post an Issue
+            </button>
           </Link>
+        <div className="postIssue">
         </div>
 
         <br />
+
+      {/* only map issues that are unresolved aka have 0 accepted solutions */}
 
         <div className="allIssues">
           <h1 className="all-issues-title">All Issues</h1>
