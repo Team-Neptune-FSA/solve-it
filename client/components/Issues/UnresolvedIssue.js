@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { fetchSingleIssue } from "../../store/singleIssue";
 import CodeEnvironment from "../CodeEnvironment";
 import axios from "axios";
-import { fetchSingleSolution } from "../../store/singleSolution";
 
-const UnresolvedIssue = ({ match, getSingleIssue, singleIssue }) => {
+const UnresolvedIssue = ({ match }) => {
   const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
+  const [issue, setIssue] = useState({});
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     const { issueId, solutionId } = match.params;
-    const solutionCode = async () => {
-      console.log("getting solution code");
-      const response = await axios.get(
+    const getIssueSolution = async () => {
+      const { data: solution } = await axios.get(
         `/api/issues/${issueId}/solutions/${solutionId}`,
         { headers: { authorization: token } }
       );
-      const solution = response.data;
-      console.log("solution ", solution);
       setCode(solution.code);
       setExplanation(solution.explanation);
+
+      const { data: issue } = await axios.get(`/api/issues/${issueId}`);
+      setIssue(issue);
     };
-    solutionCode();
-    getSingleIssue(issueId);
+    getIssueSolution();
   }, []);
 
   const setSolutionCode = (code) => {
@@ -33,8 +30,8 @@ const UnresolvedIssue = ({ match, getSingleIssue, singleIssue }) => {
 
   return (
     <div>
-      <h2>{singleIssue.title}</h2>
-      <p>{singleIssue.description}</p>
+      <h2>{issue.title}</h2>
+      <p>{issue.description}</p>
       <button>ACCEPT</button>
       <h1 style={{ color: "green" }}>ISSUE RESOLVED</h1>
       <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
@@ -45,19 +42,4 @@ const UnresolvedIssue = ({ match, getSingleIssue, singleIssue }) => {
   );
 };
 
-const mapState = (state) => {
-  return {
-    singleIssue: state.singleIssue,
-    singleSolution: state.singleSolution,
-  };
-};
-
-const mapDispatch = (dispatch) => {
-  return {
-    getSingleIssue: (issueId) => dispatch(fetchSingleIssue(issueId)),
-    getSingleSolution: (issueId, solutionId) =>
-      dispatch(fetchSingleSolution(issueId, solutionId)),
-  };
-};
-
-export default connect(mapState, mapDispatch)(UnresolvedIssue);
+export default UnresolvedIssue;

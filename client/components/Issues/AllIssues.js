@@ -1,67 +1,51 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchIssues } from '../../store/allIssues';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
-class AllIssues extends React.Component {
-  componentDidMount() {
-    this.props.fetchIssues();
-  }
+const AllIssues = () => {
+  const [issues, setIssues] = useState([]);
 
-  render() {
-    const { issues } = this.props;
-    return (
-      <div className="component">
-          <Link to ="/issues/post">
-            <button className="post-issue-button">
-              Post an Issue
-            </button>
-          </Link>
-        <div className="postIssue">
-        </div>
+  useEffect(() => {
+    const getIssues = async () => {
+      const { data: allIssues } = await axios.get("/api/issues/");
+      setIssues(allIssues);
+    };
+    getIssues();
+  }, []);
 
-        <br />
+  return (
+    <div className="component">
+      <Link to="/issues/post">
+        <button className="post-issue-button">Post an Issue</button>
+      </Link>
 
       {/* only map issues that are unresolved aka have 0 accepted solutions */}
 
-        <div className="allIssues">
-          <h1 className="all-issues-title">All Issues</h1>
-          {issues.length ? (
-            issues
-              .map((issue) => (
-                <div key={issue.id} className="single-issue">
-                  <div className="insideAllIssues">
-                    <h2 className="issueTitle">{issue.title}</h2>
-                    <p>{issue.description}</p>
-                    <Link to={`/issues/${issue.id}`}>
-                      <button className="btn blue-bg white">Solve</button>
-                    </Link>
-                    <h1 className="issue-price">
-                      ${(issue.price / 100).toFixed(2)}
-                    </h1>
-                  </div>
+      <div className="allIssues">
+        <h1 className="all-issues-title">All Issues</h1>
+        {issues.length ? (
+          issues
+            .map((issue) => (
+              <div key={issue.id} className="single-issue">
+                <div className="insideAllIssues">
+                  <h2 className="issueTitle">{issue.title}</h2>
+                  <p>{issue.description}</p>
+                  <Link to={`/issues/${issue.id}`}>
+                    <button className="btn blue-bg white">Solve</button>
+                  </Link>
+                  <h1 className="issue-price">
+                    ${(issue.price / 100).toFixed(2)}
+                  </h1>
                 </div>
-              ))
-              .reverse()
-          ) : (
-            <h2 className="none-in-database">There are no issues, sorry.</h2>
-          )}
-        </div>
+              </div>
+            ))
+            .reverse()
+        ) : (
+          <h2 className="none-in-database">There are no issues, sorry.</h2>
+        )}
       </div>
-    );
-  }
-}
-
-const mapState = (state) => {
-  return {
-    issues: state.allIssues,
-  };
+    </div>
+  );
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    fetchIssues: () => dispatch(fetchIssues()),
-  };
-};
-
-export default connect(mapState, mapDispatch)(AllIssues);
+export default AllIssues;

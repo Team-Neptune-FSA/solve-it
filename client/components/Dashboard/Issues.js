@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { me } from "../../store";
+import { useAuth } from "../../context/auth";
 
-const Issues = ({ loadInitialData }) => {
+const Issues = () => {
   const [unresolved, setunresolved] = useState([]);
   const [resolved, setresolved] = useState([]);
   const [current, setcurrent] = useState([]);
   const [dummy, setdummy] = useState(true);
+  const { getCurrentUser } = useAuth();
   const [view, setView] = useState("unresolved");
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
-    loadInitialData();
+    getCurrentUser();
     const getUserIssues = async () => {
       const { data: userIssues } = await axios.get("/api/users/issues", {
         headers: {
@@ -183,14 +183,4 @@ const Issues = ({ loadInitialData }) => {
   );
 };
 
-const mapState = (state) => {
-  return {
-    user: state.auth,
-  };
-};
-
-const mapDispatch = (dispatch) => ({
-  loadInitialData: () => dispatch(me()),
-});
-
-export default connect(mapState, mapDispatch)(Issues);
+export default Issues;
