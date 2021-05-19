@@ -29,10 +29,8 @@ router.put('/', async (req, res, next) => {
       issueOwner.totalPaid += Number(req.body.issue.price);
       problemSolver.totalEarned += Number(req.body.issue.price);
       problemSolver.solutionsAccepted += 1;
-      console.log(typeof issueOwner.totalEscrow);
       await issueOwner.save();
       await problemSolver.save();
-      console.log('hi from stats');
     }
   } catch (error) {
     next(error);

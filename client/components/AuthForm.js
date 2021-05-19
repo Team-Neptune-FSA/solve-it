@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../context/auth";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/auth';
 
 const AuthForm = ({ name, displayName }) => {
   const { login, signUp, error } = useAuth();
@@ -19,13 +19,11 @@ const AuthForm = ({ name, displayName }) => {
     const name = evt.target.name.value;
     await signUp(name, email, password);
   };
-
-  console.log(displayName);
   return (
     <div className="component">
       <div id="login-window">
         <form
-          onSubmit={name === "login" ? handleLogin : handleSignup}
+          onSubmit={name === 'login' ? handleLogin : handleSignup}
           name={name}
           id="login-form"
         >
@@ -36,7 +34,7 @@ const AuthForm = ({ name, displayName }) => {
             </label>
             <input name="email" type="text" className="login-input" />
           </div>
-          {name === "signup" ? (
+          {name === 'signup' ? (
             <div className="input-div">
               <label htmlFor="name">
                 <small>Name</small>
@@ -44,7 +42,7 @@ const AuthForm = ({ name, displayName }) => {
               <input name="name" type="text" className="login-input" />
             </div>
           ) : (
-            ""
+            ''
           )}
           <div className="input-div">
             <label htmlFor="password">
@@ -52,20 +50,20 @@ const AuthForm = ({ name, displayName }) => {
             </label>
             <input name="password" type="password" className="login-input" />
           </div>
-          {name === "login" ? (
+          {name === 'login' ? (
             <div>
-              New to Solve.it? Click{" "}
-              <Link to="/signup" style={{ color: "blue" }}>
-                here{" "}
-              </Link>{" "}
+              New to Solve.it? Click{' '}
+              <Link to="/signup" style={{ color: 'blue' }}>
+                here{' '}
+              </Link>{' '}
               to sign up!
             </div>
           ) : (
             <div>
-              Already have an account? Click{" "}
-              <Link to="/login" style={{ color: "blue" }}>
-                here{" "}
-              </Link>{" "}
+              Already have an account? Click{' '}
+              <Link to="/login" style={{ color: 'blue' }}>
+                here{' '}
+              </Link>{' '}
               to log in!
             </div>
           )}
