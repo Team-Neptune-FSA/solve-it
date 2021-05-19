@@ -17,7 +17,6 @@ const Payment = () => {
         `/api/issues/solutions/accepted`,
         { headers: { authorization: token } }
       );
-      console.log([...issues, ...solutions]);
       setTransactions([...issues, ...solutions]);
     };
     getTransactions();
@@ -41,11 +40,17 @@ const Payment = () => {
 
       <div className="stats-section">
         <div className="insideStats">
-          Escrow: ${(stats.totalEscrow / 100).toFixed(2)}
+          Escrow: <strong>${(stats.totalEscrow / 100).toFixed(2)}</strong>
           <br />
-          Paid: ${(stats.totalPaid / 100).toFixed(2)}
+          Paid:{' '}
+          <strong style={{ color: 'red' }}>
+            ${(stats.totalPaid / 100).toFixed(2)}
+          </strong>
           <br />
-          Earned: ${(stats.totalEarned / 100).toFixed(2)}
+          Earned:{' '}
+          <strong style={{ color: 'green' }}>
+            ${(stats.totalEarned / 100).toFixed(2)}
+          </strong>
           <br />
         </div>
       </div>
@@ -60,9 +65,11 @@ const Payment = () => {
           <div className="insideIssueStats">
             {transactions.map((transaction) => {
               let paymentPrice = transaction.price;
-              // if (!paymentPrice){
-              //   paymentPrice = transaction.issue.price || 1;
-              // }
+              if (!paymentPrice) {
+                paymentPrice = transaction.issue.price;
+              } else {
+                paymentPrice = transaction.price;
+              }
 
               return (
                 <div key={transaction.id}>
@@ -71,7 +78,20 @@ const Payment = () => {
                   <h3>
                     Date: {dateformat(transaction.createdAt, 'mmmm dS, yyyy')}
                   </h3>{' '}
-                  <h3>Price: ${(paymentPrice / 100).toFixed(2)}</h3>
+                  <h3>
+                    Price:{' '}
+                    <strong
+                      style={
+                        transaction.isResolved === true
+                          ? { color: 'red' }
+                          : transaction.isResolved === false
+                          ? { color: 'gray' }
+                          : { color: 'green' }
+                      }
+                    >
+                      ${(paymentPrice / 100).toFixed(2)}
+                    </strong>
+                  </h3>
                   <h3>
                     Status:{' '}
                     {transaction.isResolved === true
