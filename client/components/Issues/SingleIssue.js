@@ -1,17 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import CodeEnvironment from "../CodeEnvironment";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import CodeEnvironment from '../CodeEnvironment';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import history from '../../history';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
+toast.configure();
 const SingleIssue = ({ match, auth }) => {
-  const [code, setCode] = useState("");
-  const [explanation, setExplanation] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [code, setCode] = useState('');
+  const [explanation, setExplanation] = useState('');
+  const [titleView, setTitleView] = useState('edit');
+  const [descriptionView, setDescriptionView] = useState('edit');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [singleIssue, setSingleIssue] = useState({});
   const [view, setView] = useState("overview");
-  const [titleView, setTitleView] = useState("edit");
-  const [descriptionView, setDescriptionView] = useState("edit");
+  const notifySubmit = () =>
+    toast('Solution submitted!', { position: toast.POSITION.BOTTOM_RIGHT });
+  const notifySave = () =>
+    toast('Solution saved!', { position: toast.POSITION.BOTTOM_RIGHT });
+
 
   const setSolutionCode = (code) => {
     setCode(code);
@@ -19,7 +30,7 @@ const SingleIssue = ({ match, auth }) => {
 
   useEffect(() => {
     const { issueId } = match.params;
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     const getSingleIssue = async () => {
       const { data: singleIssue } = await axios.get(`/api/issues/${issueId}`);
       setSingleIssue(singleIssue);
@@ -40,8 +51,26 @@ const SingleIssue = ({ match, auth }) => {
     getSolution();
   }, []);
 
+  const confirmSubmit = () => {
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure you want to submit this solution?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => handleSubmit(),
+        },
+        {
+          label: 'No',
+          onClick: () => console.log('back'),
+        },
+      ],
+    });
+  };
+
   const handleSubmit = async () => {
-    const token = window.localStorage.getItem("token");
+    notifySubmit();
+    const token = window.localStorage.getItem('token');
     const { issueId } = match.params;
     await axios.post(
       `/api/issues/${issueId}/solutions`,
@@ -53,10 +82,12 @@ const SingleIssue = ({ match, auth }) => {
       },
       { headers: { authorization: token } }
     );
+    history.push('/dashboard');
   };
 
   const handleSave = async () => {
-    const token = window.localStorage.getItem("token");
+    notifySave();
+    const token = window.localStorage.getItem('token');
     const { issueId } = match.params;
     await axios.post(
       `/api/issues/${issueId}/solutions`,
@@ -66,7 +97,7 @@ const SingleIssue = ({ match, auth }) => {
   };
 
   const handleEdit = async (event) => {
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     event.preventDefault();
     await axios.put(
       `/api/issues/${singleIssue.id}`,
@@ -149,7 +180,7 @@ const SingleIssue = ({ match, auth }) => {
                 value={explanation}
                 name="name"
               />
-              <button onClick={handleSubmit} type="button">
+              <button onClick={confirmSubmit} type="button">
                 Submit Solution
               </button>
               <button onClick={handleSave} type="button">
@@ -180,14 +211,12 @@ const SingleIssue = ({ match, auth }) => {
                 name="name"
               />
 
-              <button onClick={handleSubmit} type="button">
-                Submit Solution
-              </button>
-              <button onClick={handleSave} type="button">
-                Save Solution
-              </button>
-            </>
-          )}
+          <button onClick={confirmSubmit} type="button">
+            Submit Solution
+          </button>
+          <button onClick={handleSave} type="button">
+            Save Solution
+          </button>
         </div>
       )}
     </>

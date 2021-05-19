@@ -9,6 +9,7 @@ const Issues = ({ loadInitialData }) => {
   const [resolved, setresolved] = useState([]);
   const [current, setcurrent] = useState([]);
   const [dummy, setdummy] = useState(true);
+  const [view, setView] = useState('unresolved');
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
@@ -29,8 +30,10 @@ const Issues = ({ loadInitialData }) => {
   const filterIssues = (e) => {
     if (e.target.value === 'Unresolved') {
       setcurrent(unresolved);
+      setView('unresolved');
     } else {
       setcurrent(resolved);
+      setView('resolved');
     }
   };
 
@@ -67,22 +70,22 @@ const Issues = ({ loadInitialData }) => {
     });
   };
 
-  const handleReject = async (solution, issue) => {
-    setdummy(!dummy);
-    const token = window.localStorage.getItem('token');
-    await axios.put(
-      `/api/issues/${issue.id}/solutions/${solution.id}`,
-      {
-        ...solution,
-        isRejected: true,
-      },
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    );
-  };
+  // const handleReject = async (solution, issue) => {
+  //   setdummy(!dummy);
+  //   const token = window.localStorage.getItem('token');
+  //   await axios.put(
+  //     `/api/issues/${issue.id}/solutions/${solution.id}`,
+  //     {
+  //       ...solution,
+  //       isRejected: true,
+  //     },
+  //     {
+  //       headers: {
+  //         authorization: token,
+  //       },
+  //     }
+  //   );
+  // };
 
   const toggleStar = async (solution, issue) => {
     const token = window.localStorage.getItem('token');
@@ -142,20 +145,26 @@ const Issues = ({ loadInitialData }) => {
                           }
                         ></i>
                       </div>
-                      {solution.code && <code>{solution.code}</code>}
-                      {solution.explanation && <p>{solution.explanation}</p>}
-                      <button
-                        onClick={() => handleAccept(solution, issue)}
-                        className="btn blue white"
-                      >
-                        Accept Solution
-                      </button>
-                      <button
+                      <Link to={`/issues/${issue.id}/solutions/${solution.id}`}>
+                        {solution.code && <code>{solution.code}</code>}
+                        {solution.explanation && <p>{solution.explanation}</p>}
+                      </Link>
+                      {view === 'unresolved' ? (
+                        <button
+                          onClick={() => handleAccept(solution, issue)}
+                          className="btn blue white"
+                        >
+                          Accept Solution
+                        </button>
+                      ) : (
+                        <div></div>
+                      )}
+                      {/* <button
                         onClick={() => handleReject(solution, issue)}
                         className="btn black-bg white"
                       >
                         Reject Solution
-                      </button>
+                      </button> */}
                     </div>
                   ))}
                 </div>

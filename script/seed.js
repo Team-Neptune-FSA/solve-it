@@ -39,12 +39,15 @@ async function seed() {
     Stat.create(),
     Stat.create({
       totalEscrow: 500,
+      solutionsAttempted: 2,
     }),
     Stat.create({
       totalEscrow: 2500,
+      solutionsAttempted: 1,
     }),
     Stat.create({
       totalEscrow: 1000,
+      solutionsAttempted: 1,
     }),
   ]);
 
@@ -53,7 +56,7 @@ async function seed() {
     Issue.create({
       title: 'Array of integers',
       description: `Given an array of integers, return indices of the two numbers such that they add up to a specific target.`,
-      price: 50000,
+      price: 500,
       language: 'javascript',
     }),
     Issue.create({
@@ -69,7 +72,7 @@ async function seed() {
     Issue.create({
       title: 'Dimensions of a grid',
       description: `You are given the dimensions of a grid, m and n. Starting from the top left, or (0,0), you want to end up making your way to the bottom right corner. The only two moves you can make are to go one space directly to your right, or one space directly down. Write a function that can help you determine how many unique paths you can take between these two corners.`,
-      price: 5000,
+      price: 1000,
       language: 'javascript',
     }),
     Issue.create({
@@ -210,7 +213,7 @@ async function seed() {
   await issues[1].setUser(users[2]);
   await issues[2].setUser(users[3]);
 
-  await solutions[0].setUser(users[0]);
+  await solutions[0].setUser(users[1]);
   await solutions[1].setUser(users[1]);
   await solutions[2].setUser(users[2]);
   await solutions[3].setUser(users[3]);

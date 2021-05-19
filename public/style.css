@@ -3,7 +3,7 @@ body {
   margin: 0;
 }
 * {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   color: gray;
   text-decoration: none;
@@ -226,6 +226,9 @@ button.submitNewIssueButton {
   font-size: 30px;
   border-color: none;
 }
+button.active {
+  background-color: orange;
+}
 
 button {
   background-color: #00a4c7;
@@ -274,7 +277,7 @@ img.homeImg {
 }
 
 div.titleScreen {
-  background-image: url("Images/computer.jpeg");
+  background-image: url('Images/computer.jpeg');
   background-size: cover;
   background-position: center;
   height: 75vh;
@@ -390,7 +393,7 @@ div.post-issue {
 .issue {
   border: 1px solid gray;
   border-radius: 10px;
-  padding: 5px
+  padding: 5px;
 }
 
 /*--- Code Environment ---*/
