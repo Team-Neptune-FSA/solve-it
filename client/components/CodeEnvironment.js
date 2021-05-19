@@ -5,6 +5,7 @@ import Editor from "@monaco-editor/react";
 const codeEnvironment = ({ setSolutionCode, value }) => {
   const [code, setCode] = useState("//enter code here...");
   const [output, setOutput] = useState("");
+  const [exitCode, setExitCode] = useState(0);
 
   useEffect(() => {
     if (value) {
@@ -14,13 +15,16 @@ const codeEnvironment = ({ setSolutionCode, value }) => {
 
   const handleSubmit = async () => {
     const { data: output } = await axios.post("/api/execute", { code });
-    setOutput(output);
+    setOutput(output.formattedOutput);
+    setExitCode(output.ExitCode);
   };
 
   const handleChange = (value) => {
     setSolutionCode(value);
     setCode(value);
   };
+
+  console.log(exitCode);
 
   return (
     <>
@@ -40,7 +44,13 @@ const codeEnvironment = ({ setSolutionCode, value }) => {
           }}
         />
         <br />
-        <div className="output-box">{output}</div>
+        <div className="output-box">
+          {Number(exitCode) === 0 ? (
+            output
+          ) : (
+            <span className="error">{output}</span>
+          )}
+        </div>
       </div>
       <button onClick={() => handleSubmit()}>Run Code</button>
     </>
