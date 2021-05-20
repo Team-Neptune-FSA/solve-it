@@ -217,6 +217,23 @@ const SingleIssue = ({ match }) => {
                       </button>
                     </div>
                   )}
+                  <>
+                    <div>Answer the Questions About This Issue</div>
+                    <input
+                      value={answer}
+                      onChange={(event) => setAnswer(event.target.value)}
+                      placeholder="Send answer to user..."
+                    />
+                    <button onClick={(event) => handleAnswer(event)}>
+                      Submit Answer
+                    </button>
+                    {allQuestions.map((question) => (
+                      <div key={question.id}>
+                        <p>Q: {question.questionContent}</p>
+                        <p>A: {question.answer || ""}</p>
+                      </div>
+                    ))}
+                  </>
                 </div>
               ) : (
                 <>
