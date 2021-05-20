@@ -78,7 +78,6 @@ svg#logo path:nth-child(9) {
   }
 }
 
-
 div.header {
   display: flex;
   justify-content: space-between;
@@ -206,6 +205,14 @@ h4 {
   border-radius: 5px;
 }
 
+.input-field {
+  align-items: center;
+}
+.input-field input {
+  width: 100px;
+  margin-bottom: 0px;
+}
+
 /*--- Dashboard ---*/
 .rejected {
   box-shadow: 1px 1px 2px 2px red;
@@ -246,7 +253,7 @@ h1.prompt,
 .searchTitle {
   font-size: 50px;
   color: #00a4c7;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Buttons */
@@ -392,16 +399,16 @@ div.titleScreen {
 
 @keyframes bgfade {
   0% {
-    background-image: url('Images/computer.jpeg');
+    background-image: url("Images/computer.jpeg");
   }
   50% {
-    background-image: url('Images/computer1.jpeg');
+    background-image: url("Images/computer1.jpeg");
   }
   75% {
-    background-image: url('Images/computer2.jpeg');
+    background-image: url("Images/computer2.jpeg");
   }
   100% {
-    background-image: url('Images/computer.jpeg');
+    background-image: url("Images/computer.jpeg");
   }
 }
 
