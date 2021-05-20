@@ -1,6 +1,7 @@
 const Issue = require("../db/models/issue");
 const Solution = require("../db/models/solution");
 const Stat = require("../db/models/stat");
+const Question = require("../db/models/question");
 const router = require("express").Router();
 const { requireToken } = require("./authMiddleware");
 const { Op } = require("sequelize");
@@ -59,6 +60,36 @@ router.put("/:issueId/edit", requireToken, async (req, res, next) => {
   }
 });
 
+// //GET /api/issues/questions
+// router.get("/issueId/questions", async (req, res, next) => {
+//   try {
+//     const issues = await Issue.findAll({
+//       where: {
+//         userId: req.user.id,
+//         id: req.params.issueId,
+//       },
+//       include: [Question],
+//     });
+//     res.json(issues);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+//GET /api/issues/:issueId/questions
+router.get("/:issueId/questions", async (req, res, next) => {
+  try {
+    const questions = await Question.findAll({
+      where: {
+        issueId: req.params.issueId,
+      },
+    });
+    res.json(questions);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // PUT /api/issues/:issueId
 router.put("/:issueId", requireToken, async (req, res, next) => {
   try {
@@ -91,7 +122,7 @@ router.post("/", requireToken, async (req, res, next) => {
         userId: req.user.id,
       },
     });
-    issue.setUser(req.user);
+    await issue.setUser(req.user);
     stats.totalEscrow += Number(price);
     await stats.save();
     res.json(issue);
@@ -206,6 +237,59 @@ router.post("/:issueId/solutions", requireToken, async (req, res, next) => {
       await stats.save();
       res.json(newSolution);
     }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// PUT /api/issues/:issueId/question
+router.post("/:issueId/question", requireToken, async (req, res, next) => {
+  try {
+    const { questionContent, answer } = req.body;
+    const issue = await Issue.findByPk(req.params.issueId);
+    const question = await Question.create({
+      questionContent,
+      answer,
+    });
+    await question.setUser(req.user);
+    await question.setIssue(issue);
+    res.json(question);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// router.put("/:issueId/answer", requireToken, async (req, res, next) => {
+//   try {
+//     const question = await Question.findOne({
+//       where: {
+//         userId: req.user.id,
+//         id: req.params.issueId
+//       }
+//     });
+//     const question = await Question.create({
+//       questionContent,
+//       answer,
+//     });
+//     await question.setUser(req.user);
+//     await question.setIssue(issue);
+//     res.json(question);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+// PUT /api/issues/:issueId/answer
+router.put("/:issueId/answer", requireToken, async (req, res, next) => {
+  try {
+    const question = await Question.findOne({
+      where: {
+        issueId: req.params.issueId,
+        answer: null,
+      },
+    });
+    const updatedQuestion = await question.update(req.body);
+    res.json(updatedQuestion);
   } catch (error) {
     next(error);
   }

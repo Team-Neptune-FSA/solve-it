@@ -11,6 +11,7 @@ const Issues = () => {
   const { getCurrentUser } = useAuth();
   const [view, setView] = useState("unresolved");
   const [toggleView, setToggleView] = useState("solutions");
+  const [question, setQuestion] = useState("solutions");
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
@@ -26,6 +27,21 @@ const Issues = () => {
       setcurrent(userIssues.filter((issue) => !issue.isResolved));
     };
     getUserIssues();
+
+    // ------------------how to get this to work?--------------------
+    const getIssueQuestion = async () => {
+      const { data: issueQuestion } = await axios.get(
+        "/api/issues/issueId/questions", //find the issueId ${}
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      setQuestion(issueQuestion);
+    };
+    getIssueQuestion();
+    // ------------------how to get this to work?--------------------
   }, [dummy]);
 
   const filterIssues = (e) => {
