@@ -285,7 +285,10 @@ router.put(
           id: req.params.questionId,
         },
       });
-      const updatedQuestion = await question.update(req.body);
+      const updatedQuestion = await question.update({
+        ...question,
+        answer: req.body.theAnswer,
+      });
       res.json(updatedQuestion);
     } catch (error) {
       next(error);

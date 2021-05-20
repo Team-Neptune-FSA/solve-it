@@ -12,7 +12,7 @@ const Issues = () => {
   const [view, setView] = useState("unresolved");
   const [toggleView, setToggleView] = useState("solutions");
   const [allIssuesQuestions, setAllIssuesQuestions] = useState([]);
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState({});
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
@@ -123,9 +123,10 @@ const Issues = () => {
   const handleAnswer = async (event, questionId) => {
     const token = window.localStorage.getItem("token");
     event.preventDefault();
+    const theAnswer = answer[questionId];
     await axios.put(
       `/api/issues/questions/${questionId}/answer`,
-      { answer },
+      { theAnswer },
       { headers: { authorization: token } }
     );
   };
@@ -231,10 +232,13 @@ const Issues = () => {
                                 <div>Question: {question.questionContent}</div>
                                 <div>Answer:</div>
                                 <input
-                                  value={answer}
-                                  onChange={(event) =>
-                                    setAnswer(event.target.value)
-                                  }
+                                  type="text"
+                                  value={answer[question.id] || ""}
+                                  onChange={(event) => {
+                                    let newAnswer = { ...answer };
+                                    newAnswer[question.id] = event.target.value;
+                                    setAnswer(newAnswer);
+                                  }}
                                 />
                                 <button
                                   onClick={(event) =>
