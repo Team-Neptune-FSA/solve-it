@@ -17,7 +17,12 @@ const SingleIssue = ({ match }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [singleIssue, setSingleIssue] = useState({});
-  const [view, setView] = useState('overview');
+  const [view, setView] = useState("overview");
+
+  const [allQuestions, setAllQuestions] = useState([]);
+
+  const [questionContent, setQuestionContent] = useState("");
+  const [answer, setAnswer] = useState("");
   const notifySubmit = () =>
     toast('Solution submitted!', { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
@@ -73,6 +78,13 @@ const SingleIssue = ({ match }) => {
       }
     };
     isLoggedIn ? getSolution() : '';
+    const getAllQuestions = async () => {
+      const { data: questions } = await axios.get(
+        `/api/issues/${issueId}/questions`
+      );
+      setAllQuestions(questions);
+    };
+    isLoggedIn ? getAllQuestions() : '';
   }, []);
 
   const confirmSubmit = () => {
@@ -124,8 +136,30 @@ const SingleIssue = ({ match }) => {
     const token = window.localStorage.getItem('token');
     event.preventDefault();
     await axios.put(
-      `/api/issues/${singleIssue.id}`,
+      `/api/issues/${singleIssue.id}/edit`,
       { title, description },
+      { headers: { authorization: token } }
+    );
+  };
+
+  const handleQuestion = async (event) => {
+    const token = window.localStorage.getItem("token");
+    const { issueId } = match.params;
+    event.preventDefault();
+    await axios.post(
+      `/api/issues/${issueId}/question`,
+      { questionContent },
+      { headers: { authorization: token } }
+    );
+  };
+
+  const handleAnswer = async (event) => {
+    const token = window.localStorage.getItem("token");
+    const { issueId } = match.params;
+    event.preventDefault();
+    await axios.put(
+      `/api/issues/${issueId}/answer`,
+      { answer },
       { headers: { authorization: token } }
     );
   };
@@ -254,10 +288,27 @@ const SingleIssue = ({ match }) => {
                   </button>
                 </>
               )}
+              <>
+                <div>Answer the Questions About This Issue</div>
+                <input
+                  value={answer}
+                  onChange={(event) => setAnswer(event.target.value)}
+                  placeholder="Send answer to user..."
+                />
+                <button onClick={(event) => handleAnswer(event)}>
+                  Submit Answer
+                </button>
+                {allQuestions.map((question) => (
+                  <div key={question.id}>
+                    <p>Q: {question.questionContent}</p>
+                    <p>A: {question.answer || ""}</p>
+                  </div>
+                ))}
+              </>
             </div>
           )}
         </div>
-      ) : (
+        ) : (
         <div>{logginPrompt()}</div>
       )}
     </>

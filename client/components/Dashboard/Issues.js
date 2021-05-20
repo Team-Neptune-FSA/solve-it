@@ -11,10 +11,14 @@ const Issues = () => {
   const [current, setcurrent] = useState([]);
   const [dummy, setdummy] = useState('');
   const { getCurrentUser } = useAuth();
-  const [view, setView] = useState('unresolved');
+  const [view, setView] = useState("unresolved");
+  const [toggleView, setToggleView] = useState("solutions");
+  const [allIssuesQuestions, setAllIssuesQuestions] = useState([]);
+  const [answer, setAnswer] = useState({});
 
   useEffect(() => {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
+
     getCurrentUser();
     const getUserIssues = async () => {
       const { data: userIssues } = await axios.get('/api/users/issues', {
@@ -27,6 +31,18 @@ const Issues = () => {
       setcurrent(userIssues.filter((issue) => !issue.isResolved));
     };
     getUserIssues();
+    const getAllIssuesQuestions = async () => {
+      const { data: issueQuestions } = await axios.get(
+        "/api/issues/questions",
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      setAllIssuesQuestions(issueQuestions);
+    };
+    getAllIssuesQuestions();
   }, [dummy]);
 
   const filterIssues = (e) => {
@@ -125,7 +141,18 @@ const Issues = () => {
     );
   };
 
-  return (
+  const handleAnswer = async (event, questionId) => {
+    const token = window.localStorage.getItem("token");
+    event.preventDefault();
+    const theAnswer = answer[questionId];
+    await axios.put(
+      `/api/issues/questions/${questionId}/answer`,
+      { theAnswer },
+      { headers: { authorization: token } }
+    );
+  };
+
+ return (
     <>
       <div className="dashboard-info">
         <div className="custom-select">
@@ -134,69 +161,128 @@ const Issues = () => {
             <option value="Resolved">Resolved</option>
           </select>
         </div>
-        {current.length >= 1 ? (
-          <div>
-            {current.map((issue) => (
-              <div className="issue" key={issue.id}>
-                <Link to={`/issues/${issue.id}`}>
-                  <h3>Issue Title: {issue.title}</h3>
-                  <p>Issue Description: {issue.description}</p>
-                </Link>
-                <p>Issue Price: ${(issue.price / 100).toFixed(2)}</p>
-                <div>
-                  {issue.solutions.map((solution, idx) => (
-                    <div
-                      className={`issue-solution box ${
-                        solution.isRejected && 'rejected'
-                      }`}
-                      key={solution.id}
-                    >
-                      <div className="flex">
-                        <Link
-                          to={`/issues/${issue.id}/solutions/${solution.id}`}
+        {toggleView === "solutions" ? (
+          <>
+            <button onClick={() => setToggleView("questions")}>Question</button>
+            {current.length >= 1 ? (
+              <div>
+                {current.map((issue) => (
+                  <div className="issue" key={issue.id}>
+                    <Link to={`/issues/${issue.id}`}>
+                      <h3>Issue Title: {issue.title}</h3>
+                      <p>Issue Description: {issue.description}</p>
+                    </Link>
+                    <p>Issue Price: ${(issue.price / 100).toFixed(2)}</p>
+                    <div>
+                      {issue.solutions.map((solution, idx) => (
+                        <div
+                          className={`issue-solution box ${
+                            solution.isRejected && "rejected"
+                          }`}
+                          key={solution.id}
                         >
-                          <h3>Solution #{idx + 1}</h3>
-                        </Link>
-                        <i
-                          onClick={() => toggleStar(solution, issue)}
-                          className={
-                            solution.isStarred
-                              ? 'fas fa-star blue'
-                              : 'far fa-star blue'
-                          }
-                        ></i>
-                      </div>
-                      <Link to={`/issues/${issue.id}/solutions/${solution.id}`}>
-                        {solution.code && <code>{solution.code}</code>}
-                        {solution.explanation && <p>{solution.explanation}</p>}
-                      </Link>
-                      {view === 'unresolved' ? (
-                        <button
-                          onClick={() => confirmAccept(solution, issue)}
-                          className="btn blue white"
+                          <div className="flex">
+                            <Link
+                              to={`/issues/${issue.id}/solutions/${solution.id}`}
+                            >
+                              <h3>Solution #{idx + 1}</h3>
+                            </Link>
+                            <i
+                              onClick={() => toggleStar(solution, issue)}
+                              className={
+                                solution.isStarred
+                                  ? "fas fa-star blue"
+                                  : "far fa-star blue"
+                              }
+                            ></i>
+                          </div>
+                          <Link
+                            to={`/issues/${issue.id}/solutions/${solution.id}`}
+                          >
+                            {solution.code && <code>{solution.code}</code>}
+                            {solution.explanation && (
+                              <p>{solution.explanation}</p>
+                            )}
+                          </Link>
+                          {view === "unresolved" ? (
+                            <button
+                              onClick={() => confirmAccept(solution, issue)}
+                              className="btn blue white"
+                            >
+                              Accept Solution
+                            </button>
+                          ) : (
+                            <div></div>
+                          )}
+                          {/* <button
+                          onClick={() => handleReject(solution, issue)}
+                          className="btn black-bg white"
                         >
-                          Accept Solution
-                        </button>
-                      ) : (
-                        <div></div>
-                      )}
-                      {/* <button
-                        onClick={() => handleReject(solution, issue)}
-                        className="btn black-bg white"
-                      >
-                        Reject Solution
-                      </button> */}
+                          Reject Solution
+                        </button> */}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            ) : (
+              <div>
+                <br />
+                <p>Looks like you have no issues here, must be nice!</p>
+              </div>
+            )}
+          </>
         ) : (
-          <div>
-            <br />
-            <p>Looks like you have no issues here, must be nice!</p>
-          </div>
+          <>
+            <button onClick={() => setToggleView("solutions")}>
+              Solutions
+            </button>
+            {allIssuesQuestions.length ? (
+              <>
+                {allIssuesQuestions.map((issues) => {
+                  return (
+                    <div key={issues.id}>
+                      <div>Title: {issues.title}</div>
+                      <div>Description: {issues.description}</div>
+                      <>
+                        {issues.questions.length ? (
+                          <>
+                            {issues.questions.map((question) => (
+                              <div key={question.id}>
+                                <div>Question: {question.questionContent}</div>
+                                <div>Answer:</div>
+                                <input
+                                  type="text"
+                                  value={answer[question.id] || ""}
+                                  onChange={(event) => {
+                                    let newAnswer = { ...answer };
+                                    newAnswer[question.id] = event.target.value;
+                                    setAnswer(newAnswer);
+                                  }}
+                                />
+                                <button
+                                  onClick={(event) =>
+                                    handleAnswer(event, question.id)
+                                  }
+                                >
+                                  Submit Answer
+                                </button>
+                              </div>
+                            ))}
+                          </>
+                        ) : (
+                          <div></div>
+                        )}
+                      </>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <div>No questions!</div>
+            )}
+          </>
         )}
       </div>
     </>
