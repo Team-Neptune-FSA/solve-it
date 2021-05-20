@@ -290,7 +290,7 @@ const SingleIssue = ({ match }) => {
                   </button>
                 </>
               )}
-              <>
+              {/* <>
                 <div>Answer the Questions About This Issue</div>
                 <input
                   value={answer}
@@ -306,7 +306,7 @@ const SingleIssue = ({ match }) => {
                     <p>A: {question.answer || ""}</p>
                   </div>
                 ))}
-              </>
+              </> */}
             </div>
           )}
         </div>
