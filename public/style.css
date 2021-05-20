@@ -254,9 +254,7 @@ button {
 button:hover {
   background-color: white;
   color: #00a4c7;
-  border: 1px solid black;
-  /* transition: transform .5s ease-in-out;
-  transform: scale(1.1); */
+  /* border: 1px solid black; */
 }
 
 button.browseButton {

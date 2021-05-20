@@ -51,22 +51,6 @@ const SingleIssue = ({ match, auth }) => {
     getSolution();
   }, []);
 
-  const confirmSubmit = () => {
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure you want to submit this solution?',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => handleSubmit(),
-        },
-        {
-          label: 'No',
-          onClick: () => console.log('back'),
-        },
-      ],
-    });
-  };
 
   const handleSubmit = async () => {
     notifySubmit();
@@ -210,7 +194,7 @@ const SingleIssue = ({ match, auth }) => {
                 value={explanation}
                 name="name"
               />
-          <button onClick={confirmSubmit} type="button">
+          <button type="button">
             Submit Solution
           </button>
           <button onClick={handleSave} type="button">

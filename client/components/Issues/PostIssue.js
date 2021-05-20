@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import history from '../../history';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const PostIssue = () => {
   const [title, setTitle] = useState('');
@@ -8,7 +10,25 @@ const PostIssue = () => {
   const [price, setPrice] = useState(1);
   const [language, setLanguage] = useState('javascript');
 
+  const confirmSubmit = () => {
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure you want to submit this request?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => handleSubmit(),
+        },
+        {
+          label: 'No',
+          onClick: () => console.log('back'),
+        },
+      ],
+    });
+  };
+
   const handleSubmit = async (e) => {
+    notifySubmit();
     e.preventDefault();
     const token = window.localStorage.getItem('token');
     await axios.post(
@@ -23,6 +43,7 @@ const PostIssue = () => {
     );
     history.push('/dashboard');
   };
+
   return (
     <div className="post">
     <div className="component post-issue">
@@ -80,7 +101,7 @@ const PostIssue = () => {
         <div className="payment-div google-pay">
         <img style={{height: "100%", width: "100%", objectFit: "scale-down"}} src="../Images/googlepay.png" alt=""/>
         </div>
-        <button className="post-issue-submit" type="submit">Submit Request</button>
+        <button onClick={confirmSubmit} className="post-issue-submit" type="submit">Submit Request</button>
       </form>
     </div>
     </div>
