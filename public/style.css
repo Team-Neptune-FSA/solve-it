@@ -1,14 +1,6 @@
 html,
 body {
   margin: 0;
-  /* background-image: linear-gradient(
-    to bottom,
-    #f5f5f5,
-    #f7f7f7,
-    #fafafa,
-    #fcfcfc,
-    #ffffff
-  ); */
   z-index: -100;
 }
 
@@ -74,10 +66,9 @@ svg#logo path:nth-child(9) {
 
 @keyframes line-anim {
   to {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 0%;
   }
 }
-
 
 div.header {
   display: flex;
@@ -89,7 +80,6 @@ div.header {
 
 .topHeader {
   top: 0;
-  /* position: fixed; */
   z-index: 100;
   background-color: transparent;
 }
@@ -206,6 +196,14 @@ h4 {
   border-radius: 5px;
 }
 
+.input-field {
+  align-items: center;
+}
+.input-field input {
+  width: 100px;
+  margin-bottom: 0px;
+}
+
 /*--- Dashboard ---*/
 .rejected {
   box-shadow: 1px 1px 2px 2px red;
@@ -246,7 +244,7 @@ h1.prompt,
 .searchTitle {
   font-size: 50px;
   color: #00a4c7;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Buttons */
@@ -392,16 +390,16 @@ div.titleScreen {
 
 @keyframes bgfade {
   0% {
-    background-image: url('Images/computer.jpeg');
+    background-image: url("Images/computer.jpeg");
   }
   50% {
-    background-image: url('Images/computer1.jpeg');
+    background-image: url("Images/computer1.jpeg");
   }
   75% {
-    background-image: url('Images/computer2.jpeg');
+    background-image: url("Images/computer2.jpeg");
   }
   100% {
-    background-image: url('Images/computer.jpeg');
+    background-image: url("Images/computer.jpeg");
   }
 }
 
@@ -484,12 +482,19 @@ div.insideAllIssues {
 
 .stats-section,
 .issueStats {
-  border: 1px solid gray;
+  border: 1px solid 	#ededf5;
+  background-color: 	#ededf5;
   border-radius: 10px;
 }
 
-.insideIssueStats,
 .insideStats {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.insideIssueStats {
   margin: 10px;
 }
 
@@ -607,4 +612,71 @@ div.component.post-issue {
 textarea#issue-md {
   background-color: white;
   height: 250px;
+}
+
+div.stats-section {
+  float: left;
+  width: 25%;
+  margin-right: 10px;
+}
+
+div.dashboard-info {
+  float: right;
+  width: 75%;
+  margin-right: 10px;
+}
+
+div.issue-transactions {
+  float: right;
+  width: 75%;
+  border: 1px solid #ededf5;
+  background-color: #ededf5;
+  border-radius: 10px;
+}
+
+.parent-payment-div {
+  display: flex;
+}
+
+.transaction-box {
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: white;
+  margin: 10px;
+  display: grid;
+}
+
+.transaction-words {
+  margin: 20px;
+}
+
+.issue-date {
+  float: left;
+  width: 50%;
+}
+
+.price-status {
+  float: right;
+  width: 50%;
+  display: flex;
+  flex-direction:column;
+  align-items: flex-end;
+}
+
+.parent-stats-section {
+  display: flex;
+}
+
+div.stats-text {
+  margin: 10px;
+}
+
+div.solution-box {
+  border: 1px solid #ededf5;
+  background-color: #ededf5;
+  border-radius: 10px;
+}
+
+.inside-solution {
+  margin: 10px;
 }

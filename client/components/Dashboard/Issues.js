@@ -16,6 +16,7 @@ const Issues = () => {
   const [allIssuesQuestions, setAllIssuesQuestions] = useState([]);
   const [answer, setAnswer] = useState({});
 
+
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     getCurrentUser();
@@ -154,6 +155,9 @@ const Issues = () => {
 
   return (
     <>
+
+      <div className="stats-section dashboard-solution-left">Post an Issue</div>
+
       <div className="dashboard-info">
         <div className="custom-select">
           <select className="filterOptions" onChange={filterIssues}>
@@ -214,12 +218,6 @@ const Issues = () => {
                           ) : (
                             <div></div>
                           )}
-                          {/* <button
-                        onClick={() => handleReject(solution, issue)}
-                        className="btn black-bg white"
-                      >
-                        Reject Solution
-                      </button> */}
                         </div>
                       ))}
                     </div>

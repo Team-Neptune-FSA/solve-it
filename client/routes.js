@@ -9,6 +9,13 @@ import PostIssue from "./components/Issues/PostIssue";
 import UnresolvedIssue from "./components/Issues/UnresolvedIssue";
 import { useAuth } from "./context/auth";
 
+// Stripe
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(
+  "pk_test_51ItJE5Gf9BY78tq2IyvofPWe0PjdfSNyIT05Ae9I6FH0zFeXK1xdxDaasa9eKacHCWljrP2tkcXUnuFGUe09UYKM00CITpgven"
+);
+
 const Routes = () => {
   const { getCurrentUser, isLoggedIn } = useAuth();
 
@@ -25,7 +32,15 @@ const Routes = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/issues" component={AllIssues} />
-          <Route exact path="/issues/post" component={PostIssue} />
+          <Route
+            exact
+            path="/issues/post"
+            render={() => (
+              <Elements stripe={stripePromise}>
+                <PostIssue />
+              </Elements>
+            )}
+          />
           <Route exact path="/issues/:issueId" component={SingleIssue} />
           <Route
             exact

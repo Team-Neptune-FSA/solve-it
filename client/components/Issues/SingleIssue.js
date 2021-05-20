@@ -14,6 +14,7 @@ const SingleIssue = ({ match }) => {
   const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
   const [editView, setEditView] = useState("edit");
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [singleIssue, setSingleIssue] = useState({});
@@ -21,7 +22,7 @@ const SingleIssue = ({ match }) => {
   const [allQuestions, setAllQuestions] = useState([]);
   const [questionContent, setQuestionContent] = useState("");
   const [answer, setAnswer] = useState({});
-
+  
   const notifySubmit = () =>
     toast("Solution submitted!", { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
@@ -93,22 +94,20 @@ const SingleIssue = ({ match }) => {
   };
 
   const confirmSubmit = () => {
-    useEffect(() => {
-      confirmAlert({
-        title: "Confirm to submit",
-        message: "Are you sure you want to submit a new solution?",
-        buttons: [
-          {
-            label: "Yes",
-            onClick: () => handleSubmit(),
-          },
-          {
-            label: "No",
-            onClick: () => console.log("back"),
-          },
-        ],
-      });
-    }, []);
+    confirmAlert({
+      title: "Confirm to submit",
+      message: "Are you sure you want to submit a new solution?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => handleSubmit(),
+        },
+        {
+          label: "No",
+          onClick: () => console.log("back"),
+        },
+      ],
+    });
   };
 
   const handleSubmit = async () => {
@@ -193,6 +192,7 @@ const SingleIssue = ({ match }) => {
                         <strong>{description}</strong>
                       </div>
                       <button onClick={() => setEditView("submit")}>
+
                         edit
                       </button>
                     </div>
