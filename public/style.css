@@ -14,8 +14,7 @@ body {
 
 * {
   font-family: "Montserrat", sans-serif;
-  font-weight: bold;
-  color: gray;
+  color: rgb(69, 69, 69);
   text-decoration: none;
   font-size: 20px;
 }
@@ -29,47 +28,48 @@ h1.title {
 h1 {
   font-size: 30px;
   margin: 0;
+  font-weight: bold;
 }
 
 svg#logo path:nth-child(2) {
   stroke-dasharray: 507.99310302734375;
   stroke-dashoffset: 507.99310302734375;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 0.3s;
 }
 svg#logo path:nth-child(3) {
   stroke-dasharray: 415.94134521484375;
   stroke-dashoffset: 415.94134521484375;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 0.6s;
 }
 svg#logo path:nth-child(4) {
   stroke-dasharray: 241.34402465820312;
   stroke-dashoffset: 241.34402465820312;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 0.9s;
 }
 svg#logo path:nth-child(5) {
   stroke-dasharray: 342.05206298828125;
   stroke-dashoffset: 342.05206298828125;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 1.2s;
 }
 svg#logo path:nth-child(6) {
   stroke-dasharray: 482.4542236328125;
   stroke-dashoffset: 482.4542236328125;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 1.5s;
 }
 svg#logo path:nth-child(7) {
   stroke-dasharray: 61.62703323364258;
   stroke-dashoffset: 61.62703323364258;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 1.8s;
 }
 svg#logo path:nth-child(8) {
   stroke-dasharray: 230.4000244140625;
   stroke-dashoffset: 230.4000244140625;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 2.1s;
 }
 svg#logo path:nth-child(9) {
   stroke-dasharray: 322.00323486328125;
   stroke-dashoffset: 322.00323486328125;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 2.4s;
 }
 
 @keyframes line-anim {
@@ -77,14 +77,7 @@ svg#logo path:nth-child(9) {
     stroke-dashoffset: 0;
   }
 }
-@keyframes fill {
-  from {
-    fill: transparent;
-  }
-  to {
-    fill: white;
-  }
-}
+
 
 div.header {
   display: flex;
@@ -115,12 +108,10 @@ ul.nav-links {
 }
 
 .nav-links {
-  list-style: none;
-}
-
-.nav-links {
   display: inline-block;
   padding: 0px 20px;
+  list-style: none;
+  /* font-size: px; */
 }
 
 .nav-links li a {
@@ -131,10 +122,20 @@ ul.nav-links {
   color: #00a4c7;
 }
 
-a p {
+.main-nav-active {
+  color: #00a4c7;
+}
+
+p {
   text-decoration: none;
   color: inherit;
-  margin: 1px;
+  margin: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  margin: 0;
 }
 
 label {
@@ -142,6 +143,10 @@ label {
 }
 nav {
   display: flex;
+}
+
+nav a:hover {
+  transform: scale(1.2);
 }
 
 nav a {
@@ -245,9 +250,15 @@ h1.prompt,
 }
 
 /* Buttons */
-input.searchbar,
+.searchbar,
 button {
   margin: 20px;
+}
+
+button:hover {
+  background-color: white;
+  color: #00a4c7;
+  /* border: 1px solid black; */
 }
 
 button.browseButton {
@@ -452,6 +463,12 @@ button.btn.blue-bg.white {
   cursor: pointer;
 }
 
+button.btn.blue-bg.white:hover {
+  background-color: white;
+  color: #00a4c7;
+  border: 1px solid black;
+}
+
 button.post-issue-button {
   padding: 10px;
   cursor: pointer;
@@ -498,8 +515,7 @@ div.post-issue {
   justify-content: center;
   align-items: center;
   font-size: 50px;
-  margin-top: 150px;
-  /* padding: 10px; */
+  margin-top: 50px;
 }
 
 .all-issues-title {
@@ -523,4 +539,72 @@ div.code-environment-container {
   height: 50vh;
   width: 24vw;
   color: white;
+}
+
+textarea {
+  width: 500px;
+  height: 100px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: #ededed;
+  margin-bottom: 20px;
+}
+
+input,
+select {
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 500px;
+}
+
+input.price-input,
+select.language-input {
+  width: 140px !important;
+}
+
+button.post-issue-submit {
+  background-color: #00a4c7;
+  border-radius: 10px;
+  width: 250px;
+  height: 60px;
+  color: white;
+  font-size: 20px;
+  border-color: none;
+  position: relative;
+  left: 20%;
+}
+
+button.post-issue-submit:hover {
+  background-color: white;
+  color: #00a4c7;
+  font-size: 20px;
+  border-color: black;
+}
+
+div.component.post-issue,
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+div.component.post-issue {
+  border-radius: 10px;
+}
+
+.post {
+  display: flex;
+  justify-content: center;
+}
+
+.payment-div {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 500px;
+  height: 50px;
+  margin: 10px;
+}
+
+textarea#issue-md {
+  background-color: white;
+  height: 250px;
 }

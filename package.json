@@ -36,6 +36,7 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "pg": "^8.5.1",
+    "react-bootstrap-validation": "^0.1.11",
     "react-confirm-alert": "^2.7.0",
     "react-mde": "^11.5.0",
     "react-search-field": "^1.2.1",
