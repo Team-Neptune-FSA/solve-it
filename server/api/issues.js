@@ -34,6 +34,21 @@ router.get("/myIssues", requireToken, async (req, res, next) => {
   }
 });
 
+//GET /api/issues/questions
+router.get("/questions", requireToken, async (req, res, next) => {
+  try {
+    const issues = await Issue.findAll({
+      where: {
+        userId: req.user.id,
+      },
+      include: [{ model: Question, where: { answer: null } }],
+    });
+    res.json(issues);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // GET /api/issues/:issueId
 router.get("/:issueId", async (req, res, next) => {
   try {
@@ -59,22 +74,6 @@ router.put("/:issueId/edit", requireToken, async (req, res, next) => {
     next(error);
   }
 });
-
-// //GET /api/issues/questions
-// router.get("/issueId/questions", async (req, res, next) => {
-//   try {
-//     const issues = await Issue.findAll({
-//       where: {
-//         userId: req.user.id,
-//         id: req.params.issueId,
-//       },
-//       include: [Question],
-//     });
-//     res.json(issues);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 //GET /api/issues/:issueId/questions
 router.get("/:issueId/questions", async (req, res, next) => {
@@ -259,41 +258,40 @@ router.post("/:issueId/question", requireToken, async (req, res, next) => {
   }
 });
 
-// router.put("/:issueId/answer", requireToken, async (req, res, next) => {
-//   try {
-//     const question = await Question.findOne({
-//       where: {
-//         userId: req.user.id,
-//         id: req.params.issueId
-//       }
-//     });
-//     const question = await Question.create({
-//       questionContent,
-//       answer,
-//     });
-//     await question.setUser(req.user);
-//     await question.setIssue(issue);
-//     res.json(question);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 // PUT /api/issues/:issueId/answer
 router.put("/:issueId/answer", requireToken, async (req, res, next) => {
   try {
-    const question = await Question.findOne({
+    const questions = await Question.findAll({
       where: {
         issueId: req.params.issueId,
         answer: null,
       },
     });
-    const updatedQuestion = await question.update(req.body);
+    const updatedQuestion = await questions[0].update(req.body);
     res.json(updatedQuestion);
   } catch (error) {
     next(error);
   }
 });
+
+// PUT /api/issues/:questionId/answer
+router.put(
+  "/questions/:questionId/answer",
+  requireToken,
+  async (req, res, next) => {
+    try {
+      const question = await Question.findOne({
+        where: {
+          id: req.params.questionId,
+        },
+      });
+      const updatedQuestion = await question.update(req.body);
+      res.json(updatedQuestion);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 //GET /api/issues/solutions/accepted
 router.get("/solutions/accepted", requireToken, async (req, res, next) => {

@@ -12,9 +12,12 @@ const Issues = () => {
   const [view, setView] = useState("unresolved");
   const [toggleView, setToggleView] = useState("solutions");
   const [question, setQuestion] = useState("solutions");
+  const [allIssuesQuestions, setAllIssuesQuestions] = useState([]);
+  const [answer, setAnswer] = useState("");
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
+
     getCurrentUser();
     const getUserIssues = async () => {
       const { data: userIssues } = await axios.get("/api/users/issues", {
@@ -28,20 +31,20 @@ const Issues = () => {
     };
     getUserIssues();
 
-    // ------------------how to get this to work?--------------------
-    const getIssueQuestion = async () => {
-      const { data: issueQuestion } = await axios.get(
-        "/api/issues/issueId/questions", //find the issueId ${}
+    // --------------------------------------------------
+    const getAllIssuesQuestions = async () => {
+      const { data: issueQuestions } = await axios.get(
+        "/api/issues/questions",
         {
           headers: {
             authorization: token,
           },
         }
       );
-      setQuestion(issueQuestion);
+      setAllIssuesQuestions(issueQuestions);
     };
-    getIssueQuestion();
-    // ------------------how to get this to work?--------------------
+    getAllIssuesQuestions();
+    // --------------------------------------------------
   }, [dummy]);
 
   const filterIssues = (e) => {
@@ -118,6 +121,16 @@ const Issues = () => {
           authorization: token,
         },
       }
+    );
+  };
+
+  const handleAnswer = async (event, questionId) => {
+    const token = window.localStorage.getItem("token");
+    event.preventDefault();
+    await axios.put(
+      `/api/issues/questions/${questionId}/answer`,
+      { answer },
+      { headers: { authorization: token } }
     );
   };
 
@@ -207,6 +220,47 @@ const Issues = () => {
             <button onClick={() => setToggleView("solutions")}>
               Solutions
             </button>
+            {allIssuesQuestions.length ? (
+              <>
+                {allIssuesQuestions.map((issues) => {
+                  return (
+                    <div key={issues.id}>
+                      <div>Title: {issues.title}</div>
+                      <div>Description: {issues.description}</div>
+                      <>
+                        {issues.questions.length ? (
+                          <>
+                            {issues.questions.map((question) => (
+                              <div key={question.id}>
+                                <div>Question: {question.questionContent}</div>
+                                <div>Answer:</div>
+                                <input
+                                  value={answer}
+                                  onChange={(event) =>
+                                    setAnswer(event.target.value)
+                                  }
+                                />
+                                <button
+                                  onClick={(event) =>
+                                    handleAnswer(event, question.id)
+                                  }
+                                >
+                                  Submit Answer
+                                </button>
+                              </div>
+                            ))}
+                          </>
+                        ) : (
+                          <div></div>
+                        )}
+                      </>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <div>No questions!</div>
+            )}
           </>
         )}
       </div>
