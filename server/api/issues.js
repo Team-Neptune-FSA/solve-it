@@ -76,13 +76,24 @@ router.put("/:issueId/edit", requireToken, async (req, res, next) => {
 });
 
 //GET /api/issues/:issueId/questions
-router.get("/:issueId/questions", async (req, res, next) => {
+router.get("/:issueId/questions", requireToken, async (req, res, next) => {
   try {
-    const questions = await Question.findAll({
-      where: {
-        issueId: req.params.issueId,
-      },
-    });
+    const issue = await Issue.findByPk(req.params.issueId);
+    let questions;
+    if (req.user.id === issue.userId) {
+      questions = await Question.findAll({
+        where: {
+          issueId: req.params.issueId,
+        },
+      });
+    } else {
+      questions = await Question.findAll({
+        where: {
+          issueId: req.params.issueId,
+          userId: req.user.id,
+        },
+      });
+    }
     res.json(questions);
   } catch (error) {
     next(error);

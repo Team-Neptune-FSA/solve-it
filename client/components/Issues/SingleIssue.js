@@ -10,17 +10,19 @@ import { useAuth } from "../../context/auth";
 
 toast.configure();
 const SingleIssue = ({ match }) => {
+  const [dummy, setdummy] = useState(true);
   const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
-  const [titleView, setTitleView] = useState("edit");
-  const [descriptionView, setDescriptionView] = useState("edit");
+  const [editView, setEditView] = useState("edit");
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [singleIssue, setSingleIssue] = useState({});
   const [view, setView] = useState("overview");
   const [allQuestions, setAllQuestions] = useState([]);
   const [questionContent, setQuestionContent] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState({});
+  
   const notifySubmit = () =>
     toast("Solution submitted!", { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
@@ -33,12 +35,14 @@ const SingleIssue = ({ match }) => {
   useEffect(() => {
     const { issueId } = match.params;
     const token = window.localStorage.getItem("token");
+
     const getSingleIssue = async () => {
       const { data: singleIssue } = await axios.get(`/api/issues/${issueId}`);
       setSingleIssue(singleIssue);
       setTitle(singleIssue.title);
       setDescription(singleIssue.description);
     };
+
     const getSolution = async () => {
       const { data: solution } = await axios.get(
         `/api/issues/${issueId}/mySolution/`,
@@ -49,18 +53,21 @@ const SingleIssue = ({ match }) => {
         setExplanation(solution.explanation);
       }
     };
+
     const getAllQuestions = async () => {
       const { data: questions } = await axios.get(
-        `/api/issues/${issueId}/questions`
+        `/api/issues/${issueId}/questions`,
+        { headers: { authorization: token } }
       );
       setAllQuestions(questions);
     };
+
     if (token) {
       getAllQuestions();
       getSingleIssue();
       getSolution();
     }
-  }, []);
+  }, [dummy]);
 
   const logginPrompt = () => {
     useEffect(() => {
@@ -150,17 +157,21 @@ const SingleIssue = ({ match }) => {
       { questionContent },
       { headers: { authorization: token } }
     );
+    setQuestionContent("");
+    setdummy(!dummy);
   };
 
-  const handleAnswer = async (event) => {
+  const handleAnswer = async (event, questionId) => {
     const token = window.localStorage.getItem("token");
-    const { issueId } = match.params;
     event.preventDefault();
+    const theAnswer = answer[questionId];
     await axios.put(
-      `/api/issues/${issueId}/answer`,
-      { answer },
+      // `/api/issues/${issueId}/answer`,
+      `/api/issues/questions/${questionId}/answer`,
+      { theAnswer },
       { headers: { authorization: token } }
     );
+    setdummy(!dummy);
   };
 
   return (
@@ -174,12 +185,14 @@ const SingleIssue = ({ match }) => {
 
               {view === "overview" ? (
                 <div>
-                  {titleView === "edit" ? (
+                  {editView === "edit" ? (
                     <div>
-                      <h1>
-                        <strong>{title}</strong>
-                      </h1>
-                      <button onClick={() => setTitleView("submit")}>
+                      <div>
+                        <h1>{title}</h1>
+                        <strong>{description}</strong>
+                      </div>
+                      <button onClick={() => setEditView("submit")}>
+
                         edit
                       </button>
                     </div>
@@ -190,28 +203,6 @@ const SingleIssue = ({ match }) => {
                           value={title}
                           onChange={(event) => setTitle(event.target.value)}
                         />
-                      </label>
-                      <button
-                        type="submit"
-                        onClick={(event) => {
-                          handleEdit(event);
-                          setTitleView("edit");
-                        }}
-                      >
-                        submit changes
-                      </button>
-                    </div>
-                  )}
-                  {descriptionView === "edit" ? (
-                    <div>
-                      <h2>{description}</h2>
-                      <button onClick={() => setDescriptionView("submit")}>
-                        edit
-                      </button>
-                    </div>
-                  ) : (
-                    <div>
-                      <label>
                         <input
                           value={description}
                           onChange={(event) =>
@@ -223,13 +214,47 @@ const SingleIssue = ({ match }) => {
                         type="submit"
                         onClick={(event) => {
                           handleEdit(event);
-                          setDescriptionView("edit");
+                          setEditView("edit");
                         }}
                       >
                         submit changes
                       </button>
                     </div>
                   )}
+                  <>
+                    <div>Answer the Questions About This Issue</div>
+                    {allQuestions.map((question) => {
+                      return (
+                        <div key={question.id}>
+                          <p>Q: {question.questionContent}</p>
+                          <p>
+                            A:{" "}
+                            {question.answer || (
+                              <>
+                                <input
+                                  type="text"
+                                  value={answer[question.id] || ""}
+                                  onChange={(event) => {
+                                    let newAnswer = { ...answer };
+                                    newAnswer[question.id] = event.target.value;
+                                    setAnswer(newAnswer);
+                                  }}
+                                  placeholder="Send answer to user..."
+                                />
+                                <button
+                                  onClick={(event) =>
+                                    handleAnswer(event, question.id)
+                                  }
+                                >
+                                  Submit Answer
+                                </button>
+                              </>
+                            )}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </>
                 </div>
               ) : (
                 <>
@@ -263,6 +288,33 @@ const SingleIssue = ({ match }) => {
                 <>
                   <h1 className="issueTitle">{singleIssue.title}</h1>
                   <p>{singleIssue.description}</p>
+                  <>
+                    <div>Ask A Question About This Issue</div>
+                    <input
+                      value={questionContent}
+                      onChange={(event) =>
+                        setQuestionContent(event.target.value)
+                      }
+                      placeholder="Send message to question owner..."
+                    />
+                    <button onClick={(event) => handleQuestion(event)}>
+                      Ask Question
+                    </button>
+                    {/* {allQuestions.map((question) => (
+                    <textarea readOnly key={question.id}>
+                      <>
+                        Q:{question.questionContent}
+                        A:{question.answer || ""}
+                      </>
+                    </textarea>
+                  ))} */}
+                  </>
+                  {allQuestions.map((question) => (
+                    <div key={question.id}>
+                      <p>Q: {question.questionContent}</p>
+                      <p>A: {question.answer || ""}</p>
+                    </div>
+                  ))}
                 </>
               ) : (
                 <>
@@ -286,23 +338,6 @@ const SingleIssue = ({ match }) => {
                   </button>
                 </>
               )}
-              <>
-                <div>Answer the Questions About This Issue</div>
-                <input
-                  value={answer}
-                  onChange={(event) => setAnswer(event.target.value)}
-                  placeholder="Send answer to user..."
-                />
-                <button onClick={(event) => handleAnswer(event)}>
-                  Submit Answer
-                </button>
-                {allQuestions.map((question) => (
-                  <div key={question.id}>
-                    <p>Q: {question.questionContent}</p>
-                    <p>A: {question.answer || ""}</p>
-                  </div>
-                ))}
-              </>
             </div>
           )}
         </div>
