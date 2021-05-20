@@ -17,17 +17,50 @@ const SingleIssue = ({ match }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [singleIssue, setSingleIssue] = useState({});
-  const [view, setView] = useState("overview");
-
+  const [view, setView] = useState('overview');
   const [allQuestions, setAllQuestions] = useState([]);
-
-  const [questionContent, setQuestionContent] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [questionContent, setQuestionContent] = useState('');
+  const [answer, setAnswer] = useState('');
   const notifySubmit = () =>
     toast('Solution submitted!', { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
     toast('Solution saved!', { position: toast.POSITION.BOTTOM_RIGHT });
   const { user, isLoggedIn } = useAuth();
+  const setSolutionCode = (code) => {
+    setCode(code);
+  };
+
+  useEffect(() => {
+    const { issueId } = match.params;
+    const token = window.localStorage.getItem('token');
+    const getSingleIssue = async () => {
+      const { data: singleIssue } = await axios.get(`/api/issues/${issueId}`);
+      setSingleIssue(singleIssue);
+      setTitle(singleIssue.title);
+      setDescription(singleIssue.description);
+    };
+    const getSolution = async () => {
+      const { data: solution } = await axios.get(
+        `/api/issues/${issueId}/mySolution/`,
+        { headers: { authorization: token } }
+      );
+      if (solution) {
+        setCode(solution.code);
+        setExplanation(solution.explanation);
+      }
+    };
+    const getAllQuestions = async () => {
+      const { data: questions } = await axios.get(
+        `/api/issues/${issueId}/questions`
+      );
+      setAllQuestions(questions);
+    };
+    if (token) {
+      getAllQuestions();
+      getSingleIssue();
+      getSolution();
+    }
+  }, []);
 
   const logginPrompt = () => {
     useEffect(() => {
@@ -53,55 +86,23 @@ const SingleIssue = ({ match }) => {
     }, []);
   };
 
-  const setSolutionCode = (code) => {
-    setCode(code);
-  };
-
-  useEffect(() => {
-    const { issueId } = match.params;
-    const token = window.localStorage.getItem('token');
-    const getSingleIssue = async () => {
-      const { data: singleIssue } = await axios.get(`/api/issues/${issueId}`);
-      setSingleIssue(singleIssue);
-      setTitle(singleIssue.title);
-      setDescription(singleIssue.description);
-    };
-    isLoggedIn ? getSingleIssue() : '';
-    const getSolution = async () => {
-      const { data: solution } = await axios.get(
-        `/api/issues/${issueId}/mySolution/`,
-        { headers: { authorization: token } }
-      );
-      if (solution) {
-        setCode(solution.code);
-        setExplanation(solution.explanation);
-      }
-    };
-    isLoggedIn ? getSolution() : '';
-    const getAllQuestions = async () => {
-      const { data: questions } = await axios.get(
-        `/api/issues/${issueId}/questions`
-      );
-      setAllQuestions(questions);
-    };
-    isLoggedIn ? getAllQuestions() : '';
-  }, []);
-
   const confirmSubmit = () => {
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure you want to submit a new solution?',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => handleSubmit(),
-        },
-        {
-          label: 'No',
-          onClick: () => console.log('back'),
-        },
-      ],
-    });
+    useEffect(() => {
+      confirmAlert({
+        title: 'Confirm to submit',
+        message: 'Are you sure you want to submit a new solution?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => handleSubmit(),
+          },
+          {
+            label: 'No',
+            onClick: () => console.log('back'),
+          },
+        ],
+      });
+    }, []);
   };
 
   const handleSubmit = async () => {
@@ -143,7 +144,7 @@ const SingleIssue = ({ match }) => {
   };
 
   const handleQuestion = async (event) => {
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     const { issueId } = match.params;
     event.preventDefault();
     await axios.post(
@@ -154,7 +155,7 @@ const SingleIssue = ({ match }) => {
   };
 
   const handleAnswer = async (event) => {
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     const { issueId } = match.params;
     event.preventDefault();
     await axios.put(
@@ -163,10 +164,9 @@ const SingleIssue = ({ match }) => {
       { headers: { authorization: token } }
     );
   };
-
   return (
     <>
-      {isLoggedIn ? (
+      {window.localStorage.getItem('token') ? (
         <div>
           {singleIssue.userId === user.id ? (
             <div className="component">
@@ -203,7 +203,6 @@ const SingleIssue = ({ match }) => {
                       </button>
                     </div>
                   )}
-
                   {descriptionView === 'edit' ? (
                     <div>
                       <h2>{description}</h2>
@@ -301,14 +300,14 @@ const SingleIssue = ({ match }) => {
                 {allQuestions.map((question) => (
                   <div key={question.id}>
                     <p>Q: {question.questionContent}</p>
-                    <p>A: {question.answer || ""}</p>
+                    <p>A: {question.answer || ''}</p>
                   </div>
                 ))}
               </>
             </div>
           )}
         </div>
-        ) : (
+      ) : (
         <div>{logginPrompt()}</div>
       )}
     </>

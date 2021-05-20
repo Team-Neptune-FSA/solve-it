@@ -66,38 +66,40 @@ const Solutions = () => {
 
   return (
     <>
-      <div>
+      <div className="parent-stats-section">
         <div className="stats-section dashboard-solution-left">
-          <div className="insideStats">
-            You have solved <span>{singleUserAttempted}</span> problems.
+          <div className="stats-text">
+            <div className="text">
+            <p>You have solved <span>{singleUserAttempted}</span> problems.</p>
             <br />
-            {/* <hr /> */}
-            You have had <span>{singleUserAccepted}</span> solution(s) accepted.
+            <p>You have had <span>{singleUserAccepted}</span> solution(s) accepted.</p>
             <br />
-            {/* <hr /> */}
-            You have answered more questions than
+            <p>You have answered more questions than
             <span>
               {' '}
               {(
                 percentRank(solutionsAttemptedArr, singleUserAttempted) * 100
               ).toFixed(2)}{' '}
             </span>
-            % of users.
+            % of users.</p>
             <br />
-            {/* <hr /> */}
+            </div>
           </div>
         </div>
 
         <div className="dashboard-info dashboard-solution-right">
           {userSolutions.map((solution) => (
-            <div className="solution box" key={solution.id}>
+            <div className="solution-box" key={solution.id}>
               <Link to={`/issues/${solution.issue.id}`}>
+                <div className="inside-solution">
                 <h3>{solution.issue.title}</h3>
                 <code>{solution.code}</code>
+                </div>
               </Link>
             </div>
           ))}
         </div>
+
       </div>
     </>
   );
