@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import CodeEnvironment from '../CodeEnvironment';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import history from '../../history';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
-import { useAuth } from '../../context/auth';
+import React, { useEffect, useState } from "react";
+import CodeEnvironment from "../CodeEnvironment";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import history from "../../history";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { useAuth } from "../../context/auth";
 
 toast.configure();
 const SingleIssue = ({ match }) => {
-  const [code, setCode] = useState('');
-  const [explanation, setExplanation] = useState('');
-  const [titleView, setTitleView] = useState('edit');
-  const [descriptionView, setDescriptionView] = useState('edit');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [code, setCode] = useState("");
+  const [explanation, setExplanation] = useState("");
+  const [titleView, setTitleView] = useState("edit");
+  const [descriptionView, setDescriptionView] = useState("edit");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [singleIssue, setSingleIssue] = useState({});
-  const [view, setView] = useState('overview');
+  const [view, setView] = useState("overview");
   const [allQuestions, setAllQuestions] = useState([]);
-  const [questionContent, setQuestionContent] = useState('');
-  const [answer, setAnswer] = useState('');
+  const [questionContent, setQuestionContent] = useState("");
+  const [answer, setAnswer] = useState("");
   const notifySubmit = () =>
-    toast('Solution submitted!', { position: toast.POSITION.BOTTOM_RIGHT });
+    toast("Solution submitted!", { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
-    toast('Solution saved!', { position: toast.POSITION.BOTTOM_RIGHT });
+    toast("Solution saved!", { position: toast.POSITION.BOTTOM_RIGHT });
   const { user, isLoggedIn } = useAuth();
   const setSolutionCode = (code) => {
     setCode(code);
@@ -32,7 +32,7 @@ const SingleIssue = ({ match }) => {
 
   useEffect(() => {
     const { issueId } = match.params;
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     const getSingleIssue = async () => {
       const { data: singleIssue } = await axios.get(`/api/issues/${issueId}`);
       setSingleIssue(singleIssue);
@@ -65,19 +65,19 @@ const SingleIssue = ({ match }) => {
   const logginPrompt = () => {
     useEffect(() => {
       confirmAlert({
-        message: 'Please sign up or log in to view this issue',
+        message: "Please sign up or log in to view this issue",
         buttons: [
           {
-            label: 'Login',
-            onClick: () => history.push('/login'),
+            label: "Login",
+            onClick: () => history.push("/login"),
           },
           {
-            label: 'Signup',
-            onClick: () => history.push('/signup'),
+            label: "Signup",
+            onClick: () => history.push("/signup"),
           },
           {
-            label: 'Go home',
-            onClick: () => history.push('/'),
+            label: "Go home",
+            onClick: () => history.push("/"),
           },
         ],
         closeOnEscape: false,
@@ -87,27 +87,25 @@ const SingleIssue = ({ match }) => {
   };
 
   const confirmSubmit = () => {
-    useEffect(() => {
-      confirmAlert({
-        title: 'Confirm to submit',
-        message: 'Are you sure you want to submit a new solution?',
-        buttons: [
-          {
-            label: 'Yes',
-            onClick: () => handleSubmit(),
-          },
-          {
-            label: 'No',
-            onClick: () => console.log('back'),
-          },
-        ],
-      });
-    }, []);
+    confirmAlert({
+      title: "Confirm to submit",
+      message: "Are you sure you want to submit a new solution?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => handleSubmit(),
+        },
+        {
+          label: "No",
+          onClick: () => console.log("back"),
+        },
+      ],
+    });
   };
 
   const handleSubmit = async () => {
     notifySubmit();
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     const { issueId } = match.params;
     await axios.post(
       `/api/issues/${issueId}/solutions`,
@@ -119,12 +117,12 @@ const SingleIssue = ({ match }) => {
       },
       { headers: { authorization: token } }
     );
-    history.push('/dashboard');
+    history.push("/dashboard");
   };
 
   const handleSave = async () => {
     notifySave();
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     const { issueId } = match.params;
     await axios.post(
       `/api/issues/${issueId}/solutions`,
@@ -134,7 +132,7 @@ const SingleIssue = ({ match }) => {
   };
 
   const handleEdit = async (event) => {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     event.preventDefault();
     await axios.put(
       `/api/issues/${singleIssue.id}/edit`,
@@ -144,7 +142,7 @@ const SingleIssue = ({ match }) => {
   };
 
   const handleQuestion = async (event) => {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     const { issueId } = match.params;
     event.preventDefault();
     await axios.post(
@@ -155,7 +153,7 @@ const SingleIssue = ({ match }) => {
   };
 
   const handleAnswer = async (event) => {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     const { issueId } = match.params;
     event.preventDefault();
     await axios.put(
@@ -164,23 +162,24 @@ const SingleIssue = ({ match }) => {
       { headers: { authorization: token } }
     );
   };
+
   return (
     <>
-      {window.localStorage.getItem('token') ? (
+      {window.localStorage.getItem("token") ? (
         <div>
           {singleIssue.userId === user.id ? (
             <div className="component">
-              <button onClick={() => setView('overview')}>Overview</button>
-              <button onClick={() => setView('workspace')}>Workspace</button>
+              <button onClick={() => setView("overview")}>Overview</button>
+              <button onClick={() => setView("workspace")}>Workspace</button>
 
-              {view === 'overview' ? (
+              {view === "overview" ? (
                 <div>
-                  {titleView === 'edit' ? (
+                  {titleView === "edit" ? (
                     <div>
                       <h1>
                         <strong>{title}</strong>
                       </h1>
-                      <button onClick={() => setTitleView('submit')}>
+                      <button onClick={() => setTitleView("submit")}>
                         edit
                       </button>
                     </div>
@@ -196,17 +195,17 @@ const SingleIssue = ({ match }) => {
                         type="submit"
                         onClick={(event) => {
                           handleEdit(event);
-                          setTitleView('edit');
+                          setTitleView("edit");
                         }}
                       >
                         submit changes
                       </button>
                     </div>
                   )}
-                  {descriptionView === 'edit' ? (
+                  {descriptionView === "edit" ? (
                     <div>
                       <h2>{description}</h2>
-                      <button onClick={() => setDescriptionView('submit')}>
+                      <button onClick={() => setDescriptionView("submit")}>
                         edit
                       </button>
                     </div>
@@ -224,7 +223,7 @@ const SingleIssue = ({ match }) => {
                         type="submit"
                         onClick={(event) => {
                           handleEdit(event);
-                          setDescriptionView('edit');
+                          setDescriptionView("edit");
                         }}
                       >
                         submit changes
@@ -257,10 +256,10 @@ const SingleIssue = ({ match }) => {
             </div>
           ) : (
             <div className="component">
-              <button onClick={() => setView('overview')}>Overview</button>
-              <button onClick={() => setView('workspace')}>Workspace</button>
+              <button onClick={() => setView("overview")}>Overview</button>
+              <button onClick={() => setView("workspace")}>Workspace</button>
 
-              {view === 'overview' ? (
+              {view === "overview" ? (
                 <>
                   <h1 className="issueTitle">{singleIssue.title}</h1>
                   <p>{singleIssue.description}</p>
@@ -300,7 +299,7 @@ const SingleIssue = ({ match }) => {
                 {allQuestions.map((question) => (
                   <div key={question.id}>
                     <p>Q: {question.questionContent}</p>
-                    <p>A: {question.answer || ''}</p>
+                    <p>A: {question.answer || ""}</p>
                   </div>
                 ))}
               </>

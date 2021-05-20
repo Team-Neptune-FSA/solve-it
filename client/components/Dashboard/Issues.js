@@ -13,7 +13,6 @@ const Issues = () => {
   const { getCurrentUser } = useAuth();
   const [view, setView] = useState("unresolved");
 
-
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     getCurrentUser();
