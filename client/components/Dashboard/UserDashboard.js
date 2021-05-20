@@ -37,17 +37,6 @@ const UserDashboard = () => {
           {view === "issues" && <Issues />}
           {view === "payment" && <Payment />}
         </div>
-
-        {/* <div className="dashboardDivLeft component" id="title-section">
-            <h1>What are you looking for?</h1>
-            <div>
-              <form method="get" action="/issues/post">
-                <button className="btn blue-bg white" type="submit">
-                  Submit a new issue
-                </button>
-              </form>
-            </div>
-          </div> */}
       </div>
     </>
   );
