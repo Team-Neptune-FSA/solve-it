@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { me } from '../../store';
+import { useAuth } from '../../context/auth';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
-const Issues = ({ loadInitialData }) => {
+const Issues = () => {
   const [unresolved, setunresolved] = useState([]);
   const [resolved, setresolved] = useState([]);
   const [current, setcurrent] = useState([]);
-  const [dummy, setdummy] = useState(true);
+  const [dummy, setdummy] = useState('');
+  const { getCurrentUser } = useAuth();
   const [view, setView] = useState('unresolved');
 
   useEffect(() => {
     const token = window.localStorage.getItem('token');
-    loadInitialData();
+    getCurrentUser();
     const getUserIssues = async () => {
       const { data: userIssues } = await axios.get('/api/users/issues', {
         headers: {
@@ -38,7 +40,6 @@ const Issues = ({ loadInitialData }) => {
   };
 
   const handleAccept = async (solution, issue) => {
-    setdummy(!dummy);
     const token = window.localStorage.getItem('token');
     //sets issue to isResolved
     await axios.put(`/api/issues/${issue.id}`, null, {
@@ -67,6 +68,26 @@ const Issues = ({ loadInitialData }) => {
     await axios.put('/api/stats', {
       issue,
       solution,
+    });
+  };
+
+  const confirmAccept = (solution, issue) => {
+    confirmAlert({
+      title: 'Confirm to accept answer',
+      message: 'Are you sure you want to accept this answer?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            setdummy('bang');
+            handleAccept(solution, issue);
+          },
+        },
+        {
+          label: 'No',
+          onClick: () => console.log('back'),
+        },
+      ],
     });
   };
 
@@ -151,7 +172,7 @@ const Issues = ({ loadInitialData }) => {
                       </Link>
                       {view === 'unresolved' ? (
                         <button
-                          onClick={() => handleAccept(solution, issue)}
+                          onClick={() => confirmAccept(solution, issue)}
                           className="btn blue white"
                         >
                           Accept Solution
@@ -182,14 +203,4 @@ const Issues = ({ loadInitialData }) => {
   );
 };
 
-const mapState = (state) => {
-  return {
-    user: state.auth,
-  };
-};
-
-const mapDispatch = (dispatch) => ({
-  loadInitialData: () => dispatch(me()),
-});
-
-export default connect(mapState, mapDispatch)(Issues);
+export default Issues;

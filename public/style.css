@@ -74,9 +74,10 @@ svg#logo path:nth-child(9) {
 
 @keyframes line-anim {
   to {
-    stroke-dashoffset: 0%;
+    stroke-dashoffset: 0;
   }
 }
+
 
 div.header {
   display: flex;
@@ -164,6 +165,9 @@ nav a {
 .black {
   color: #000000;
 }
+.error {
+  color: red;
+}
 
 .white-bg {
   background-color: #ffffff;
@@ -242,7 +246,7 @@ h1.prompt,
 .searchTitle {
   font-size: 50px;
   color: #00a4c7;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Buttons */
@@ -388,16 +392,16 @@ div.titleScreen {
 
 @keyframes bgfade {
   0% {
-    background-image: url("Images/computer.jpeg");
+    background-image: url('Images/computer.jpeg');
   }
   50% {
-    background-image: url("Images/computer1.jpeg");
+    background-image: url('Images/computer1.jpeg');
   }
   75% {
-    background-image: url("Images/computer2.jpeg");
+    background-image: url('Images/computer2.jpeg');
   }
   100% {
-    background-image: url("Images/computer.jpeg");
+    background-image: url('Images/computer.jpeg');
   }
 }
 
@@ -456,6 +460,7 @@ button.btn.blue-bg.white {
   left: 0;
   margin-right: 20px;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 
 button.btn.blue-bg.white:hover {
@@ -466,6 +471,7 @@ button.btn.blue-bg.white:hover {
 
 button.post-issue-button {
   padding: 10px;
+  cursor: pointer;
 }
 
 div.insideAllIssues {

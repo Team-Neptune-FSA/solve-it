@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import history from '../../history';
 import { confirmAlert } from 'react-confirm-alert';
@@ -10,21 +10,28 @@ const PostIssue = () => {
   const [price, setPrice] = useState(1);
   const [language, setLanguage] = useState('javascript');
 
-  const confirmSubmit = () => {
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure you want to submit this request?',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => handleSubmit(),
-        },
-        {
-          label: 'No',
-          onClick: () => console.log('back'),
-        },
-      ],
-    });
+  const logginPrompt = () => {
+    useEffect(() => {
+      confirmAlert({
+        message: 'Please sign up or log in to post an issue',
+        buttons: [
+          {
+            label: 'Login',
+            onClick: () => history.push('/login'),
+          },
+          {
+            label: 'Signup',
+            onClick: () => history.push('/signup'),
+          },
+          {
+            label: 'Go home',
+            onClick: () => history.push('/'),
+          },
+        ],
+        closeOnEscape: false,
+        closeOnClickOutside: false,
+      });
+    }, []);
   };
 
   const handleSubmit = async (e) => {
@@ -43,55 +50,51 @@ const PostIssue = () => {
     );
     history.push('/dashboard');
   };
-
+  
+  const token = window.localStorage.getItem('token');
+  
   return (
-    <div className="post">
-    <div className="component post-issue">
-      <h1>What problem are you having trouble with?</h1>
-      {/* <br/> */}
-      <p>Describe the service you're looking to purchase - please be as detailed as possible:</p>
-      <br/>
-      <form onSubmit={handleSubmit}>
-        <h2><label>Title: </label></h2>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}/>
-        <br/>
-
-        <h2><label>Description: </label></h2>
-        <textarea
-          id="issue-md"
-          type="text"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}></textarea>
+    <>
+      {window.localStorage.getItem('token') ? (
+      <div className="post">
+        <div className="component post-issue">
+          <h1>Post an Issue</h1>
+          <form onSubmit={handleSubmit}>
+            <label>Title: </label>
+            <input
+              type="text"
+              name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              // placeholder="Title..."
+            />
+            <label>Description: </label>
+            <textarea
+              id="issue-md"
+              type="text"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <label>Language: </label>
+            <select
+              name="language"
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+            >
+              <option value="javascript">Javascript</option>
+            </select>
+            <label>Price: </label>
+            $
+            <input
+              type="integer"
+              name="price-amount"
+              value={price}
+              onChange={(e) => setPrice(Number(e.target.value))}
+            />{' '}
+            (in cents)
+            <button type="submit">Submit</button>
           <br/>
-
-          <div style={{display:"flex"}}>
-          <h2><label>Language: </label></h2>
-        <select
-          className="language-input"
-          name="language"
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}>
-          <option value="javascript">Javascript</option>
-        </select>
-        </div>
-        <br/>
-        <div style={{display:"flex"}}>
-        <h2><label>Incentive Amount Price:$ (in cents)  </label></h2>
-        <input
-          className="price-input"
-          type="integer"
-          name="price-amount"
-          value={price}
-          onChange={(e) => setPrice(Number(e.target.value))}
-        />{' '}
-        </div>
-
-        <br/>
         <div className="payment-div credit">
         <img style={{height: "100%", width: "100%", objectFit: "scale-down"}} src="../Images/credit.png" alt=""/>
         </div>
@@ -103,8 +106,14 @@ const PostIssue = () => {
         </div>
         <button onClick={confirmSubmit} className="post-issue-submit" type="submit">Submit Request</button>
       </form>
-    </div>
-    </div>
+        </div>
+        </div>
+      ) : (
+        <>
+          <div>{logginPrompt()}</div>
+        </>
+      )}
+    </>
   );
 };
 

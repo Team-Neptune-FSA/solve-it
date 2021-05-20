@@ -1,15 +1,15 @@
-import React from 'react'
-
-import Navbar from './components/Navbar'
-import Routes from './routes'
+import React from "react";
+import Navbar from "./components/Navbar";
+import Routes from "./routes";
+import { AuthProvider } from "./context/auth";
 
 const App = () => {
   return (
-    <div>
+    <AuthProvider>
       <Navbar />
       <Routes />
-    </div>
-  )
-}
+    </AuthProvider>
+  );
+};
 
-export default App
+export default App;

@@ -1,26 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Editor from '@monaco-editor/react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Editor from "@monaco-editor/react";
 
-function codeEnvironment({ setSolutionCode, value }) {
-  const [code, setCode] = useState('//enter code here...');
-  const [output, setOutput] = useState('');
+const codeEnvironment = ({ setSolutionCode, value }) => {
+  const [code, setCode] = useState("//enter code here...");
+  const [output, setOutput] = useState("");
+  const [exitCode, setExitCode] = useState(0);
 
   useEffect(() => {
     if (value) {
       setCode(value);
     }
-  }, [value]); 
+  }, [value]);
 
   const handleSubmit = async () => {
-    const { data: output } = await axios.post('/api/execute', { code });
-    setOutput(output);
+    const { data: output } = await axios.post("/api/execute", { code });
+    setOutput(output.formattedOutput);
+    setExitCode(output.ExitCode);
   };
 
   const handleChange = (value) => {
     setSolutionCode(value);
     setCode(value);
   };
+
+  console.log(exitCode);
 
   return (
     <>
@@ -35,16 +39,22 @@ function codeEnvironment({ setSolutionCode, value }) {
           defaultLanguage="javascript"
           theme="vs-dark"
           onChange={handleChange}
-          options={{ 
-            readOnly: false
+          options={{
+            readOnly: false,
           }}
         />
         <br />
-        <div className="output-box">{output}</div>
+        <div className="output-box">
+          {Number(exitCode) === 0 ? (
+            output
+          ) : (
+            <span className="error">{output}</span>
+          )}
+        </div>
       </div>
       <button onClick={() => handleSubmit()}>Run Code</button>
     </>
   );
-}
+};
 
 export default codeEnvironment;
