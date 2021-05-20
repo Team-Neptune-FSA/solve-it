@@ -10,6 +10,7 @@ import { useAuth } from "../../context/auth";
 
 toast.configure();
 const SingleIssue = ({ match }) => {
+  const [dummy, setdummy] = useState(true);
   const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
   const [editView, setEditView] = useState("edit");
@@ -19,7 +20,7 @@ const SingleIssue = ({ match }) => {
   const [view, setView] = useState("overview");
   const [allQuestions, setAllQuestions] = useState([]);
   const [questionContent, setQuestionContent] = useState("");
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState({});
 
   const notifySubmit = () =>
     toast("Solution submitted!", { position: toast.POSITION.BOTTOM_RIGHT });
@@ -54,7 +55,8 @@ const SingleIssue = ({ match }) => {
 
     const getAllQuestions = async () => {
       const { data: questions } = await axios.get(
-        `/api/issues/${issueId}/questions`
+        `/api/issues/${issueId}/questions`,
+        { headers: { authorization: token } }
       );
       setAllQuestions(questions);
     };
@@ -64,7 +66,7 @@ const SingleIssue = ({ match }) => {
       getSingleIssue();
       getSolution();
     }
-  }, []);
+  }, [dummy]);
 
   const logginPrompt = () => {
     useEffect(() => {
@@ -156,18 +158,23 @@ const SingleIssue = ({ match }) => {
       { questionContent },
       { headers: { authorization: token } }
     );
+    setQuestionContent("");
+    setdummy(!dummy);
   };
 
-  const handleAnswer = async (event) => {
+  const handleAnswer = async (event, questionId) => {
     const token = window.localStorage.getItem("token");
-    const { issueId } = match.params;
     event.preventDefault();
+    const theAnswer = answer[questionId];
     await axios.put(
-      `/api/issues/${issueId}/answer`,
-      { answer },
+      // `/api/issues/${issueId}/answer`,
+      `/api/issues/questions/${questionId}/answer`,
+      { theAnswer },
       { headers: { authorization: token } }
     );
+    setdummy(!dummy);
   };
+
   return (
     <>
       {window.localStorage.getItem("token") ? (
@@ -216,20 +223,37 @@ const SingleIssue = ({ match }) => {
                   )}
                   <>
                     <div>Answer the Questions About This Issue</div>
-                    <input
-                      value={answer}
-                      onChange={(event) => setAnswer(event.target.value)}
-                      placeholder="Send answer to user..."
-                    />
-                    <button onClick={(event) => handleAnswer(event)}>
-                      Submit Answer
-                    </button>
-                    {allQuestions.map((question) => (
-                      <div key={question.id}>
-                        <p>Q: {question.questionContent}</p>
-                        <p>A: {question.answer || ""}</p>
-                      </div>
-                    ))}
+                    {allQuestions.map((question) => {
+                      return (
+                        <div key={question.id}>
+                          <p>Q: {question.questionContent}</p>
+                          <p>
+                            A:{" "}
+                            {question.answer || (
+                              <>
+                                <input
+                                  type="text"
+                                  value={answer[question.id] || ""}
+                                  onChange={(event) => {
+                                    let newAnswer = { ...answer };
+                                    newAnswer[question.id] = event.target.value;
+                                    setAnswer(newAnswer);
+                                  }}
+                                  placeholder="Send answer to user..."
+                                />
+                                <button
+                                  onClick={(event) =>
+                                    handleAnswer(event, question.id)
+                                  }
+                                >
+                                  Submit Answer
+                                </button>
+                              </>
+                            )}
+                          </p>
+                        </div>
+                      );
+                    })}
                   </>
                 </div>
               ) : (

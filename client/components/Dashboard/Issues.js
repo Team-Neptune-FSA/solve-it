@@ -9,7 +9,7 @@ const Issues = () => {
   const [unresolved, setunresolved] = useState([]);
   const [resolved, setresolved] = useState([]);
   const [current, setcurrent] = useState([]);
-  const [dummy, setdummy] = useState("");
+  const [dummy, setdummy] = useState(true);
   const { getCurrentUser } = useAuth();
   const [view, setView] = useState("unresolved");
   const [toggleView, setToggleView] = useState("solutions");
@@ -149,6 +149,7 @@ const Issues = () => {
       { theAnswer },
       { headers: { authorization: token } }
     );
+    setdummy(!dummy);
   };
 
   return (
