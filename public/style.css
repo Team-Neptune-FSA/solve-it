@@ -34,55 +34,47 @@ h1 {
 svg#logo path:nth-child(2) {
   stroke-dasharray: 507.99310302734375;
   stroke-dashoffset: 507.99310302734375;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 0.3s;
 }
 svg#logo path:nth-child(3) {
   stroke-dasharray: 415.94134521484375;
   stroke-dashoffset: 415.94134521484375;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 0.6s;
 }
 svg#logo path:nth-child(4) {
   stroke-dasharray: 241.34402465820312;
   stroke-dashoffset: 241.34402465820312;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 0.9s;
 }
 svg#logo path:nth-child(5) {
   stroke-dasharray: 342.05206298828125;
   stroke-dashoffset: 342.05206298828125;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 1.2s;
 }
 svg#logo path:nth-child(6) {
   stroke-dasharray: 482.4542236328125;
   stroke-dashoffset: 482.4542236328125;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 1.5s;
 }
 svg#logo path:nth-child(7) {
   stroke-dasharray: 61.62703323364258;
   stroke-dashoffset: 61.62703323364258;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 1.8s;
 }
 svg#logo path:nth-child(8) {
   stroke-dasharray: 230.4000244140625;
   stroke-dashoffset: 230.4000244140625;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 2.1s;
 }
 svg#logo path:nth-child(9) {
   stroke-dasharray: 322.00323486328125;
   stroke-dashoffset: 322.00323486328125;
-  animation: line-anim 3s ease forwards 0.5s;
+  animation: line-anim 3s ease forwards 2.4s;
 }
 
 @keyframes line-anim {
   to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes fill {
-  from {
-    fill: transparent;
-  }
-  to {
-    fill: white;
+    stroke-dashoffset: 0%;
   }
 }
 
@@ -148,6 +140,10 @@ label {
 }
 nav {
   display: flex;
+}
+
+nav a:hover {
+  transform: scale(1.2);
 }
 
 nav a {
@@ -257,6 +253,8 @@ button:hover {
   background-color: white;
   color: #00a4c7;
   border: 1px solid black;
+  transition: transform .5s ease-in-out;
+  transform: scale(1.1);
 }
 
 button.browseButton {
