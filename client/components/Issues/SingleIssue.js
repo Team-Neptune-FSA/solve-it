@@ -12,10 +12,7 @@ toast.configure();
 const SingleIssue = ({ match }) => {
   const [code, setCode] = useState("");
   const [explanation, setExplanation] = useState("");
-
   const [editView, setEditView] = useState("edit");
-
-  const [descriptionView, setDescriptionView] = useState("edit");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [singleIssue, setSingleIssue] = useState({});
@@ -267,6 +264,33 @@ const SingleIssue = ({ match }) => {
                 <>
                   <h1 className="issueTitle">{singleIssue.title}</h1>
                   <p>{singleIssue.description}</p>
+                  <>
+                    <div>Ask A Question About This Issue</div>
+                    <input
+                      value={questionContent}
+                      onChange={(event) =>
+                        setQuestionContent(event.target.value)
+                      }
+                      placeholder="Send message to question owner..."
+                    />
+                    <button onClick={(event) => handleQuestion(event)}>
+                      Ask Question
+                    </button>
+                    {/* {allQuestions.map((question) => (
+                    <textarea readOnly key={question.id}>
+                      <>
+                        Q:{question.questionContent}
+                        A:{question.answer || ""}
+                      </>
+                    </textarea>
+                  ))} */}
+                  </>
+                  {allQuestions.map((question) => (
+                    <div key={question.id}>
+                      <p>Q: {question.questionContent}</p>
+                      <p>A: {question.answer || ""}</p>
+                    </div>
+                  ))}
                 </>
               ) : (
                 <>
@@ -290,23 +314,6 @@ const SingleIssue = ({ match }) => {
                   </button>
                 </>
               )}
-              {/* <>
-                <div>Answer the Questions About This Issue</div>
-                <input
-                  value={answer}
-                  onChange={(event) => setAnswer(event.target.value)}
-                  placeholder="Send answer to user..."
-                />
-                <button onClick={(event) => handleAnswer(event)}>
-                  Submit Answer
-                </button>
-                {allQuestions.map((question) => (
-                  <div key={question.id}>
-                    <p>Q: {question.questionContent}</p>
-                    <p>A: {question.answer || ""}</p>
-                  </div>
-                ))}
-              </> */}
             </div>
           )}
         </div>
