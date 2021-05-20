@@ -9,6 +9,7 @@ class AllIssues extends React.Component {
   }
 
   render() {
+
     const { issues } = this.props;
     return (
       <div className="component">

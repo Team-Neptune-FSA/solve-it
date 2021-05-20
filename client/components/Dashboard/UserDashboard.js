@@ -12,20 +12,17 @@ const UserDashboard = ({ user: { name } }) => {
         <div className="dashboardDivRight component" id="-section">
           <h1>Hello {name}!</h1>
           {/* </div> */}
-          <button
-            className={view === 'solutions' ? 'active' : ''}
+          <button className={view === 'solutions' ? 'active' : ''}
             onClick={() => setView('solutions')}
           >
             Solutions
           </button>
-          <button
-            className={view === 'issues' ? 'active' : ''}
+          <button className={view === 'issues' ? 'active' : ''}
             onClick={() => setView('issues')}
           >
             Issues
           </button>
-          <button
-            className={view === 'payment' ? 'active' : ''}
+          <button className={view === 'payment' ? 'active' : ''}
             onClick={() => setView('payment')}
           >
             Payment

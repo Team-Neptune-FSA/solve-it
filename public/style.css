@@ -107,12 +107,10 @@ ul.nav-links {
 }
 
 .nav-links {
-  list-style: none;
-}
-
-.nav-links {
   display: inline-block;
   padding: 0px 20px;
+  list-style: none;
+  /* font-size: px; */
 }
 
 .nav-links li a {
@@ -120,6 +118,10 @@ ul.nav-links {
 }
 
 .nav-links li a:hover {
+  color: #00a4c7;
+}
+
+.main-nav-active {
   color: #00a4c7;
 }
 
@@ -253,8 +255,8 @@ button:hover {
   background-color: white;
   color: #00a4c7;
   border: 1px solid black;
-  transition: transform .5s ease-in-out;
-  transform: scale(1.1);
+  /* transition: transform .5s ease-in-out;
+  transform: scale(1.1); */
 }
 
 button.browseButton {

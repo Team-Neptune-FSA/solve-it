@@ -1,14 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { logout } from "../store";
-// import styled from "styled-components";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div className="topHeader">
     <div className="header">
       <Link to="/">
-
         <svg
           id="logo"
           width="450"
@@ -82,35 +80,31 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
         {isLoggedIn ? (
           <ul className="nav-links">
             <li>
-              <Link to="/">Home</Link>
+              <NavLink exact to="/" className="main-nav" activeClassName="main-nav-active">Home</NavLink>
             </li>
             <li>
-              <Link to="/issues">Issues</Link>
+            <NavLink to="/issues" className="main-nav" activeClassName="main-nav-active">Issues</NavLink>
             </li>
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+            <NavLink to="/dashboard" className="main-nav" activeClassName="main-nav-active">Dashboard</NavLink>
             </li>
             <li>
-              <Link to="/" onClick={handleClick}>
-                {" "}
-                Logout{" "}
-              </Link>
-              {/* <hr className="line"/> */}
+              <Link to="/" onClick={handleClick}>{" "} Logout{" "}</Link>
             </li>
           </ul>
         ) : (
           <ul className="nav-links">
             <li>
-              <Link to="/">Home</Link>
+            <NavLink exact to="/" className="main-nav" activeClassName="main-nav-active">Home</NavLink>
             </li>
             <li>
-              <Link to="/issues">Issues</Link>
+            <NavLink exact to="/issues" className="main-nav" activeClassName="main-nav-active">Issues</NavLink>
             </li>
             <li>
-              <Link to="/login">Login</Link>
+            <NavLink exact to="/login" className="main-nav" activeClassName="main-nav-active">Login</NavLink>
             </li>
             <li>
-              <Link to="/signup">Signup</Link>
+            <NavLink exact to="/signup" className="main-nav" activeClassName="main-nav-active">Signup</NavLink>
             </li>
           </ul>
         )}
