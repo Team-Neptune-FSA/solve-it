@@ -35,6 +35,7 @@ const PostIssue = () => {
   };
 
   const handleSubmit = async (e) => {
+    notifySubmit();
     e.preventDefault();
     const token = window.localStorage.getItem('token');
     await axios.post(
@@ -49,10 +50,13 @@ const PostIssue = () => {
     );
     history.push('/dashboard');
   };
+  
   const token = window.localStorage.getItem('token');
+  
   return (
     <>
       {window.localStorage.getItem('token') ? (
+      <div className="post">
         <div className="component post-issue">
           <h1>Post an Issue</h1>
           <form onSubmit={handleSubmit}>
@@ -90,7 +94,19 @@ const PostIssue = () => {
             />{' '}
             (in cents)
             <button type="submit">Submit</button>
-          </form>
+          <br/>
+        <div className="payment-div credit">
+        <img style={{height: "100%", width: "100%", objectFit: "scale-down"}} src="../Images/credit.png" alt=""/>
+        </div>
+        <div className="payment-div paypal">
+        <img style={{height: "100%", width: "100%", objectFit: "scale-down"}} src="../Images/paypal.png" alt=""/>
+        </div>
+        <div className="payment-div google-pay">
+        <img style={{height: "100%", width: "100%", objectFit: "scale-down"}} src="../Images/googlepay.png" alt=""/>
+        </div>
+        <button onClick={confirmSubmit} className="post-issue-submit" type="submit">Submit Request</button>
+      </form>
+        </div>
         </div>
       ) : (
         <>

@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import CodeEnvironment from "../CodeEnvironment";
-import axios from "axios";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import history from "../../history";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import { useAuth } from "../../context/auth";
+import React, { useEffect, useState } from 'react';
+import CodeEnvironment from '../CodeEnvironment';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import history from '../../history';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useAuth } from '../../context/auth';
 
 toast.configure();
 const SingleIssue = ({ match }) => {
-  const [code, setCode] = useState("");
-  const [explanation, setExplanation] = useState("");
-  const [titleView, setTitleView] = useState("edit");
-  const [descriptionView, setDescriptionView] = useState("edit");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [code, setCode] = useState('');
+  const [explanation, setExplanation] = useState('');
+  const [titleView, setTitleView] = useState('edit');
+  const [descriptionView, setDescriptionView] = useState('edit');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [singleIssue, setSingleIssue] = useState({});
   const [view, setView] = useState("overview");
 
@@ -23,12 +23,35 @@ const SingleIssue = ({ match }) => {
 
   const [questionContent, setQuestionContent] = useState("");
   const [answer, setAnswer] = useState("");
-
   const notifySubmit = () =>
-    toast("Solution submitted!", { position: toast.POSITION.BOTTOM_RIGHT });
+    toast('Solution submitted!', { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
-    toast("Solution saved!", { position: toast.POSITION.BOTTOM_RIGHT });
-  const { user } = useAuth();
+    toast('Solution saved!', { position: toast.POSITION.BOTTOM_RIGHT });
+  const { user, isLoggedIn } = useAuth();
+
+  const logginPrompt = () => {
+    useEffect(() => {
+      confirmAlert({
+        message: 'Please sign up or log in to view this issue',
+        buttons: [
+          {
+            label: 'Login',
+            onClick: () => history.push('/login'),
+          },
+          {
+            label: 'Signup',
+            onClick: () => history.push('/signup'),
+          },
+          {
+            label: 'Go home',
+            onClick: () => history.push('/'),
+          },
+        ],
+        closeOnEscape: false,
+        closeOnClickOutside: false,
+      });
+    }, []);
+  };
 
   const setSolutionCode = (code) => {
     setCode(code);
@@ -36,14 +59,14 @@ const SingleIssue = ({ match }) => {
 
   useEffect(() => {
     const { issueId } = match.params;
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     const getSingleIssue = async () => {
       const { data: singleIssue } = await axios.get(`/api/issues/${issueId}`);
       setSingleIssue(singleIssue);
       setTitle(singleIssue.title);
       setDescription(singleIssue.description);
     };
-    getSingleIssue();
+    isLoggedIn ? getSingleIssue() : '';
     const getSolution = async () => {
       const { data: solution } = await axios.get(
         `/api/issues/${issueId}/mySolution/`,
@@ -54,28 +77,28 @@ const SingleIssue = ({ match }) => {
         setExplanation(solution.explanation);
       }
     };
-    getSolution();
+    isLoggedIn ? getSolution() : '';
     const getAllQuestions = async () => {
       const { data: questions } = await axios.get(
         `/api/issues/${issueId}/questions`
       );
       setAllQuestions(questions);
     };
-    getAllQuestions();
+    isLoggedIn ? getAllQuestions() : '';
   }, []);
 
   const confirmSubmit = () => {
     confirmAlert({
-      title: "Confirm to submit",
-      message: "Are you sure you want to submit a new solution?",
+      title: 'Confirm to submit',
+      message: 'Are you sure you want to submit a new solution?',
       buttons: [
         {
-          label: "Yes",
+          label: 'Yes',
           onClick: () => handleSubmit(),
         },
         {
-          label: "No",
-          onClick: () => console.log("back"),
+          label: 'No',
+          onClick: () => console.log('back'),
         },
       ],
     });
@@ -83,7 +106,7 @@ const SingleIssue = ({ match }) => {
 
   const handleSubmit = async () => {
     notifySubmit();
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     const { issueId } = match.params;
     await axios.post(
       `/api/issues/${issueId}/solutions`,
@@ -95,12 +118,12 @@ const SingleIssue = ({ match }) => {
       },
       { headers: { authorization: token } }
     );
-    history.push("/dashboard");
+    history.push('/dashboard');
   };
 
   const handleSave = async () => {
     notifySave();
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     const { issueId } = match.params;
     await axios.post(
       `/api/issues/${issueId}/solutions`,
@@ -110,7 +133,7 @@ const SingleIssue = ({ match }) => {
   };
 
   const handleEdit = async (event) => {
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     event.preventDefault();
     await axios.put(
       `/api/issues/${singleIssue.id}/edit`,
@@ -143,65 +166,127 @@ const SingleIssue = ({ match }) => {
 
   return (
     <>
-      {singleIssue.userId === user.id ? (
-        <div className="component">
-          <button onClick={() => setView("overview")}>Overview</button>
-          <button onClick={() => setView("workspace")}>Workspace</button>
+      {isLoggedIn ? (
+        <div>
+          {singleIssue.userId === user.id ? (
+            <div className="component">
+              <button onClick={() => setView('overview')}>Overview</button>
+              <button onClick={() => setView('workspace')}>Workspace</button>
 
-          {view === "overview" ? (
-            <div>
-              {titleView === "edit" ? (
+              {view === 'overview' ? (
                 <div>
-                  <h1>
-                    <strong>{title}</strong>
-                  </h1>
-                  <button onClick={() => setTitleView("submit")}>edit</button>
+                  {titleView === 'edit' ? (
+                    <div>
+                      <h1>
+                        <strong>{title}</strong>
+                      </h1>
+                      <button onClick={() => setTitleView('submit')}>
+                        edit
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      <label>
+                        <input
+                          value={title}
+                          onChange={(event) => setTitle(event.target.value)}
+                        />
+                      </label>
+                      <button
+                        type="submit"
+                        onClick={(event) => {
+                          handleEdit(event);
+                          setTitleView('edit');
+                        }}
+                      >
+                        submit changes
+                      </button>
+                    </div>
+                  )}
+
+                  {descriptionView === 'edit' ? (
+                    <div>
+                      <h2>{description}</h2>
+                      <button onClick={() => setDescriptionView('submit')}>
+                        edit
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      <label>
+                        <input
+                          value={description}
+                          onChange={(event) =>
+                            setDescription(event.target.value)
+                          }
+                        />
+                      </label>
+                      <button
+                        type="submit"
+                        onClick={(event) => {
+                          handleEdit(event);
+                          setDescriptionView('edit');
+                        }}
+                      >
+                        submit changes
+                      </button>
+                    </div>
+                  )}
                 </div>
               ) : (
-                <div>
-                  <label>
-                    <input
-                      value={title}
-                      onChange={(event) => setTitle(event.target.value)}
-                    />
-                  </label>
-                  <button
-                    type="submit"
-                    onClick={(event) => {
-                      handleEdit(event);
-                      setTitleView("edit");
-                    }}
-                  >
-                    submit changes
+                <>
+                  <CodeEnvironment
+                    value={code}
+                    setSolutionCode={setSolutionCode}
+                  />
+                  <br />
+                  <h2>EXPLANATION SECTION</h2>
+                  <textarea
+                    onChange={(event) => setExplanation(event.target.value)}
+                    type="text"
+                    value={explanation}
+                    name="name"
+                  />
+                  <button onClick={confirmSubmit} type="button">
+                    Submit Solution
                   </button>
-                </div>
+                  <button onClick={handleSave} type="button">
+                    Save Solution
+                  </button>
+                </>
               )}
+            </div>
+          ) : (
+            <div className="component">
+              <button onClick={() => setView('overview')}>Overview</button>
+              <button onClick={() => setView('workspace')}>Workspace</button>
 
-              {descriptionView === "edit" ? (
-                <div>
-                  <h2>{description}</h2>
-                  <button onClick={() => setDescriptionView("submit")}>
-                    edit
-                  </button>
-                </div>
+              {view === 'overview' ? (
+                <>
+                  <h1 className="issueTitle">{singleIssue.title}</h1>
+                  <p>{singleIssue.description}</p>
+                </>
               ) : (
-                <div>
-                  <label>
-                    <input
-                      value={description}
-                      onChange={(event) => setDescription(event.target.value)}
-                    />
-                  </label>
-                  <button
-                    type="submit"
-                    onClick={(event) => {
-                      handleEdit(event);
-                      setDescriptionView("edit");
-                    }}
-                  >
-                    submit changes
+                <>
+                  <CodeEnvironment
+                    value={code}
+                    setSolutionCode={setSolutionCode}
+                  />
+                  <br />
+                  <h2>EXPLANATION SECTION</h2>
+                  <textarea
+                    onChange={(event) => setExplanation(event.target.value)}
+                    type="text"
+                    value={explanation}
+                    name="name"
+                  />
+                  <button onClick={confirmSubmit} type="button">
+                    Submit Solution
                   </button>
-                </div>
+                  <button onClick={handleSave} type="button">
+                    Save Solution
+                  </button>
+                </>
               )}
               <>
                 <div>Answer the Questions About This Issue</div>
@@ -221,81 +306,10 @@ const SingleIssue = ({ match }) => {
                 ))}
               </>
             </div>
-          ) : (
-            <>
-              <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
-              <br />
-              <h2>EXPLANATION SECTION</h2>
-              <textarea
-                onChange={(event) => setExplanation(event.target.value)}
-                type="text"
-                value={explanation}
-                name="name"
-              />
-              <button onClick={confirmSubmit} type="button">
-                Submit Solution
-              </button>
-              <button onClick={handleSave} type="button">
-                Save Solution
-              </button>
-            </>
           )}
         </div>
-      ) : (
-        <div className="component">
-          <button onClick={() => setView("overview")}>Overview</button>
-          <button onClick={() => setView("workspace")}>Workspace</button>
-
-          {view === "overview" ? (
-            <>
-              <h1 className="issueTitle">{singleIssue.title}</h1>
-              <p>{singleIssue.description}</p>
-              <>
-                <div>Ask A Question About This Issue</div>
-                <input
-                  value={questionContent}
-                  onChange={(event) => setQuestionContent(event.target.value)}
-                  placeholder="Send message to question owner..."
-                />
-                <button onClick={(event) => handleQuestion(event)}>
-                  Ask Question
-                </button>
-                {/* {allQuestions.map((question) => (
-                  <textarea readOnly key={question.id}>
-                    <>
-                      Q:{question.questionContent}
-                      A:{question.answer || ""}
-                    </>
-                  </textarea>
-                ))} */}
-              </>
-              {allQuestions.map((question) => (
-                <div key={question.id}>
-                  <p>Q: {question.questionContent}</p>
-                  <p>A: {question.answer || ""}</p>
-                </div>
-              ))}
-            </>
-          ) : (
-            <>
-              <CodeEnvironment value={code} setSolutionCode={setSolutionCode} />
-              <br />
-              <h2>EXPLANATION SECTION</h2>
-              <textarea
-                onChange={(event) => setExplanation(event.target.value)}
-                type="text"
-                value={explanation}
-                name="name"
-              />
-              <button onClick={confirmSubmit} type="button">
-                Submit Solution
-              </button>
-              <button onClick={handleSave} type="button">
-                Save Solution
-              </button>
-            </>
-          )}
-        </div>
+        ) : (
+        <div>{logginPrompt()}</div>
       )}
     </>
   );

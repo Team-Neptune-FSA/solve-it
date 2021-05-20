@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/auth";
 
 const Navbar = () => {
@@ -80,39 +80,35 @@ const Navbar = () => {
         </Link>
         <nav>
           {isLoggedIn ? (
-            <ul className="nav-links">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/issues">Issues</Link>
-              </li>
-              <li>
-                <Link to="/dashboard">Dashboard</Link>
-              </li>
-              <li>
-                <Link to="/" onClick={logout}>
-                  {" "}
-                  Logout{" "}
-                </Link>
-                {/* <hr className="line"/> */}
-              </li>
-            </ul>
-          ) : (
-            <ul className="nav-links">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/issues">Issues</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/signup">Signup</Link>
-              </li>
-            </ul>
+                     <ul className="nav-links">
+            <li>
+              <NavLink exact to="/" className="main-nav" activeClassName="main-nav-active">Home</NavLink>
+            </li>
+            <li>
+            <NavLink to="/issues" className="main-nav" activeClassName="main-nav-active">Issues</NavLink>
+            </li>
+            <li>
+            <NavLink to="/dashboard" className="main-nav" activeClassName="main-nav-active">Dashboard</NavLink>
+            </li>
+            <li>
+              <Link to="/" onClick={handleClick}>{" "} Logout{" "}</Link>
+            </li>
+          </ul>
+        ) : (
+          <ul className="nav-links">
+            <li>
+            <NavLink exact to="/" className="main-nav" activeClassName="main-nav-active">Home</NavLink>
+            </li>
+            <li>
+            <NavLink exact to="/issues" className="main-nav" activeClassName="main-nav-active">Issues</NavLink>
+            </li>
+            <li>
+            <NavLink exact to="/login" className="main-nav" activeClassName="main-nav-active">Login</NavLink>
+            </li>
+            <li>
+            <NavLink exact to="/signup" className="main-nav" activeClassName="main-nav-active">Signup</NavLink>
+            </li>
+          </ul>
           )}
         </nav>
       </div>
