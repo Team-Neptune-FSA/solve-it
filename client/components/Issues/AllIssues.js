@@ -19,13 +19,9 @@ const AllIssues = () => {
         <button className="post-issue-button">Post an Issue</button>
       </Link>
 
-      {/* only map issues that are unresolved aka have 0 accepted solutions */}
-
       <div className="allIssues">
         <h1 className="all-issues-title">All Issues</h1>
-        {issues.length ? (
-          issues
-            .map((issue) => (
+        {issues.length ? ( issues.map((issue) => (
               <div key={issue.id} className="single-issue">
                 <div className="insideAllIssues">
                   <h2 className="issueTitle">{issue.title}</h2>

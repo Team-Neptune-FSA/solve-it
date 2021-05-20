@@ -91,42 +91,11 @@ const Issues = () => {
     });
   };
 
-  // const handleReject = async (solution, issue) => {
-  //   setdummy(!dummy);
-  //   const token = window.localStorage.getItem('token');
-  //   await axios.put(
-  //     `/api/issues/${issue.id}/solutions/${solution.id}`,
-  //     {
-  //       ...solution,
-  //       isRejected: true,
-  //     },
-  //     {
-  //       headers: {
-  //         authorization: token,
-  //       },
-  //     }
-  //   );
-  // };
-
-  // const toggleStar = async (solution, issue) => {
-  //   const token = window.localStorage.getItem('token');
-  //   setdummy(!dummy);
-  //   await axios.put(
-  //     `/api/issues/${issue.id}/solutions/${solution.id}`,
-  //     {
-  //       ...solution,
-  //       isStarred: !solution.isStarred,
-  //     },
-  //     {
-  //       headers: {
-  //         authorization: token,
-  //       },
-  //     }
-  //   );
-  // };
-
   return (
     <>
+
+      <div className="stats-section dashboard-solution-left">Post an Issue</div>
+
       <div className="dashboard-info">
         <div className="custom-select">
           <select className="filterOptions" onChange={filterIssues}>
@@ -157,14 +126,6 @@ const Issues = () => {
                         >
                           <h3>Solution #{idx + 1}</h3>
                         </Link>
-                        {/* <i
-                          onClick={() => toggleStar(solution, issue)}
-                          className={
-                            solution.isStarred
-                              ? 'fas fa-star blue'
-                              : 'far fa-star blue'
-                          }
-                        ></i> */}
                       </div>
                       <Link to={`/issues/${issue.id}/solutions/${solution.id}`}>
                         {solution.code && <code>{solution.code}</code>}
@@ -180,12 +141,6 @@ const Issues = () => {
                       ) : (
                         <div></div>
                       )}
-                      {/* <button
-                        onClick={() => handleReject(solution, issue)}
-                        className="btn black-bg white"
-                      >
-                        Reject Solution
-                      </button> */}
                     </div>
                   ))}
                 </div>
