@@ -11,7 +11,6 @@ const Issues = () => {
   const { getCurrentUser } = useAuth();
   const [view, setView] = useState("unresolved");
   const [toggleView, setToggleView] = useState("solutions");
-  const [question, setQuestion] = useState("solutions");
   const [allIssuesQuestions, setAllIssuesQuestions] = useState([]);
   const [answer, setAnswer] = useState("");
 
@@ -30,8 +29,6 @@ const Issues = () => {
       setcurrent(userIssues.filter((issue) => !issue.isResolved));
     };
     getUserIssues();
-
-    // --------------------------------------------------
     const getAllIssuesQuestions = async () => {
       const { data: issueQuestions } = await axios.get(
         "/api/issues/questions",
@@ -44,7 +41,6 @@ const Issues = () => {
       setAllIssuesQuestions(issueQuestions);
     };
     getAllIssuesQuestions();
-    // --------------------------------------------------
   }, [dummy]);
 
   const filterIssues = (e) => {
