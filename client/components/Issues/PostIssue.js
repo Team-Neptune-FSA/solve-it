@@ -122,9 +122,9 @@ const PostIssue = () => {
       {window.localStorage.getItem('token') ? (
         <div className="post">
           <div className="component post-issue">
-            <h1>Post an Issue</h1>
+            <h1>Post A New Issue</h1>
             <form onSubmit={confirmSubmit}>
-              <label>Title: </label>
+              <label>Title </label>
               <input
                 type="text"
                 name="title"
@@ -132,7 +132,7 @@ const PostIssue = () => {
                 onChange={(e) => setTitle(e.target.value)}
                 // placeholder="Title..."
               />
-              <label>Description: </label>
+              <label>Description </label>
               <textarea
                 id="issue-md"
                 type="text"
@@ -140,17 +140,18 @@ const PostIssue = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-              <label>Language: </label>
-              <select
-                name="language"
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-              >
-                <option value="javascript">Javascript</option>
-              </select>
-
               <div className="flex input-field">
-                <label>Price: $ </label>
+                <label>Language: </label>
+                <select
+                  name="language"
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                >
+                  <option value="javascript">Javascript</option>
+                </select>
+              </div>
+              <div className="flex input-field">
+                <label>Incentive Amount: $ </label>
                 <input
                   type="text"
                   name="price-amount"
@@ -158,7 +159,7 @@ const PostIssue = () => {
                   onChange={(e) => handlePrice(e)}
                 />
               </div>
-              <br />
+              {/* <br />
               <div className="payment-div credit">
                 <img
                   style={{
@@ -191,9 +192,9 @@ const PostIssue = () => {
                   src="../Images/googlepay.png"
                   alt=""
                 />
-              </div>
+              </div> */}
               <button className="post-issue-submit" type="submit">
-                Submit Request
+                Submit Issue
               </button>
             </form>
             {/* <form onSubmit={handleStripeSubmit}>

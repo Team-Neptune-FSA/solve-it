@@ -24,8 +24,7 @@ const codeEnvironment = ({ setSolutionCode, value }) => {
     setCode(value);
   };
   return (
-    <>
-      <br />
+    <div className="ide">
       <div className="code-environment-container">
         <Editor
           height="50vh"
@@ -37,9 +36,9 @@ const codeEnvironment = ({ setSolutionCode, value }) => {
           onChange={handleChange}
           options={{
             readOnly: false,
+            lineHeight: 25,
           }}
         />
-        <br />
         <div className="output-box">
           {Number(exitCode) === 0 ? (
             output
@@ -49,7 +48,7 @@ const codeEnvironment = ({ setSolutionCode, value }) => {
         </div>
       </div>
       <button onClick={() => handleSubmit()}>Run Code</button>
-    </>
+    </div>
   );
 };
 

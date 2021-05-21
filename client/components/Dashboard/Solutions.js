@@ -67,9 +67,7 @@ const Solutions = () => {
   return (
     <>
       <div className="parent-stats-section">
-        <div className="stats-section dashboard-solution-left">
-          <div className="stats-text">
-            <div className="text">
+        <div className="stats-section">
               <h1 className="stats-title">Stats</h1>
             <p>You have solved <span>{singleUserAttempted}</span> problems.</p>
             <br />
@@ -84,8 +82,6 @@ const Solutions = () => {
             </span>
             % of users.</p>
             <br />
-            </div>
-          </div>
         </div>
         {userSolutions.length ? (
           <div className="dashboard-info dashboard-solution-right">

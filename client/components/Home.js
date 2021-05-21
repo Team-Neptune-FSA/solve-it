@@ -6,11 +6,9 @@ export const Home = () => {
     <div>
       <div className="titleScreen">
         <div id="search" className="container">
-          <h1 className="prompt">Find the perfect freelance</h1>
-          <h1 className="prompt">services for your coding problems!</h1>
+          <h1 className="prompt">Find the perfect answer for your coding problems!</h1>
           <br />
           <br />
-          <h1 className="searchTitle">What Are You Looking For Today?</h1>
         </div>
       </div>
 
