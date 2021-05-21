@@ -87,20 +87,27 @@ const Solutions = () => {
             </div>
           </div>
         </div>
-
-        <div className="dashboard-info dashboard-solution-right">
-          {userSolutions.map((solution) => (
-            <div className="solution-box" key={solution.id}>
-              <Link to={`/issues/${solution.issue.id}`}>
-                <div className="inside-solution">
-                <h3>{solution.issue.title}</h3>
-                <code>{solution.code}</code>
-                </div>
-              </Link>
-            </div>
-          ))}
-        </div>
-
+        {userSolutions.length ? (
+          <div className="dashboard-info dashboard-solution-right">
+            {userSolutions.map((solution) => (
+              <div className="solution-box" key={solution.id}>
+                <Link to={`/issues/${solution.issue.id}`}>
+                  <div className="inside-solution">
+                    <h3>{solution.issue.title}</h3>
+                    <code>{solution.code}</code>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="dashboard-info dashboard-solution-right">
+            You have not solved any problems yet, would you like to{' '}
+            <Link to="/issues" style={{ color: 'blue' }}>
+              get started?
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );
