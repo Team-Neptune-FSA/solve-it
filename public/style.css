@@ -208,7 +208,7 @@ h4 {
 /*--- Dashboard ---*/
 
 .main-dashboard > button {
-  margin-left:0;
+  margin-left: 0;
   margin-right: 20px;
 }
 
@@ -222,7 +222,6 @@ h4 {
 
 div.issue {
   /* margin: 20px; */
-  background-color: white;
   border-bottom: 1px solid gray;
   padding-bottom: 20px;
   padding-top: 10px;
@@ -672,13 +671,17 @@ textarea#issue-md {
 }
 
 /* STATS */
+.stats-section,
+.issue-section,
+.payment-stats {
+  background-color: #ffffff;
+}
 
 div.stats-section {
   float: left;
   width: 25%;
   margin-right: 20px;
   height: 300px;
-
 }
 
 .inside-stats-text {
@@ -701,8 +704,6 @@ div.dashboard-info {
 div.issue-transactions {
   float: right;
   width: 75%;
-  border: 1px solid white;
-  background-color: white;
   border-radius: 10px;
 }
 
@@ -744,7 +745,7 @@ div.issue-transactions {
   display: flex;
 }
 
-@media screen and (max-width:1375px) {
+@media screen and (max-width: 1375px) {
   .parent-stats-section {
     flex-direction: column;
   }
@@ -755,7 +756,7 @@ div.stats-text {
 }
 
 div.text {
-  text-align:center; 
+  text-align: center;
   vertical-align: middle;
   display: table-cell;
   padding: 10px;
@@ -787,10 +788,10 @@ div.parent-issue {
 
 div.issue-solution.box.false {
   background-color: white;
-  border: none;
-  margin: 20px;
-/*   border: 1px solid white;
-  box-shadow: 1px 1px 2px 2px #999999; */
+  /* border: none;
+  margin: 20px; */
+  border: 1px solid white;
+  box-shadow: 1px 1px 2px 2px #999999;
 }
 
 .dashboard-issue-question-view {
@@ -816,7 +817,7 @@ div.issue-solution.box.false {
 }
 
 .no-questions {
-  padding: 20px 0px; 
+  padding: 20px 0px;
 }
 
 /*--- All Issues ---*/
