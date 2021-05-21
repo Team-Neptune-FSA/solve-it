@@ -14,14 +14,18 @@ const AllIssues = () => {
   }, []);
 
   return (
-    <div className="component">
-      <Link to="/issues/post">
-        <button className="post-issue-button">Post an Issue</button>
-      </Link>
-
+    <div className="contain-component">
+      <div className="all-issues-header">
+        <h1 className="all-issues-title">Browse All Issues</h1>
+        <Link to="/issues/post">
+          <button className="post-issue-button">Post an Issue</button>
+        </Link>
+      </div>
+      {/* <h1 className="all-issues-title">All Issues</h1> */}
       <div className="allIssues">
-        <h1 className="all-issues-title">All Issues</h1>
-        {issues.length ? ( issues.map((issue) => (
+        {issues.length ? (
+          issues
+            .map((issue) => (
               <div key={issue.id} className="single-issue">
                 <div className="insideAllIssues">
                   <h2 className="issueTitle">{issue.title}</h2>
