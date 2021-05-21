@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CodeEnvironment from "../CodeEnvironment";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import history from "../../history";
@@ -180,9 +181,26 @@ const SingleIssue = ({ match }) => {
         <div>
           {singleIssue.userId === user.id ? (
             <div>
-              <button onClick={() => setView("overview")}>Overview</button>
-              <button onClick={() => setView("workspace")}>Workspace</button>
-
+              <div className="single-issue-btns">
+                <Link to="/issues">
+                  <i className="fas fa-chevron-left"></i>
+                  Back To Issues
+                </Link>
+                <div>
+                  <button
+                    onClick={() => setView("overview")}
+                    className={view === "overview" && "active-btn"}
+                  >
+                    Overview
+                  </button>
+                  <button
+                    onClick={() => setView("workspace")}
+                    className={view === "workspace" && "active-btn"}
+                  >
+                    Workspace
+                  </button>
+                </div>
+              </div>
               {view === "overview" ? (
                 <div className="overview">
                   <div className="info">
@@ -198,32 +216,34 @@ const SingleIssue = ({ match }) => {
                       </div>
                     ) : (
                       <div>
-                        <label>
-                          <input
-                            value={title}
-                            onChange={(event) => setTitle(event.target.value)}
-                          />
-                          <input
+                        <div className="edit-overview">
+                          <div>
+                            <input
+                              value={title}
+                              onChange={(event) => setTitle(event.target.value)}
+                            />
+                            <button
+                              type="submit"
+                              onClick={(event) => {
+                                handleEdit(event);
+                                setEditView("edit");
+                              }}
+                            >
+                              Submit
+                            </button>
+                          </div>
+                          <textarea
                             value={description}
                             onChange={(event) =>
                               setDescription(event.target.value)
                             }
                           />
-                        </label>
-                        <button
-                          type="submit"
-                          onClick={(event) => {
-                            handleEdit(event);
-                            setEditView("edit");
-                          }}
-                        >
-                          submit changes
-                        </button>
+                        </div>
                       </div>
                     )}
                   </div>
                   <div className="question-section">
-                    <div>Answer the Questions About This Issue</div>
+                    <div>Answer Questions About This Issue</div>
                     {allQuestions.map((question) => {
                       return (
                         <div key={question.id}>
@@ -264,8 +284,7 @@ const SingleIssue = ({ match }) => {
                     setSolutionCode={setSolutionCode}
                   />
                   <br />
-                  <h2>EXPLANATION SECTION</h2>
-                  <textarea
+                  {/* <textarea
                     onChange={(event) => setExplanation(event.target.value)}
                     type="text"
                     value={explanation}
@@ -276,14 +295,32 @@ const SingleIssue = ({ match }) => {
                   </button>
                   <button onClick={handleSave} type="button">
                     Save Solution
-                  </button>
+                  </button> */}
                 </div>
               )}
             </div>
           ) : (
             <div>
-              <button onClick={() => setView("overview")}>Overview</button>
-              <button onClick={() => setView("workspace")}>Workspace</button>
+              <div className="single-issue-btns">
+                <Link to="/issues">
+                  <i className="fas fa-chevron-left"></i>
+                  Back To Issues
+                </Link>
+                <div>
+                  <button
+                    onClick={() => setView("overview")}
+                    className={view === "overview" && "active-btn"}
+                  >
+                    Overview
+                  </button>
+                  <button
+                    onClick={() => setView("workspace")}
+                    className={view === "workspace" && "active-btn"}
+                  >
+                    Workspace
+                  </button>
+                </div>
+              </div>
 
               {view === "overview" ? (
                 <div className="overview">
@@ -303,14 +340,6 @@ const SingleIssue = ({ match }) => {
                     <button onClick={(event) => handleQuestion(event)}>
                       Ask Question
                     </button>
-                    {/* {allQuestions.map((question) => (
-                    <textarea readOnly key={question.id}>
-                      <>
-                        Q:{question.questionContent}
-                        A:{question.answer || ""}
-                      </>
-                    </textarea>
-                  ))} */}
                     {allQuestions.map((question) => (
                       <div key={question.id}>
                         <p>Q: {question.questionContent}</p>
@@ -325,20 +354,25 @@ const SingleIssue = ({ match }) => {
                     value={code}
                     setSolutionCode={setSolutionCode}
                   />
-                  <br />
-                  <h2>EXPLANATION SECTION</h2>
                   <textarea
                     onChange={(event) => setExplanation(event.target.value)}
                     type="text"
                     value={explanation}
+                    placeholder="Submit an explanation..."
                     name="name"
                   />
-                  <button onClick={confirmSubmit} type="button">
-                    Submit Solution
-                  </button>
-                  <button onClick={handleSave} type="button">
-                    Save Solution
-                  </button>
+                  <div className="submission-btns">
+                    <button
+                      onClick={handleSave}
+                      type="button"
+                      className="white-bg blue"
+                    >
+                      Save Solution
+                    </button>
+                    <button onClick={confirmSubmit} type="button">
+                      Submit Solution
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

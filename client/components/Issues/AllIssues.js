@@ -14,10 +14,13 @@ const AllIssues = () => {
   }, []);
 
   return (
-    <div className="component contain">
-      <Link to="/issues/post">
-        <button className="post-issue-button">Post an Issue</button>
-      </Link>
+    <div className="contain-component">
+      <div className="all-issues-header">
+        <h1 className="all-issues-title">Browse All Issues</h1>
+        <Link to="/issues/post">
+          <button className="post-issue-button">Post an Issue</button>
+        </Link>
+      </div>
       {/* <h1 className="all-issues-title">All Issues</h1> */}
       <div className="allIssues">
         {issues.length ? (

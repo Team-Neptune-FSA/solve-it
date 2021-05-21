@@ -745,6 +745,11 @@ div.issue-solution.box.false {
   grid-template-columns: 33% 33% 33%;
   padding-top: 20px;
 }
+.all-issues-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 div.single-issue {
   position: relative;
   /* width: 31vw; */
@@ -756,6 +761,9 @@ div.single-issue {
   display: inline-table;
   justify-content: center;
   align-items: center;
+}
+div.single-issue button.btn.blue-bg.white {
+  left: 20px;
 }
 div.single-issue p {
   height: 125px;
@@ -775,6 +783,34 @@ button.post-issue-button {
   .allIssues {
     grid-template-columns: 100%;
   }
+  .contain-component {
+    padding: 25px 10px !important;
+  }
+  .workspace textarea {
+    width: 96% !important;
+  }
+}
+@media screen and (max-width: 600px) {
+  .all-issues-header {
+    flex-direction: column;
+    align-items: unset;
+  }
+  .all-issues-header button {
+    margin-left: 15px !important;
+  }
+  .workspace textarea {
+    width: 94.5% !important;
+  }
+  .single-issue-btns {
+    flex-direction: column;
+    align-items: unset !important;
+  }
+  .single-issue-btns a {
+    padding-bottom: 15px;
+  }
+  .overview .question-section input {
+    width: 95%;
+  }
 }
 
 /*--- Navigaton ---*/
@@ -790,9 +826,31 @@ button.post-issue-button {
   }
 }
 
-/*--- Single Issue ---*/
+/*--- Single Issue Overview ---*/
+.active-btn {
+  background-color: #ffffff;
+  color: #00a4c7;
+}
+.active-btn:hover {
+  background-color: #00a4c7;
+  color: #ffffff;
+}
+.single-issue-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.single-issue-btns a {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+i.fa-chevron-left {
+  font-size: 15px;
+  padding-right: 5px;
+}
 .contain-component {
-  padding: 25px 50px 0px 50px;
+  padding: 25px 50px 25px 50px;
 }
 
 .contain-component button {
@@ -807,6 +865,9 @@ button.post-issue-button {
   background-color: #ffffff;
   padding: 25px;
   border-radius: 20px;
+}
+.overview .info p {
+  max-width: 75%;
 }
 
 .overview .question-section {
@@ -825,6 +886,9 @@ button.post-issue-button {
   box-shadow: 1px 1px 5px #000000;
   margin-right: 10px;
 }
+.question-section > div {
+  padding-top: 15px;
+}
 .overview .question-section button {
   padding: 10px;
 }
@@ -836,4 +900,73 @@ button.post-issue-button {
 }
 .owner-edit button {
   padding: 5px 15px;
+  margin: 0px;
+}
+.edit-overview {
+  display: flex;
+  flex-direction: column;
+}
+.edit-overview textarea {
+  background-color: #ffffff;
+  padding: 10px;
+  width: 75%;
+}
+.edit-overview input {
+  border: 1px solid #000000;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 30px;
+}
+.edit-overview > div {
+  display: flex;
+  justify-content: space-between;
+}
+.edit-overview > div button {
+  padding: 5px;
+  height: 100%;
+  margin: 0px;
+}
+
+/*--- Single Issue Workspace ---*/
+.ide {
+  padding-bottom: 25px;
+}
+.code-environment-container {
+  padding: 25px 0px 10px 0px;
+}
+
+.workspace textarea {
+  width: 98.5%;
+  padding: 10px;
+  background-color: #ffffff;
+}
+.submission-btns button {
+  width: 40vw;
+  margin: 0px;
+}
+.submission-btns {
+  display: flex;
+  justify-content: space-between;
+}
+.submission-btns button.white-bg {
+  border: 1px solid #00a4c7;
+}
+.submission-btns button.white-bg:hover {
+  background-color: #00a4c7;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 1050px) {
+  .code-environment-container {
+    flex-direction: column;
+  }
+  .output-box {
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 5px;
+    height: 250px;
+  }
+  .code-environment-container > section {
+    width: 100% !important;
+  }
 }
