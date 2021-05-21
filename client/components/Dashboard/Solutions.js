@@ -70,27 +70,20 @@ const Solutions = () => {
         <div className="stats-section dashboard-solution-left">
           <div className="stats-text">
             <div className="text">
-              <p>
-                You have solved <span>{singleUserAttempted}</span> problems.
-              </p>
-              <br />
-              <p>
-                You have had <span>{singleUserAccepted}</span> solution(s)
-                accepted.
-              </p>
-              <br />
-              <p>
-                You have answered more questions than
-                <span>
-                  {' '}
-                  {(
-                    percentRank(solutionsAttemptedArr, singleUserAttempted) *
-                    100
-                  ).toFixed(2)}{' '}
-                </span>
-                % of users.
-              </p>
-              <br />
+              <h1 className="stats-title">Stats</h1>
+            <p>You have solved <span>{singleUserAttempted}</span> problems.</p>
+            <br />
+            <p>You have had <span>{singleUserAccepted}</span> solution(s) accepted.</p>
+            <br />
+            <p>You have answered more questions than
+            <span>
+              {' '}
+              {(
+                percentRank(solutionsAttemptedArr, singleUserAttempted) * 100
+              ).toFixed(2)}{' '}
+            </span>
+            % of users.</p>
+            <br />
             </div>
           </div>
         </div>

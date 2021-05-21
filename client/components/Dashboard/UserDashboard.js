@@ -13,8 +13,7 @@ const UserDashboard = () => {
     <>
       <div>
         <div className="dashboardDivRight component" id="-section">
-          <h1>Hello {name}!</h1>
-          {/* </div> */}
+          <h1 className="hello-text">Hello {name}!</h1>
           <button
             className={view === "solutions" ? "active" : ""}
             onClick={() => setView("solutions")}

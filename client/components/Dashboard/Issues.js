@@ -153,8 +153,19 @@ const Issues = () => {
   };
   console.log(view);
   return (
-    <>
-      <div className="stats-section dashboard-solution-left">Post an Issue</div>
+    <div className="parent-issue">
+      <div className="issue-section">
+        <div className="inside-stats-text">
+          <h1 className="issue-question">What are you looking for?</h1>
+          <br />
+          <p>Post an issue and recieve</p>
+          <p>specialized answers!</p>
+          <br />
+          <Link to="/issues/post">
+            <button className="post-issue-button">Post an Issue</button>
+          </Link>
+        </div>
+      </div>
 
       <div className="dashboard-info">
         <div className="custom-select">
@@ -281,7 +292,7 @@ const Issues = () => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
