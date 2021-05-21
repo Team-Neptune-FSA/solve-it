@@ -70,6 +70,7 @@ const Solutions = () => {
         <div className="stats-section dashboard-solution-left">
           <div className="stats-text">
             <div className="text">
+              <h1 className="stats-title">Stats</h1>
             <p>You have solved <span>{singleUserAttempted}</span> problems.</p>
             <br />
             <p>You have had <span>{singleUserAccepted}</span> solution(s) accepted.</p>

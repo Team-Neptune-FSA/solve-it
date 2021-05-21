@@ -76,7 +76,7 @@ const Payment = () => {
                     <div className="transaction-words">
 
                     <div className="issue-date">
-                    <h2>Title: {transaction.title || transaction.issue.title}</h2>
+                    <h2 className="payment-title">Title: {transaction.title || transaction.issue.title}</h2>
                     <h3>Date: {dateformat(transaction.createdAt, "mmmm dS, yyyy")}</h3>{" "}
                     </div>
 
