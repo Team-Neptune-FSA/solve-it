@@ -106,40 +106,6 @@ const Issues = () => {
     });
   };
 
-  // const handleReject = async (solution, issue) => {
-  //   setdummy(!dummy);
-  //   const token = window.localStorage.getItem('token');
-  //   await axios.put(
-  //     `/api/issues/${issue.id}/solutions/${solution.id}`,
-  //     {
-  //       ...solution,
-  //       isRejected: true,
-  //     },
-  //     {
-  //       headers: {
-  //         authorization: token,
-  //       },
-  //     }
-  //   );
-  // };
-
-  // const toggleStar = async (solution, issue) => {
-  //   const token = window.localStorage.getItem('token');
-  //   setdummy(!dummy);
-  //   await axios.put(
-  //     `/api/issues/${issue.id}/solutions/${solution.id}`,
-  //     {
-  //       ...solution,
-  //       isStarred: !solution.isStarred,
-  //     },
-  //     {
-  //       headers: {
-  //         authorization: token,
-  //       },
-  //     }
-  //   );
-  // };
-
   const handleAnswer = async (event, questionId) => {
     const token = window.localStorage.getItem('token');
     event.preventDefault();
@@ -155,7 +121,7 @@ const Issues = () => {
   return (
     <div className="parent-issue">
       <div className="issue-section">
-        <div className="inside-stats-text">
+        {/* <div className="inside-stats-text"> */}
           <h1 className="issue-question">What are you looking for?</h1>
           <br />
           <p>Post an issue and recieve</p>
@@ -164,19 +130,26 @@ const Issues = () => {
           <Link to="/issues/post">
             <button className="post-issue-button">Post an Issue</button>
           </Link>
-        </div>
+        {/* </div> */}
       </div>
 
       <div className="dashboard-info">
+        <div className="resolved-question"></div>
+
+        <div className="resolved-filter-and-question">
         <div className="custom-select">
           <select className="filterOptions" onChange={filterIssues}>
             <option value="Unresolved">Unresolved</option>
             <option value="Resolved">Resolved</option>
           </select>
         </div>
+
+        <div className="issue-question-button"><button className="question-button" onClick={() => setToggleView('questions')}>Question</button></div>
+        <div className="issue-question-button"><button className="question-button" onClick={() => setToggleView('solutions')}>Solutions</button></div>
+        </div>
+
         {toggleView === 'solutions' ? (
           <>
-            <button onClick={() => setToggleView('questions')}>Question</button>
             {current.length >= 1 ? (
               <div>
                 {current.map((issue) => (
@@ -200,14 +173,6 @@ const Issues = () => {
                             >
                               <h3>Solution #{idx + 1}</h3>
                             </Link>
-                            {/* <i
-                          onClick={() => toggleStar(solution, issue)}
-                          className={
-                            solution.isStarred
-                              ? 'fas fa-star blue'
-                              : 'far fa-star blue'
-                          }
-                        ></i> */}
                           </div>
                           <Link
                             to={`/issues/${issue.id}/solutions/${solution.id}`}
@@ -242,22 +207,20 @@ const Issues = () => {
           </>
         ) : (
           <>
-            <button onClick={() => setToggleView('solutions')}>
-              Solutions
-            </button>
+            {/* <button onClick={() => setToggleView('solutions')}>Solutions</button> */}
             {allIssuesQuestions.length ? (
               <>
                 {allIssuesQuestions.map((issues) => {
                   return (
-                    <div key={issues.id}>
+                    <div className="dashboard-issue-question-view" key={issues.id}>
                       <div>Title: {issues.title}</div>
-                      <div>Description: {issues.description}</div>
+                      <p>Description: {issues.description}</p>
                       <>
                         {issues.questions.length ? (
                           <>
                             {issues.questions.map((question) => (
-                              <div key={question.id}>
-                                <div>Question: {question.questionContent}</div>
+                              <div className="question-view" key={question.id}>
+                                <p>Question: {question.questionContent}</p>
                                 <div>Answer:</div>
                                 <input
                                   type="text"
@@ -287,7 +250,7 @@ const Issues = () => {
                 })}
               </>
             ) : (
-              <div>No questions!</div>
+              <div className="no-questions">No questions here!</div>
             )}
           </>
         )}

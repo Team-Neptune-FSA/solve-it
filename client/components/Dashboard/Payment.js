@@ -33,37 +33,29 @@ const Payment = () => {
   }, []);
   return (
     <>
-      <br />
-      <br />
-
       <div className="parent-payment-div">
-        <div className="stats-section">
-          <div className="insideStats">
+        <div className="payment-stats">
+          {/* <div className="insideStats"> */}
             <h1>Overall Balance</h1>
             <br />
-            Escrow: <strong>${(stats.totalEscrow / 100).toFixed(2)}</strong>
+            <p>Escrow: <strong>${(stats.totalEscrow / 100).toFixed(2)}</strong></p>
             <br />
-            Paid:{" "}
+            <p>Paid:{" "}
             <strong style={{ color: "red" }}>
               ${(stats.totalPaid / 100).toFixed(2)}
-            </strong>
+            </strong></p>
             <br />
-            Earned:{" "}
+            <p>Earned:{" "}
             <strong style={{ color: "green" }}>
               ${(stats.totalEarned / 100).toFixed(2)}
-            </strong>
+            </strong></p>
             <br />
-          </div>
         </div>
-
-        <br />
-        <br />
-
         <div className="issue-transactions">
           {transactions.length ? (
             <div className="insideIssueStats">
-              <h1>Transactions</h1>
-              <br />
+              {/* <div className="transaction-title"><h1>Transactions</h1></div> */}
+              {/* <br /> */}
               {transactions.map((transaction) => {
                 let paymentPrice = transaction.price;
                 if (!paymentPrice) {
