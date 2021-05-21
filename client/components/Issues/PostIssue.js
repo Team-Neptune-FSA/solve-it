@@ -1,43 +1,43 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import history from "../../history";
-import { confirmAlert } from "react-confirm-alert";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "react-confirm-alert/src/react-confirm-alert.css";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import history from '../../history';
+import { confirmAlert } from 'react-confirm-alert';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 // Stripe
 // import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 const PostIssue = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [language, setLanguage] = useState("javascript");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [language, setLanguage] = useState('javascript');
 
   // Stripe
   // const stripe = useStripe();
   // const elements = useElements();
 
   const notifySubmit = () =>
-    toast("Issue Posted!", { position: toast.POSITION.BOTTOM_RIGHT });
+    toast.info('Issue Posted!', { position: toast.POSITION.BOTTOM_RIGHT });
 
   const logginPrompt = () => {
     useEffect(() => {
       confirmAlert({
-        message: "Please sign up or log in to post an issue",
+        message: 'Please sign up or log in to post an issue',
         buttons: [
           {
-            label: "Login",
-            onClick: () => history.push("/login"),
+            label: 'Login',
+            onClick: () => history.push('/login'),
           },
           {
-            label: "Signup",
-            onClick: () => history.push("/signup"),
+            label: 'Signup',
+            onClick: () => history.push('/signup'),
           },
           {
-            label: "Go home",
-            onClick: () => history.push("/"),
+            label: 'Go home',
+            onClick: () => history.push('/'),
           },
         ],
         closeOnEscape: false,
@@ -49,15 +49,15 @@ const PostIssue = () => {
   const confirmSubmit = (e) => {
     e.preventDefault();
     confirmAlert({
-      message: "Are you sure you want to post this issue?",
+      message: 'Are you sure you want to post this issue?',
       buttons: [
         {
-          label: "Yes",
+          label: 'Yes',
           onClick: () => handleSubmit(),
         },
         {
-          label: "No",
-          onClick: () => console.log("no"),
+          label: 'No',
+          onClick: () => console.log('no'),
         },
       ],
       closeOnEscape: false,
@@ -66,10 +66,10 @@ const PostIssue = () => {
   };
 
   const handleSubmit = async () => {
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem('token');
     const issuePrice = parseFloat(price) * 100;
     await axios.post(
-      "/api/issues",
+      '/api/issues',
       {
         title,
         description,
@@ -79,12 +79,12 @@ const PostIssue = () => {
       { headers: { authorization: token } }
     );
     notifySubmit();
-    history.push("/dashboard");
+    history.push('/dashboard');
   };
 
   const handlePrice = (e) => {
     const re = /^(\d+(\.\d{0,2})?|\.?\d{1,2})$/;
-    if (e.target.value === "" || re.test(e.target.value)) {
+    if (e.target.value === '' || re.test(e.target.value)) {
       setPrice(e.target.value);
     }
   };
@@ -119,7 +119,7 @@ const PostIssue = () => {
 
   return (
     <>
-      {window.localStorage.getItem("token") ? (
+      {window.localStorage.getItem('token') ? (
         <div className="post">
           <div className="component post-issue">
             <h1>Post A New Issue</h1>
@@ -163,9 +163,9 @@ const PostIssue = () => {
               <div className="payment-div credit">
                 <img
                   style={{
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "scale-down",
+                    height: '100%',
+                    width: '100%',
+                    objectFit: 'scale-down',
                   }}
                   src="../Images/credit.png"
                   alt=""
@@ -174,9 +174,9 @@ const PostIssue = () => {
               <div className="payment-div paypal">
                 <img
                   style={{
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "scale-down",
+                    height: '100%',
+                    width: '100%',
+                    objectFit: 'scale-down',
                   }}
                   src="../Images/paypal.png"
                   alt=""
@@ -185,9 +185,9 @@ const PostIssue = () => {
               <div className="payment-div google-pay">
                 <img
                   style={{
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "scale-down",
+                    height: '100%',
+                    width: '100%',
+                    objectFit: 'scale-down',
                   }}
                   src="../Images/googlepay.png"
                   alt=""

@@ -6,7 +6,7 @@ body {
 }
 
 * {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   color: rgb(69, 69, 69);
   text-decoration: none;
   font-size: 20px;
@@ -247,7 +247,7 @@ h1.prompt,
 .searchTitle {
   font-size: 50px;
   color: #00a4c7;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Buttons */
@@ -391,16 +391,16 @@ div.titleScreen {
 
 @keyframes bgfade {
   0% {
-    background-image: url("Images/computer.jpeg");
+    background-image: url('Images/computer.jpeg');
   }
   50% {
-    background-image: url("Images/computer1.jpeg");
+    background-image: url('Images/computer1.jpeg');
   }
   75% {
-    background-image: url("Images/computer2.jpeg");
+    background-image: url('Images/computer2.jpeg');
   }
   100% {
-    background-image: url("Images/computer.jpeg");
+    background-image: url('Images/computer.jpeg');
   }
 }
 
@@ -764,8 +764,10 @@ div.parent-issue {
 
 div.issue-solution.box.false {
   background-color: white;
-  border: 1px solid white;
-  box-shadow: 1px 1px 2px 2px #999999;
+}
+
+.react-confirm-alert-button-group > button {
+  background-color: #00a4c7 !important;
 }
 
 .dashboard-issue-question-view {

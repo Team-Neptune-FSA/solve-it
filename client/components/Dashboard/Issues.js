@@ -117,7 +117,6 @@ const Issues = () => {
     );
     setdummy(!dummy);
   };
-  console.log(view);
   return (
     <div className="parent-issue">
       <div className="issue-section">
