@@ -22,7 +22,7 @@ const SingleIssue = ({ match }) => {
   const [allQuestions, setAllQuestions] = useState([]);
   const [questionContent, setQuestionContent] = useState("");
   const [answer, setAnswer] = useState({});
-  
+
   const notifySubmit = () =>
     toast("Solution submitted!", { position: toast.POSITION.BOTTOM_RIGHT });
   const notifySave = () =>
@@ -175,53 +175,54 @@ const SingleIssue = ({ match }) => {
   };
 
   return (
-    <>
+    <div className="contain-component">
       {window.localStorage.getItem("token") ? (
         <div>
           {singleIssue.userId === user.id ? (
-            <div className="component">
+            <div>
               <button onClick={() => setView("overview")}>Overview</button>
               <button onClick={() => setView("workspace")}>Workspace</button>
 
               {view === "overview" ? (
-                <div>
-                  {editView === "edit" ? (
-                    <div>
+                <div className="overview">
+                  <div className="info">
+                    {editView === "edit" ? (
                       <div>
-                        <h1>{title}</h1>
-                        <strong>{description}</strong>
+                        <div className="owner-edit">
+                          <h1>{title}</h1>
+                          <button onClick={() => setEditView("submit")}>
+                            Edit
+                          </button>
+                        </div>
+                        <p>{description}</p>
                       </div>
-                      <button onClick={() => setEditView("submit")}>
-
-                        edit
-                      </button>
-                    </div>
-                  ) : (
-                    <div>
-                      <label>
-                        <input
-                          value={title}
-                          onChange={(event) => setTitle(event.target.value)}
-                        />
-                        <input
-                          value={description}
-                          onChange={(event) =>
-                            setDescription(event.target.value)
-                          }
-                        />
-                      </label>
-                      <button
-                        type="submit"
-                        onClick={(event) => {
-                          handleEdit(event);
-                          setEditView("edit");
-                        }}
-                      >
-                        submit changes
-                      </button>
-                    </div>
-                  )}
-                  <>
+                    ) : (
+                      <div>
+                        <label>
+                          <input
+                            value={title}
+                            onChange={(event) => setTitle(event.target.value)}
+                          />
+                          <input
+                            value={description}
+                            onChange={(event) =>
+                              setDescription(event.target.value)
+                            }
+                          />
+                        </label>
+                        <button
+                          type="submit"
+                          onClick={(event) => {
+                            handleEdit(event);
+                            setEditView("edit");
+                          }}
+                        >
+                          submit changes
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  <div className="question-section">
                     <div>Answer the Questions About This Issue</div>
                     {allQuestions.map((question) => {
                       return (
@@ -254,10 +255,10 @@ const SingleIssue = ({ match }) => {
                         </div>
                       );
                     })}
-                  </>
+                  </div>
                 </div>
               ) : (
-                <>
+                <div className="workspace">
                   <CodeEnvironment
                     value={code}
                     setSolutionCode={setSolutionCode}
@@ -276,26 +277,28 @@ const SingleIssue = ({ match }) => {
                   <button onClick={handleSave} type="button">
                     Save Solution
                   </button>
-                </>
+                </div>
               )}
             </div>
           ) : (
-            <div className="component">
+            <div>
               <button onClick={() => setView("overview")}>Overview</button>
               <button onClick={() => setView("workspace")}>Workspace</button>
 
               {view === "overview" ? (
-                <>
-                  <h1 className="issueTitle">{singleIssue.title}</h1>
-                  <p>{singleIssue.description}</p>
-                  <>
-                    <div>Ask A Question About This Issue</div>
+                <div className="overview">
+                  <div className="info">
+                    <h1 className="issueTitle">{singleIssue.title}</h1>
+                    <p>{singleIssue.description}</p>
+                  </div>
+                  <div className="question-section">
+                    <h2>Questions About This Issue: </h2>
                     <input
                       value={questionContent}
                       onChange={(event) =>
                         setQuestionContent(event.target.value)
                       }
-                      placeholder="Send message to question owner..."
+                      placeholder="Ask the owner of this issue a question..."
                     />
                     <button onClick={(event) => handleQuestion(event)}>
                       Ask Question
@@ -308,16 +311,16 @@ const SingleIssue = ({ match }) => {
                       </>
                     </textarea>
                   ))} */}
-                  </>
-                  {allQuestions.map((question) => (
-                    <div key={question.id}>
-                      <p>Q: {question.questionContent}</p>
-                      <p>A: {question.answer || ""}</p>
-                    </div>
-                  ))}
-                </>
+                    {allQuestions.map((question) => (
+                      <div key={question.id}>
+                        <p>Q: {question.questionContent}</p>
+                        <p>A: {question.answer || ""}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               ) : (
-                <>
+                <div className="workspace">
                   <CodeEnvironment
                     value={code}
                     setSolutionCode={setSolutionCode}
@@ -336,7 +339,7 @@ const SingleIssue = ({ match }) => {
                   <button onClick={handleSave} type="button">
                     Save Solution
                   </button>
-                </>
+                </div>
               )}
             </div>
           )}
@@ -344,7 +347,7 @@ const SingleIssue = ({ match }) => {
       ) : (
         <div>{logginPrompt()}</div>
       )}
-    </>
+    </div>
   );
 };
 

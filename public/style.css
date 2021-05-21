@@ -2,6 +2,7 @@ html,
 body {
   margin: 0;
   z-index: -100;
+  background-color: #f0f0f0;
 }
 
 * {
@@ -434,7 +435,7 @@ div.slider {
 }
 
 div.single-issue {
-  position: relative;
+  /* position: relative;
   width: 450px;
   height: 450px;
   border: 1px solid black;
@@ -443,7 +444,7 @@ div.single-issue {
   overflow-wrap: break-word;
   display: inline-table;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 
 .issue-price {
@@ -485,8 +486,8 @@ div.insideAllIssues {
 
 .stats-section,
 .issueStats {
-  border: 1px solid 	#ededf5;
-  background-color: 	#ededf5;
+  border: 1px solid #ededf5;
+  background-color: #ededf5;
   border-radius: 10px;
   /* margin-top: 60px; */
 }
@@ -540,8 +541,8 @@ div.post-issue {
 }
 
 .issue-section {
-  border: 1px solid 	#ededf5;
-  background-color: 	#ededf5;
+  border: 1px solid #ededf5;
+  background-color: #ededf5;
   border-radius: 10px;
   margin-top: 60px;
   height: 300px;
@@ -627,7 +628,7 @@ div.component.post-issue {
 }
 
 .payment-title {
-  color: #00a4c7
+  color: #00a4c7;
 }
 
 textarea#issue-md {
@@ -698,7 +699,7 @@ div.issue-transactions {
   float: right;
   width: 50%;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: flex-end;
 }
 
@@ -733,7 +734,106 @@ div.parent-issue {
 }
 
 div.issue-solution.box.false {
-background-color: white;
-border:none;
-margin: 20px;
+  background-color: white;
+  border: none;
+  margin: 20px;
+}
+
+/*--- All Issues ---*/
+.allIssues {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  padding-top: 20px;
+}
+div.single-issue {
+  position: relative;
+  /* width: 31vw; */
+  height: 300px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px;
+  overflow-wrap: break-word;
+  display: inline-table;
+  justify-content: center;
+  align-items: center;
+}
+div.single-issue p {
+  height: 125px;
+  overflow: scroll;
+}
+button.post-issue-button {
+  margin: 0px 0px 0px 10px;
+}
+
+@media screen and (max-width: 1250px) {
+  .allIssues {
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .allIssues {
+    grid-template-columns: 100%;
+  }
+}
+
+/*--- Navigaton ---*/
+@media screen and (max-width: 991px) {
+  .header {
+    flex-direction: column;
+  }
+  ul.nav-links {
+    margin: 0px;
+  }
+  svg {
+    padding-top: 10px;
+  }
+}
+
+/*--- Single Issue ---*/
+.contain-component {
+  padding: 25px 50px 0px 50px;
+}
+
+.contain-component button {
+  margin: 0px 25px 0px 0px;
+  padding: 10px 20px;
+}
+
+.overview {
+  padding-top: 25px;
+}
+.overview .info {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 20px;
+}
+
+.overview .question-section {
+  background-color: #ffffff;
+  border: 1px solid #00a4c7;
+  margin-top: 25px;
+  padding: 25px;
+  border-radius: 20px;
+}
+.overview .question-section h2 {
+  padding-bottom: 10px;
+}
+.overview .question-section input {
+  border: 0px;
+  padding: 10px;
+  box-shadow: 1px 1px 5px #000000;
+  margin-right: 10px;
+}
+.overview .question-section button {
+  padding: 10px;
+}
+.owner-edit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+.owner-edit button {
+  padding: 5px 15px;
 }
