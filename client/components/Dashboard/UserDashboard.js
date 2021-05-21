@@ -12,7 +12,7 @@ const UserDashboard = () => {
   return (
     <>
       <div>
-        <div className="dashboardDivRight component" id="-section">
+        <div className="main-dashboard component" id="-section">
           <h1 className="hello-text">Hello {name}!</h1>
           <button
             className={view === "solutions" ? "active" : ""}

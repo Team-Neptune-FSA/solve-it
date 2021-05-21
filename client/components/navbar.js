@@ -11,8 +11,8 @@ const Navbar = () => {
         <Link to="/">
           <svg
             id="logo"
-            width="400"
-            height="75"
+            width="300"
+            height="50"
             viewBox="0 0 516 109"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
