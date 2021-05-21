@@ -242,40 +242,45 @@ const SingleIssue = ({ match }) => {
                       </div>
                     )}
                   </div>
-                  <div className="question-section">
-                    <div>Answer Questions About This Issue</div>
-                    {allQuestions.map((question) => {
-                      return (
-                        <div key={question.id}>
-                          <p>Q: {question.questionContent}</p>
-                          <p>
-                            A:{" "}
-                            {question.answer || (
-                              <>
-                                <input
-                                  type="text"
-                                  value={answer[question.id] || ""}
-                                  onChange={(event) => {
-                                    let newAnswer = { ...answer };
-                                    newAnswer[question.id] = event.target.value;
-                                    setAnswer(newAnswer);
-                                  }}
-                                  placeholder="Send answer to user..."
-                                />
-                                <button
-                                  onClick={(event) =>
-                                    handleAnswer(event, question.id)
-                                  }
-                                >
-                                  Submit Answer
-                                </button>
-                              </>
-                            )}
-                          </p>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  {allQuestions.length ? (
+                    <div className="question-section">
+                      <p>Answer Questions About This Issue</p>
+                      {allQuestions.map((question) => {
+                        return (
+                          <div key={question.id}>
+                            <p>Q: {question.questionContent}</p>
+                            <p>
+                              A:{" "}
+                              {question.answer || (
+                                <>
+                                  <input
+                                    type="text"
+                                    value={answer[question.id] || ""}
+                                    onChange={(event) => {
+                                      let newAnswer = { ...answer };
+                                      newAnswer[question.id] =
+                                        event.target.value;
+                                      setAnswer(newAnswer);
+                                    }}
+                                    placeholder="Send answer to user..."
+                                  />
+                                  <button
+                                    onClick={(event) =>
+                                      handleAnswer(event, question.id)
+                                    }
+                                  >
+                                    Submit Answer
+                                  </button>
+                                </>
+                              )}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               ) : (
                 <div className="workspace">
