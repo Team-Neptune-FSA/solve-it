@@ -1,77 +1,38 @@
-# solve-it
+# Solve.it
 
-## Setup
+# BIG LOGO
 
-To use this as boilerplate, you'll need to take the following steps:
+<!-- - bullet point
+  **bold text**
 
-* Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
+# main title
 
-* Now you will have to add the solve-it as a remote and merge it into your own repository.
+## subtitle
 
-```
-git remote add boilermaker https://github.com/FullstackAcademy/solve-it.git
-git fetch boilermaker
-git merge boilermaker/main
-git branch -m master main
-```
-
-## Customize
-
-Now that you've got the code, follow these steps to get acclimated:
-
-* Update project name and description in `package.json`
-* `npm install`
-* Create two postgres databases (`MY_APP_NAME` should match the `name`
-  parameter in `package.json`):
-* These commands will create both your **development** and **test** databases
+1. numbering (1,2,3,4)
 
 ```
-createdb <YOUR APP NAME HERE FROM package.json>
-createdb <YOUR APP NAME HERE FROM package.json>-test
+multi line code snippet
 ```
 
-* By default, running `npm test` will use your test database, while
-  regular development uses development database
+`single line code`
 
-## Start
+[linking text][heroku-cli]
+[heroku-cli]: https://devcenter.heroku.com/articles/heroku-cli -->
 
-Running `npm run start:dev` will make great things happen!
+## Overview
 
-- start:dev will both start your server and build your client side files using webpack
-- start:dev:logger is the same as start:dev, but you will see your SQL queries (can be helpful for debugging)
-- start:dev:seed will start your server and also seed your database
+Solve.it is the all encompassing platform to either find a freelancer or work as a freelancer using your extraordinary coding and programming skills. Solve.it aims to bring demand and resolution to the issues you come across when programming.
 
+The platform is designed bring users to your issue by incentivizing those who resolve issues quickly and effectively. This allows users to generate income no matter who they are or where they live.
 
-### Heroku
+It comes with a built in coding environment so that you can take code snippet, sandbox and send your code. You can put your skills to the test while helping people at the same time!
 
-1.  Set up the [Heroku command line tools][heroku-cli]
-2.  `heroku login`
-3.  Add a git remote for heroku:
+Is there and issue thats BUGGING you? Or maybe you you want to solve issues from other people?
+Either way click this link to get started! LINK TO WEBSITE
 
-[heroku-cli]: https://devcenter.heroku.com/articles/heroku-cli
+## tech stack?
 
-* **If you are creating a new app...**
+## Setup?
 
-  1.  `heroku create` or `heroku create your-app-name` if you have a
-      name in mind.
-  2.  `heroku config:set JWT=<your secret here!>` to set a secret for JWT signing
-
-Database Setup
-
-  3.  `heroku addons:create heroku-postgresql:hobby-dev` to add
-      ("provision") a postgres database to your heroku dyno (This creates your production database)
-
-  4.  `heroku config:set SEED=true` to get heroku to sync and seed your database
-
-  5.   note everytime your app restarts, the database tables will be dropped and re-created. To avoid this you can config:unset SEED
-
-
-* **If you already have a Heroku app...**
-
-  1.  `heroku git:remote your-app-name` You'll need to be a
-      collaborator on the app.
-
-
-Now, you should be deployed!
+## deployment?
