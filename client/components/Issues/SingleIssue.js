@@ -189,13 +189,13 @@ const SingleIssue = ({ match }) => {
                 <div>
                   <button
                     onClick={() => setView("overview")}
-                    className={view === "overview" && "active-btn"}
+                    className={view === "overview" ? "active-btn" : ""}
                   >
                     Overview
                   </button>
                   <button
                     onClick={() => setView("workspace")}
-                    className={view === "workspace" && "active-btn"}
+                    className={view === "workspace" ? "active-btn" : ""}
                   >
                     Workspace
                   </button>
@@ -314,13 +314,13 @@ const SingleIssue = ({ match }) => {
                 <div>
                   <button
                     onClick={() => setView("overview")}
-                    className={view === "overview" && "active-btn"}
+                    className={view === "overview" ? "active-btn" : ""}
                   >
                     Overview
                   </button>
                   <button
                     onClick={() => setView("workspace")}
-                    className={view === "workspace" && "active-btn"}
+                    className={view === "workspace" ? "active-btn" : ""}
                   >
                     Workspace
                   </button>
