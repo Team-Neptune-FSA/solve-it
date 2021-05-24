@@ -6,7 +6,7 @@ body {
 }
 
 * {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   color: rgb(69, 69, 69);
   text-decoration: none;
   font-size: 20px;
@@ -262,7 +262,7 @@ h1.prompt,
 .searchTitle {
   font-size: 50px;
   color: #00a4c7;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Buttons */
@@ -406,16 +406,16 @@ div.titleScreen {
 
 @keyframes bgfade {
   0% {
-    background-image: url("Images/computer.jpeg");
+    background-image: url('Images/computer.jpeg');
   }
   50% {
-    background-image: url("Images/computer1.jpeg");
+    background-image: url('Images/computer1.jpeg');
   }
   75% {
-    background-image: url("Images/computer2.jpeg");
+    background-image: url('Images/computer2.jpeg');
   }
   100% {
-    background-image: url("Images/computer.jpeg");
+    background-image: url('Images/computer.jpeg');
   }
 }
 
@@ -858,6 +858,20 @@ div.issue-solution.box code {
   margin-bottom: 0 !important;
   margin-top: 0 !important;
   margin-left: 10px;
+}
+
+.question-button-active {
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-left: 10px;
+  background-color: orange;
+}
+
+.question-button-active:hover {
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-left: 10px;
+  background-color: orange;
 }
 
 .question-view {
