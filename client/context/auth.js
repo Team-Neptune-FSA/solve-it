@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
-import history from '../history';
-import axios from 'axios';
+import React, { useContext, useState } from "react";
+import history from "../history";
+import axios from "axios";
 export const AuthContext = React.createContext();
 
 export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-const TOKEN = 'token';
+const TOKEN = "token";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
@@ -18,7 +18,8 @@ export const AuthProvider = ({ children }) => {
       const res = await axios.post(`/auth/login`, { email, password });
       window.localStorage.setItem(TOKEN, res.data.token);
       getCurrentUser();
-      history.push('/dashboard');
+      history.go(-1);
+      // history.push('/dashboard');
     } catch (error) {
       setError(error);
     }
@@ -33,7 +34,8 @@ export const AuthProvider = ({ children }) => {
       });
       window.localStorage.setItem(TOKEN, res.data.token);
       getCurrentUser();
-      history.push('/');
+      history.go(-1);
+      // history.push("/");
     } catch (error) {
       setError(error);
     }
@@ -42,13 +44,13 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     window.localStorage.removeItem(TOKEN);
     setUser({});
-    history.push('/');
+    history.push("/");
   };
 
   const getCurrentUser = async () => {
     const token = window.localStorage.getItem(TOKEN);
     if (token) {
-      const { data: currentUser } = await axios.get('/auth/me', {
+      const { data: currentUser } = await axios.get("/auth/me", {
         headers: {
           authorization: token,
         },

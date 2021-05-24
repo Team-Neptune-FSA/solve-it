@@ -157,6 +157,11 @@ nav a {
 .error {
   color: red;
 }
+h2.resolved-issue {
+  font-size: 25px;
+  color: green;
+  padding-top: 25px;
+}
 
 .white-bg {
   background-color: #ffffff;
@@ -536,6 +541,19 @@ form#login-form {
   margin-top: 200px;
 }
 
+#login-form input {
+  border: none;
+  box-shadow: 1px 1px 5px #000000;
+  padding: 10px;
+  width: 100%;
+}
+#login-form button {
+  padding: 10px;
+}
+#login-form label {
+  font-weight: bold;
+}
+
 div.post-issue {
   display: grid;
   justify-content: center;
@@ -804,6 +822,9 @@ div.solution-box {
 .inside-solution {
   margin: 10px;
 }
+.inside-solution h3 {
+  padding-bottom: 10px;
+}
 
 div.parent-issue {
   display: flex;
@@ -811,6 +832,13 @@ div.parent-issue {
 
 div.issue-solution.box {
   background-color: white;
+  flex-direction: column;
+}
+div.issue-solution.box .btn {
+  width: auto;
+}
+div.issue-solution.box code {
+  display: block;
 }
 
 .react-confirm-alert-button-group > button {
@@ -1050,6 +1078,7 @@ i.fa-chevron-left {
   padding: 10px;
   font-weight: bold;
   font-size: 30px;
+  width: 500px;
 }
 .edit-overview > div {
   display: flex;
@@ -1088,6 +1117,12 @@ i.fa-chevron-left {
 .submission-btns button.white-bg:hover {
   background-color: #00a4c7;
   color: #ffffff;
+}
+button.accept {
+  margin-top: 25px;
+}
+.back {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1050px) {

@@ -120,7 +120,6 @@ const Issues = () => {
   return (
     <div className="parent-issue">
       <div className="issue-section">
-        {/* <div className="inside-stats-text"> */}
         <h1 className="issue-question">What are you looking for?</h1>
         <br />
         <p>Post an issue and recieve specialized answers!</p>
@@ -128,7 +127,6 @@ const Issues = () => {
         <Link to="/issues/post">
           <button className="post-issue-button">Post an Issue</button>
         </Link>
-        {/* </div> */}
       </div>
 
       <div className="dashboard-info">
@@ -179,13 +177,13 @@ const Issues = () => {
                           }`}
                           key={solution.id}
                         >
-                          <div className="flex">
-                            <Link
-                              to={`/issues/${issue.id}/solutions/${solution.id}`}
-                            >
-                              <h3>Solution #{idx + 1}</h3>
-                            </Link>
-                          </div>
+                          {/* <div className="flex"> */}
+                          <Link
+                            to={`/issues/${issue.id}/solutions/${solution.id}`}
+                          >
+                            <h3>Solution #{idx + 1}</h3>
+                          </Link>
+                          {/* </div> */}
                           <Link
                             to={`/issues/${issue.id}/solutions/${solution.id}`}
                           >

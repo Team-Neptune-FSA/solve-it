@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const { db, User, Issue, Question, Solution, Stat } = require('../server/db');
+const { db, User, Issue, Question, Solution, Stat } = require("../server/db");
 
 /**
  * seed - this function clears the database, updates tables to
@@ -8,29 +8,29 @@ const { db, User, Issue, Question, Solution, Stat } = require('../server/db');
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log('db synced!');
+  console.log("db synced!");
 
   // Creating Users
   const users = await Promise.all([
     User.create({
-      email: 'jonathan@gmail.com',
-      password: '123',
-      name: 'Jonathan',
+      email: "jonathan@gmail.com",
+      password: "123",
+      name: "Jonathan",
     }),
     User.create({
-      email: 'altus@gmail.com',
-      password: '123',
-      name: 'Altus',
+      email: "altus@gmail.com",
+      password: "123",
+      name: "Altus",
     }),
     User.create({
-      email: 'nathan@gmail.com',
-      password: '123',
-      name: 'Nathan',
+      email: "nathan@gmail.com",
+      password: "123",
+      name: "Nathan",
     }),
     User.create({
-      email: 'matt@gmail.com',
-      password: '123',
-      name: 'Matt',
+      email: "matt@gmail.com",
+      password: "123",
+      name: "Matt",
     }),
   ]);
 
@@ -56,81 +56,77 @@ async function seed() {
   // Creating Issues
   const issues = await Promise.all([
     Issue.create({
-      title: 'Array of integers',
+      title: "Array of integers",
       description: `Given an array of integers, return indices of the two numbers such that they add up to a specific target.`,
       price: 500,
-      language: 'javascript',
+      language: "javascript",
     }),
     Issue.create({
-      title: 'Price of a given day',
+      title: "Price of a given day",
       description: `Say you have an array for which the ith element is the price of a given stock on day i.
 
         If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
 
         Note that you cannot sell a stock before you buy one.`,
       price: 2500,
-      language: 'javascript',
+      language: "javascript",
     }),
     Issue.create({
-      title: 'Dimensions of a grid',
+      title: "Dimensions of a grid",
       description: `You are given the dimensions of a grid, m and n. Starting from the top left, or (0,0), you want to end up making your way to the bottom right corner. The only two moves you can make are to go one space directly to your right, or one space directly down. Write a function that can help you determine how many unique paths you can take between these two corners.`,
       price: 1000,
-      language: 'javascript',
+      language: "javascript",
     }),
     Issue.create({
-      title: 'Valid Parentheses',
+      title: "Valid Parentheses",
       description: `Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.`,
       price: 2000,
-      language: 'javascript',
+      language: "javascript",
     }),
     Issue.create({
-      title: 'Defanging an IP Address',
+      title: "Defanging an IP Address",
       description: `Given a valid (IPv4) IP address, return a defanged version of that IP address. A defanged IP address replaces every period "." with "[.]".`,
       price: 3000,
-      language: 'javascript',
+      language: "javascript",
     }),
     Issue.create({
-      title: 'Redundant Connection II',
+      title: "Redundant Connection II",
       description: `In this problem, a rooted tree is a directed graph such that, there is exactly one node (the root) for which all other nodes are descendants of this node, plus every node has exactly one parent, except for the root node which has no parents.
       The given input is a directed graph that started as a rooted tree with n nodes (with distinct values from 1 to n), with one additional directed edge added. The added edge has two different vertices chosen from 1 to n, and was not an edge that already existed.`,
       price: 1500,
-      language: 'javascript',
+      language: "javascript",
     }),
     Issue.create({
-      title: 'Richest Customer Wealth',
+      title: "Richest Customer Wealth",
       description: `You are given an m x n integer grid accounts where accounts[i][j] is the amount of money the i​​​​​​​​​​​th​​​​ customer has in the j​​​​​​​​​​​th​​​​ bank. Return the wealth that the richest customer has. A customer's wealth is the amount of money they have in all their bank accounts. The richest customer is the customer that has the maximum wealth.`,
       price: 1000,
-      language: 'javascript',
+      language: "javascript",
     }),
     Issue.create({
-      title: 'Recover Binary Search Tree',
+      title: "Recover Binary Search Tree",
       description: `You are given the root of a binary search tree (BST), where exactly two nodes of the tree were swapped by mistake. Recover the tree without changing its structure.`,
       price: 1500,
-      language: 'javascript',
+      language: "javascript",
     }),
   ]);
 
   // Creating Solutions
   const solutions = await Promise.all([
     Solution.create({
-      explanation: `test explanation from DB`,
-      code: `const twoSum = (arr, target) => {
-            var result = [];
-
-            for (var i = 0; i < arr.length; i++) {
-              for (var j = i + 1; j < arr.length; j++) {
-                if (arr[i] + arr[j] === target) {
-                  result.push(i);
-                  result.push(j);
-                }
-              }
-            }
-            return result;
-          }`,
+      explanation: `Initialize a result array outside of the loop.`,
+      code: `function twoNumberSum(array, target) {
+        let memo = {}
+        for (let i = 0; i < array.length; i++) {
+          let potential = target - array[i]
+          if (memo[potential]) return [array[i], potential]
+          else memo[array[i]] = true;
+        }
+        return [];
+      }`,
       isSubmitted: true,
     }),
     Solution.create({
-      explanation: `test explanation from DB`,
+      explanation: `Use a nested for loop`,
       code: `const maxProfit = function(prices) {
         //intialize a variable to keep count of the current highest profit
         let maxProfit = 0;
@@ -195,8 +191,8 @@ async function seed() {
   // Creating Questions
   const questions = await Promise.all([
     Question.create({
-      questionContent: 'Hey, this problem is written incorrectly.',
-      answer: 'Hey I fixed it.',
+      questionContent: "Hey, this problem is written incorrectly.",
+      answer: "Hey I fixed it.",
     }),
     Question.create({
       questionContent: "Hi, you're missing a piece of code.",
@@ -247,16 +243,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log('seeding...');
+  console.log("seeding...");
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log('closing db connection');
+    console.log("closing db connection");
     await db.close();
-    console.log('db connection closed');
+    console.log("db connection closed");
   }
 }
 
