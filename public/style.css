@@ -6,7 +6,7 @@ body {
 }
 
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: rgb(69, 69, 69);
   text-decoration: none;
   font-size: 20px;
@@ -262,7 +262,7 @@ h1.prompt,
 .searchTitle {
   font-size: 50px;
   color: #00a4c7;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Buttons */
@@ -406,16 +406,16 @@ div.titleScreen {
 
 @keyframes bgfade {
   0% {
-    background-image: url('Images/computer.jpeg');
+    background-image: url("Images/computer.jpeg");
   }
   50% {
-    background-image: url('Images/computer1.jpeg');
+    background-image: url("Images/computer1.jpeg");
   }
   75% {
-    background-image: url('Images/computer2.jpeg');
+    background-image: url("Images/computer2.jpeg");
   }
   100% {
-    background-image: url('Images/computer.jpeg');
+    background-image: url("Images/computer.jpeg");
   }
 }
 
@@ -474,6 +474,9 @@ button.post-issue-button {
   padding: 10px;
   cursor: pointer;
 }
+.post input {
+  width: auto;
+}
 
 div.insideAllIssues {
   margin: 20px;
@@ -481,6 +484,12 @@ div.insideAllIssues {
 
 .issueTitle {
   color: black !important;
+}
+
+@media screen and (max-width: 600px) {
+  .post textarea {
+    width: auto;
+  }
 }
 
 .stats-section,

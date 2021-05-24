@@ -98,13 +98,13 @@ const UnresolvedIssue = ({ match }) => {
         <div>
           <button
             onClick={() => setView("overview")}
-            className={view === "overview" ? "active-btn" : ""}
+            className={view === "overview" ? "active" : ""}
           >
             Overview
           </button>
           <button
             onClick={() => setView("workspace")}
-            className={view === "workspace" ? "active-btn" : ""}
+            className={view === "workspace" ? "active" : ""}
           >
             Workspace
           </button>
