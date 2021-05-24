@@ -6,7 +6,7 @@ body {
 }
 
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: rgb(69, 69, 69);
   text-decoration: none;
   font-size: 20px;
@@ -157,6 +157,11 @@ nav a {
 .error {
   color: red;
 }
+h2.resolved-issue {
+  font-size: 25px;
+  color: green;
+  padding-top: 25px;
+}
 
 .white-bg {
   background-color: #ffffff;
@@ -185,6 +190,7 @@ h4 {
   padding: 10px;
   border-radius: 10px;
   margin-top: 25px;
+  box-shadow: 1px 1px 5px #000000;
 }
 
 .btn {
@@ -221,6 +227,15 @@ h4 {
   justify-content: space-between;
 }
 
+.issue-solution .btn {
+  margin-left: 0px;
+  margin-bottom: 5px;
+}
+
+.issue-solution h3 {
+  margin-bottom: 10px;
+}
+
 div.issue {
   border-bottom: 1px solid gray;
   padding-bottom: 20px;
@@ -247,7 +262,7 @@ h1.prompt,
 .searchTitle {
   font-size: 50px;
   color: #00a4c7;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 /* Buttons */
@@ -391,16 +406,16 @@ div.titleScreen {
 
 @keyframes bgfade {
   0% {
-    background-image: url('Images/computer.jpeg');
+    background-image: url("Images/computer.jpeg");
   }
   50% {
-    background-image: url('Images/computer1.jpeg');
+    background-image: url("Images/computer1.jpeg");
   }
   75% {
-    background-image: url('Images/computer2.jpeg');
+    background-image: url("Images/computer2.jpeg");
   }
   100% {
-    background-image: url('Images/computer.jpeg');
+    background-image: url("Images/computer.jpeg");
   }
 }
 
@@ -526,6 +541,19 @@ form#login-form {
   margin-top: 200px;
 }
 
+#login-form input {
+  border: none;
+  box-shadow: 1px 1px 5px #000000;
+  padding: 10px;
+  width: 100%;
+}
+#login-form button {
+  padding: 10px;
+}
+#login-form label {
+  font-weight: bold;
+}
+
 div.post-issue {
   display: grid;
   justify-content: center;
@@ -585,7 +613,7 @@ input,
 select {
   border-radius: 5px;
   margin-bottom: 10px;
-  width: 500px;
+  width: 300px;
 }
 
 input.price-input,
@@ -650,6 +678,7 @@ textarea#issue-md {
 .issue-section,
 .payment-stats {
   background-color: #ffffff;
+  box-shadow: 1px 1px 3px #000000;
 }
 
 div.stats-section {
@@ -657,6 +686,18 @@ div.stats-section {
   width: 25%;
   margin-right: 20px;
   height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.stats-section > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 75%;
+}
+.stats-section > div p {
+  margin: 0px;
 }
 
 .inside-stats-text {
@@ -668,6 +709,7 @@ div.stats-section {
 
 .issue-question {
   font-size: 20px;
+  text-align: center;
 }
 
 div.dashboard-info {
@@ -720,9 +762,32 @@ div.issue-transactions {
   display: flex;
 }
 
-@media screen and (max-width: 1375px) {
-  .parent-stats-section {
+.issue-section p {
+  text-align: center;
+}
+
+@media screen and (max-width: 991px) {
+  div.parent-issue,
+  .parent-stats-section,
+  .parent-payment-div {
     flex-direction: column;
+  }
+  div.stats-section,
+  .issue-section,
+  .payment-stats {
+    width: calc(100% - 20px);
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
+  div.dashboard-info,
+  div.issue-transactions {
+    width: 100%;
+    margin-right: 0px;
+    margin-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  div.parent-issue select {
+    width: 100%;
   }
 }
 
@@ -757,23 +822,33 @@ div.solution-box {
 .inside-solution {
   margin: 10px;
 }
+.inside-solution h3 {
+  padding-bottom: 10px;
+}
 
 div.parent-issue {
   display: flex;
 }
 
-div.issue-solution.box.false {
+div.issue-solution.box {
   background-color: white;
+  flex-direction: column;
+}
+div.issue-solution.box .btn {
+  width: auto;
+}
+div.issue-solution.box code {
+  display: block;
 }
 
 .react-confirm-alert-button-group > button {
   background-color: #00a4c7 !important;
 }
 
-.dashboard-issue-question-view {
+/* .dashboard-issue-question-view {
   background-color: white;
   margin: 20px;
-}
+} */
 
 .resolved-filter-and-question {
   display: flex;
@@ -786,16 +861,41 @@ div.issue-solution.box.false {
 }
 
 .question-view {
-  border: 1px solid white;
+  /* border: 1px solid white; */
   box-shadow: 1px 1px 2px 2px #999999;
   border-radius: 10px;
   padding: 10px;
+  background-color: #ffffff;
+}
+
+.question-view p {
+  margin: 0px 0px 10px 0px;
+}
+.question-view button {
+  margin: 0px 0px 0px 10px;
 }
 
 .no-questions {
   padding: 20px 0px;
 }
 
+.issue-solution div.answer-field {
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+}
+.answer-field p {
+  margin: 0px;
+  padding-right: 10px;
+}
+.issue-solution div.answer-field > div {
+  display: flex;
+  flex-direction: column;
+}
+.issue-solution div.answer-field > div button {
+  margin: 0px 0px 20px 0px;
+  width: 200px;
+}
 /*--- All Issues ---*/
 
 .inside-all-issues p::-webkit-scrollbar {
@@ -978,6 +1078,7 @@ i.fa-chevron-left {
   padding: 10px;
   font-weight: bold;
   font-size: 30px;
+  width: 500px;
 }
 .edit-overview > div {
   display: flex;
@@ -1016,6 +1117,12 @@ i.fa-chevron-left {
 .submission-btns button.white-bg:hover {
   background-color: #00a4c7;
   color: #ffffff;
+}
+button.accept {
+  margin-top: 25px;
+}
+.back {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1050px) {

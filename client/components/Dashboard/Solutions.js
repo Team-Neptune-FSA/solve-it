@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const percentRank = (arr, v) => {
-  if (typeof v !== 'number') throw new TypeError('v must be a number');
+  if (typeof v !== "number") throw new TypeError("v must be a number");
   if (v === 0) {
     return 0;
   } else {
@@ -28,9 +28,9 @@ const Solutions = () => {
   const [userSolutions, setUserSolutions] = useState([]);
 
   useEffect(() => {
-    const token = window.localStorage.getItem('token');
+    const token = window.localStorage.getItem("token");
     const getStats = async () => {
-      const { data: singleUserStats } = await axios.get('/api/users/stats', {
+      const { data: singleUserStats } = await axios.get("/api/users/stats", {
         headers: {
           authorization: token,
         },
@@ -39,7 +39,7 @@ const Solutions = () => {
       setsingleUserAccepted(singleUserStats[0].solutionsAccepted);
 
       const getUserSolutions = async () => {
-        const { data: solutions } = await axios.get('/api/users/solutions', {
+        const { data: solutions } = await axios.get("/api/users/solutions", {
           headers: {
             authorization: token,
           },
@@ -53,7 +53,7 @@ const Solutions = () => {
   }, []);
 
   const calculateRank = async () => {
-    const { data: allStats } = await axios.get('/api/stats');
+    const { data: allStats } = await axios.get("/api/stats");
     if (allStats.length) {
       let allSolutionsAttempted = [];
       for (let i = 0; i < allStats.length; i++) {
@@ -68,20 +68,26 @@ const Solutions = () => {
     <>
       <div className="parent-stats-section">
         <div className="stats-section">
-              <h1 className="stats-title">Stats</h1>
-            <p>You have solved <span>{singleUserAttempted}</span> problems.</p>
-            <br />
-            <p>You have had <span>{singleUserAccepted}</span> solution(s) accepted.</p>
-            <br />
-            <p>You have answered more questions than
-            <span>
-              {' '}
-              {(
-                percentRank(solutionsAttemptedArr, singleUserAttempted) * 100
-              ).toFixed(2)}{' '}
-            </span>
-            % of users.</p>
-            <br />
+          <h1 className="stats-title">Stats</h1>
+          <div>
+            <p>
+              You have solved <span>{singleUserAttempted}</span> problems.
+            </p>
+            <p>
+              You have had <span>{singleUserAccepted}</span> solution(s)
+              accepted.
+            </p>
+            <p>
+              You have answered more questions than
+              <span>
+                {" "}
+                {(
+                  percentRank(solutionsAttemptedArr, singleUserAttempted) * 100
+                ).toFixed(2)}{" "}
+              </span>
+              % of users.
+            </p>
+          </div>
         </div>
         {userSolutions.length ? (
           <div className="dashboard-info dashboard-solution-right">
@@ -98,8 +104,8 @@ const Solutions = () => {
           </div>
         ) : (
           <div className="dashboard-info dashboard-solution-right">
-            You have not solved any problems yet, would you like to{' '}
-            <Link to="/issues" style={{ color: 'blue' }}>
+            You have not solved any problems yet, would you like to{" "}
+            <Link to="/issues" style={{ color: "blue" }}>
               get started?
             </Link>
           </div>
