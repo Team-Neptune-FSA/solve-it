@@ -1,6 +1,6 @@
 # Solve.it
 
-# BIG LOGO
+![Image of Logo](https://github.com/Team-Neptune-FSA/solve-it/blob/main/public/Images/logo.png)
 
 <!-- - bullet point
   **bold text**
