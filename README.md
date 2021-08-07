@@ -28,6 +28,8 @@ The platform is designed bring users to your issue by incentivizing those who re
 
 It comes with a built in coding environment so that you can take code snippet, sandbox and send your code. You can put your skills to the test while helping people at the same time!
 
+Live site: https://solve-it-app.netlify.app/
+
 Schema: https://dbdiagram.io/d/60956258b29a09603d13e2c4
 
 Wireframe: https://www.figma.com/file/bSWFLLNNjJQgogmG4U7VMN/Solve.it?node-id=0%3A1
